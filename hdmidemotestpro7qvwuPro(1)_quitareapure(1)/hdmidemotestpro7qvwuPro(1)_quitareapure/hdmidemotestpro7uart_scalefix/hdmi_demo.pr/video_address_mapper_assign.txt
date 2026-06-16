@@ -1,0 +1,4 @@
+orig_addr,pixel_y,img_width,pixel_x
+rot90_addr,img_width,pixel_x,img_height,pixel_y
+rot180_addr,img_height,pixel_y,img_width,img_width,pixel_x
+rot270_addr,pixel_x,img_height,img_height,pixel_y

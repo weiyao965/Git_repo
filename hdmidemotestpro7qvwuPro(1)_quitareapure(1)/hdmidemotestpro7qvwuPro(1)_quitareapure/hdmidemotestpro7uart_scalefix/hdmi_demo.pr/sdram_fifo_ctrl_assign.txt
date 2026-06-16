@@ -1,0 +1,5 @@
+fifo_wr_load_p,~fifo_wr_load_r2,fifo_wr_load_r1
+fifo_rd_load_p,~fifo_rd_load_r2,fifo_rd_load_r1
+sdram_wr_ack_n,sdram_wr_ack2,~sdram_wr_ack1
+sdram_rd_ack_n,sdram_rd_ack2,~sdram_rd_ack1,!I_rst_n,!I_rst_n,~bank_flag,!I_rst_n,!I_rst_n,!I_rst_n
+next_rot,bank_flag,rot_bank0_state,rot_bank1_state,!I_rst_n,!I_rst_n

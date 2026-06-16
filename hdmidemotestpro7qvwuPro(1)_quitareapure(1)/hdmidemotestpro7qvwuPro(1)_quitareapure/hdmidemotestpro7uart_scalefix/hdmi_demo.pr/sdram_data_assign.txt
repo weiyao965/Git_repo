@@ -1,0 +1,2 @@
+IO_sdram_data,sdram_dq_out_en,sdram_dq_in
+O_sdram_data,sdram_dq_out

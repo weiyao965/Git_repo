@@ -1,0 +1,4 @@
+cam_rd_en,data_req,cam_buf_ready
+cur_r,cam_pixel_data
+cur_g,cam_pixel_data
+cur_b,cam_pixel_data,!rst_n,!cam_buf_ready

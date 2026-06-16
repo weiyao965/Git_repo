@@ -1,0 +1,12 @@
+Implementation Status : Successful
+eLinx Version : 3.0 
+Top-level Entity Name : hdmi_ctrl
+Total LUTs : 4731 / 136160 (3%)
+Total FFs : 2710 / 136160 (2%)
+Total Memorys : 95 / 1200 (8%)
+Total DSPs : 5 / 48 (10%)
+Total PLLs : 1 / 8 (13%)
+Total CLBs : 701 / 13616 (5%)
+Total Pins : 95 / 339 (28%)
+Min Slack : -1077
+EndPoints : 3805

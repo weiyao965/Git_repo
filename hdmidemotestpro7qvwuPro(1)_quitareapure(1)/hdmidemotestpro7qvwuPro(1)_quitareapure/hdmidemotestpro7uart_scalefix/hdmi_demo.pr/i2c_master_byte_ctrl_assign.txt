@@ -1,0 +1,3 @@
+go,read,write,stop,~cmd_ack
+dout,sr,!nReset,!nReset
+cnt_done,dcnt,!nReset

@@ -1,0 +1,3 @@
+source $vecdir/hdmi_demo.srcs/constrs_1/new/hdmi_demo.edc
+read_sdc $vecdir/hdmi_demo.srcs/constrs_1/new/hdmi_demo.edc
+set_global_assignment -name TARGET_CONSTRAINT_FILE $vecdir/hdmi_demo.srcs/constrs_1/new/hdmi_demo.edc

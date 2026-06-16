@@ -1,0 +1,4 @@
+source $vecdir/hdmi_demo.srcs/constrs_1/new/hdmi_demo.edc
+set_global_assignment -name TARGET_CONSTRAINT_FILE $vecdir/hdmi_demo.srcs/constrs_1/new/hdmi_demo.edc
+set_global_assignment -name MANUAL_ROUTE 0
+set_global_assignment -name READ_ROUTING_FILE $vecdir/hdmi_demo.runs/imple_1/Incremental/hdmi_demo.route

@@ -1,0 +1,458 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FPGA 视觉独立双核工作台</title>
+    <style>
+        :root {
+            --bg-dark: #121212;
+            --panel-bg: #1e1e1e;
+            --accent: #00d2ff;
+            --accent-hover: #00a8cc;
+            --text-main: #ffffff;
+            --text-muted: #888888;
+            --border: #333333;
+        }
+
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            background-color: var(--bg-dark);
+            color: var(--text-main);
+            display: flex;
+            flex-direction: column;
+            height: 100vh;
+            padding: 20px;
+            overflow: hidden;
+        }
+
+        /* --- 顶部 Header --- */
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding-bottom: 15px;
+            border-bottom: 1px solid var(--border);
+            margin-bottom: 20px;
+        }
+        .header h1 { font-size: 22px; font-weight: 500; letter-spacing: 1px; display: flex; align-items: center; gap: 10px;}
+        .header h1::before { content: ''; display: block; width: 12px; height: 12px; background: var(--accent); border-radius: 50%; box-shadow: 0 0 10px var(--accent); }
+
+        .conn-bar { display: flex; gap: 10px; align-items: center; }
+        .conn-bar select { width: 200px; }
+        
+        /* --- 主内容区 (左右分栏) --- */
+        .main-workspace {
+            display: flex;
+            gap: 20px;
+            flex: 1;
+            min-height: 0; 
+        }
+
+        .panel {
+            background-color: var(--panel-bg);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .panel-left { flex: 0 0 350px; overflow-y: auto; padding-right: 15px;}
+        /* 定制左侧滚动条 */
+        .panel-left::-webkit-scrollbar { width: 6px; }
+        .panel-left::-webkit-scrollbar-thumb { background: #444; border-radius: 3px; }
+
+        .panel-title { color: var(--accent); font-size: 18px; margin-bottom: 5px; font-weight: 500;}
+        .panel-desc { color: var(--text-muted); font-size: 12px; margin-bottom: 25px;}
+
+        .panel-right { flex: 1; position: relative; }
+
+        /* --- 控件样式 --- */
+        .control-group { margin-bottom: 25px; background: #181818; padding: 15px; border-radius: 8px; border: 1px solid #2a2a2a;}
+        .control-group label { display: block; font-size: 13px; color: var(--accent); margin-bottom: 10px; font-weight: bold;}
+        .sub-label { color: var(--text-muted); font-size: 12px; margin-bottom: 6px; display: block; margin-top: 10px;}
+        .val-display { float: right; color: var(--text-main); font-weight: bold; font-family: monospace; }
+
+        select, button, input[type="range"] {
+            width: 100%; padding: 10px 12px; border-radius: 6px; 
+            border: 1px solid var(--border); 
+            background-color: var(--bg-dark); color: var(--text-main); 
+            font-size: 14px; outline: none; transition: all 0.2s;
+        }
+        select:focus { border-color: var(--accent); }
+        
+        button { cursor: pointer; font-weight: 600; }
+        .btn-primary { background: var(--accent); color: #000; border: none; }
+        .btn-primary:hover { background: var(--accent-hover); transform: translateY(-1px); box-shadow: 0 4px 15px rgba(0, 210, 255, 0.3); }
+        .btn-primary:disabled { background: #444; color: #888; cursor: not-allowed; transform: none; box-shadow: none;}
+        .btn-secondary { background: #2a2a2a; border: 1px solid #444; }
+        .btn-secondary:hover { background: #333; }
+
+        /* 滑块定制 */
+        input[type=range] { -webkit-appearance: none; appearance: none; background: transparent; padding: 0;}
+        input[type=range]::-webkit-slider-thumb { -webkit-appearance: none; appearance: none; height: 16px; width: 16px; border-radius: 50%; background: var(--accent); cursor: pointer; margin-top: -6px; box-shadow: 0 0 10px rgba(0, 210, 255, 0.5);}
+        input[type=range]::-webkit-slider-runnable-track { width: 100%; height: 4px; background: var(--border); border-radius: 2px; }
+
+        /* --- 图像视图区 --- */
+        .viewer {
+            flex: 1; background: #050505; border: 1px solid var(--border);
+            border-radius: 8px; display: flex; align-items: center;
+            justify-content: center; position: relative; overflow: hidden;
+            margin-bottom: 15px;
+        }
+        #canvas-img { max-width: 100%; max-height: 100%; object-fit: contain; display: none; }
+        .empty-text { color: var(--text-muted); font-size: 16px; letter-spacing: 2px; }
+
+        .loader { position: absolute; inset: 0; background: rgba(0,0,0,0.85); display: flex; flex-direction: column; align-items: center; justify-content: center; z-index: 10; display: none; }
+        .spinner { width: 45px; height: 45px; border: 3px solid #333; border-top: 3px solid var(--accent); border-radius: 50%; animation: spin 1s linear infinite; margin-bottom: 15px; }
+        @keyframes spin { 100% { transform: rotate(360deg); } }
+
+        .action-row { display: flex; gap: 15px; }
+
+        /* 吐司提示 */
+        .toast {
+            position: fixed; top: 20px; left: 50%; transform: translateX(-50%);
+            background: var(--panel-bg); color: white; padding: 12px 24px;
+            border-radius: 30px; border: 1px solid var(--border);
+            box-shadow: 0 8px 24px rgba(0,0,0,0.6); display: none; z-index: 100;
+            font-size: 14px; font-weight: 500;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="header">
+        <h1>FPGA 视觉终端</h1>
+        <div class="conn-bar">
+            <select id="port-select"><option>加载中...</option></select>
+            <button class="btn-secondary" onclick="loadPorts()" style="width: auto; padding: 10px 15px;">刷新</button>
+            <button id="btn-connect" class="btn-primary" onclick="connectPort()" style="width: 150px; padding: 10px;">建立连接 (1M)</button>
+        </div>
+    </div>
+
+    <div class="main-workspace">
+        
+        <div class="panel panel-left">
+            <h2 class="panel-title">🎛️ 独立指令区</h2>
+            <div class="panel-desc">参数实时下发，即刻改变 HDMI 输出画面</div>
+
+            <div class="control-group">
+                <label>👁️ 视觉滤镜核心 (Vision Core)</label>
+                
+                <span class="sub-label">主模式 (Active Index)</span>
+                <select id="main-mode-select" onchange="updateSubModes()">
+                    <option value="00">0: 直方图均衡化 & SSR (HE)</option>
+                    <option value="02">2: 物理画面旋转 (Sensor Flip)</option>
+                    <option value="03">3: 形态学处理 (Morphology)</option>
+                    <option value="04">4: 色彩空间转换 (Color Space)</option>
+                    <option value="05">5: 双边滤波 (Bilateral)</option>
+                    <option value="06">6: 仿射网格显示 (Grid Mask)</option>
+                    <option value="07">7: Sobel 边缘检测 (Edge Detect)</option>
+                    <option value="08">8: 暗通道先验去雾 (DCP Dehaze)</option>
+                </select>
+
+                <span class="sub-label">子模式/参数 (Main Mode)</span>
+                <select id="sub-mode-select" onchange="sendFilterMode()">
+                </select>
+            </div>
+
+            <div class="control-group">
+                <label>📐 全局几何引擎 (Geometry)</label>
+                
+                <span class="sub-label">缩放系数 (Scale) <span id="scale-val" class="val-display">1.00x</span></span>
+                <input type="range" id="scale-slider" min="-200" max="-25" step="1" value="-100">
+
+                <button class="btn-secondary" onclick="globalReset()" style="margin-top: 25px; border-color: #ff4757; color: #ff4757;">
+                🔄 一键全局重置 (恢复初始状态)
+                </button>
+            </div>
+            
+        </div>
+
+        <div class="panel panel-right">
+            <h2 class="panel-title">📸 独立抓拍室</h2>
+            <div class="panel-desc">随时定格右侧 HDMI 显示器的当前画面并回传至电脑保存</div>
+
+            <div class="viewer" id="viewer-container">
+                <div class="empty-text" id="placeholder-text">NO IMAGE</div>
+                <img id="canvas-img" alt="Captured Image">
+                
+                <div class="loader" id="loader">
+                    <div class="spinner"></div>
+                    <div style="color: var(--text-main); font-size: 16px; margin-bottom: 5px;">旁路扫描捕获中...</div>
+                    <div style="color: var(--text-muted); font-size: 13px;">请保持画面静止约 8 秒</div>
+                </div>
+            </div>
+
+            <div class="action-row">
+                <button id="btn-capture" class="btn-primary" onclick="triggerCapture()" style="flex: 2; height: 50px; font-size: 16px;" disabled>
+                    执行硬件抓拍
+                </button>
+                <button id="btn-save" class="btn-secondary" onclick="saveImage()" style="flex: 1; height: 50px; display: none;">
+                    💾 另存为图片
+                </button>
+            </div>
+        </div>
+
+    </div>
+
+    <div id="toast" class="toast">消息提示</div>
+
+    <script>
+        // --- 核心：主子模式级联字典 ---
+        const subModeDict = {
+            "00": [ 
+                {val: "00", text: "0: 透传原图 (Raw RGB)"},
+                {val: "01", text: "1: 对比模式 (左原图 | 右直方图)"},
+                {val: "02", text: "2: 全屏直方图均衡化 (Full HE)"},
+                {val: "03", text: "3: 均衡化测试档位 3"},
+                {val: "04", text: "4: 硬核三等分对比 (原图 | HE | SSR)"},
+                {val: "05", text: "5: 均衡化测试档位 5"},
+                {val: "06", text: "6: 均衡化测试档位 6"},
+                {val: "07", text: "7: 均衡化测试档位 7"}
+            ],
+            "02": [ 
+                {val: "00", text: "0: 关闭 (0° 标准正向)"},
+                {val: "01", text: "1: 开启 (180° 倒置安装)"}
+            ],
+            "03": [ 
+                {val: "00", text: "0: 透传原图 (Raw)"},
+                {val: "01", text: "1: 纯二值化 (Binarize)"},
+                {val: "02", text: "2: 腐蚀/膨胀等形态学计算"},
+                {val: "03", text: "3: 形态学拓展模式"}
+            ],
+            "04": [ 
+                {val: "00", text: "0: 透传原图 (Raw)"},
+                {val: "01", text: "1: Y 通道 (纯灰度/黑白)"},
+                {val: "02", text: "2: Cb 通道 (蓝色分量)"},
+                {val: "03", text: "3: Cr 通道 (红色分量)"}
+            ],
+            "05": [ 
+                {val: "00", text: "0: 透传原图 (Raw)"},
+                {val: "01", text: "1: 均值模糊平滑 (Mean Blur)"},
+                {val: "02", text: "2: 漫画卡通渲染风格 (Cell Shading)"}
+            ],
+            "06": [ 
+                {val: "00", text: "0: 开启画中画/网格演示"}
+            ],
+            "07": [ 
+                {val: "00", text: "0: 透传原图 (Raw)"},
+                {val: "01", text: "1: 黑底白线提取 (Edge Extract)"},
+                {val: "02", text: "2: 霓虹灯艺术特效 (Neon Effect)"},
+                // [已新增] 白底黑线模式
+                {val: "03", text: "3: 白底黑线 (White Bg Black Line)"}
+            ],
+            "08": [ 
+                {val: "00", text: "0: 全屏去雾 (Full Dehaze)"},
+                {val: "01", text: "1: 对比模式 (左原图 | 右去雾)"}
+            ]
+        };
+
+        function updateSubModes() {
+            const mainSelect = document.getElementById('main-mode-select').value;
+            const subSelect = document.getElementById('sub-mode-select');
+            subSelect.innerHTML = '';
+            
+            const options = subModeDict[mainSelect];
+            if (options) {
+                options.forEach(opt => {
+                    const el = document.createElement('option');
+                    el.value = opt.val;
+                    el.innerText = opt.text;
+                    subSelect.appendChild(el);
+                });
+            }
+            sendFilterMode();
+        }
+
+        const toHex = (num, padding) => {
+            let hex = (num < 0 ? 0xFFFF + num + 1 : num).toString(16).toUpperCase();
+            while (hex.length < padding) hex = "0" + hex;
+            return hex;
+        };
+
+        const showToast = (msg, isError = false) => {
+            const toast = document.getElementById('toast');
+            toast.style.display = 'block';
+            toast.style.borderColor = isError ? '#ff4757' : 'var(--accent)';
+            toast.style.color = isError ? '#ff4757' : 'var(--text-main)';
+            toast.innerText = msg;
+            setTimeout(() => toast.style.display = 'none', 3000);
+        };
+
+        const sendCmd = async (hexString) => {
+            try {
+                const res = await fetch('/api/command', {
+                    method: 'POST',
+                    headers: {'Content-Type': 'application/json'},
+                    body: JSON.stringify({cmd: hexString})
+                });
+                const data = await res.json();
+                if(data.status === 'error') showToast(data.msg, true);
+            } catch (err) { }
+        };
+
+        // ==========================================
+        // 防抖流控机制
+        // ==========================================
+        let isScaleSending = false;
+        let scalePending = false;
+        
+        // [已删除] Skew 相关的发送防抖变量
+
+        document.getElementById('scale-slider').oninput = function() {
+            // 解析绝对值： -200 -> 2.00, -25 -> 0.25
+            let actualScale = (Math.abs(parseInt(this.value)) / 100).toFixed(2);
+            document.getElementById('scale-val').innerText = actualScale + 'x';
+            sendScaleActual();
+        };
+
+        // [已删除] skew-slider 的 oninput 监听器
+
+        const sendFilterMode = async () => {
+            const mainIdx = document.getElementById('main-mode-select').value;
+            const subIdx = document.getElementById('sub-mode-select').value;
+            if (mainIdx === "02") {
+                await sendCmd(`AA 05 00 ${subIdx} 55`);
+                await sendCmd(`AA 01 02 00 55`);
+            } else {
+                await sendCmd(`AA 01 ${mainIdx} ${subIdx} 55`);
+            }
+        };
+        
+        const sendScaleActual = async () => {
+            if (isScaleSending) {
+                scalePending = true;
+                return;
+            }
+            isScaleSending = true;
+            scalePending = false;
+            
+            // 获取滑块代表的真实视觉倍率 (0.25 ~ 2.00)
+            let scaleVal = Math.abs(parseInt(document.getElementById('scale-slider').value)) / 100;
+            
+            // 换算成 FPGA 寄存器 (256/倍数)
+            let val = Math.round(256 / scaleVal);
+            
+            // 物理极限对齐：限制最大缩小为 0.25x (1024)，最大放大为 2.00x (128)
+            if (val > 1024) val = 1024;
+            if (val < 128) val = 128; 
+            
+            let hexStr = toHex(val, 4);
+            await sendCmd(`AA 02 ${hexStr.substring(0,2)} ${hexStr.substring(2,4)} 55`);
+            
+            isScaleSending = false;
+            if (scalePending) {
+                setTimeout(sendScaleActual, 20);
+            }
+        };
+        
+        // [已删除] sendSkewActual 发送逻辑
+
+        // --- 终极防御：一键全局重置 (软硬件全链路初始化) ---
+        const globalReset = async () => {
+            showToast("正在全局重置系统...", false);
+
+            // 1. 将前端 UI 控件全部恢复到默认状态
+            // 🛠️【关键修复】：将底层真实值设为 -100，对应界面的 1.00x，滑块完美居中！
+            document.getElementById('scale-slider').value = "-100"; 
+            document.getElementById('scale-val').innerText = "1.00x";
+            
+            // [已删除] 重置 Skew 控件值的逻辑
+
+            document.getElementById('main-mode-select').value = "00";
+            
+            // 此函数会自动重置子模式，并下发 AA 01 00 00 55 指令给 FPGA
+            updateSubModes(); 
+
+            // 2. 强制将 FPGA 的几何引擎拉回 1.00x (256) 的安全状态
+            await sendCmd(`AA 02 01 00 55`); 
+            // [已删除] 下发恢复 Skew 参数的串口指令
+
+            // 3. 核心修复机制：等待 100ms 让 FPGA 稳定回到 1.00x 状态后，
+            // 再执行摄像头的翻转脉冲硬复位，彻底避开缩小模式下的断流死锁盲区！
+            setTimeout(async () => {
+                await sendCmd(`AA 05 00 01 55`);
+                setTimeout(async () => {
+                    await sendCmd(`AA 05 00 00 55`);
+                    showToast("✅ 全局重置完成！上下位机已恢复出厂状态。");
+                }, 300);
+            }, 100);
+        };
+
+        // --- 串口连接业务 ---
+        const loadPorts = async () => {
+            const select = document.getElementById('port-select');
+            select.innerHTML = '<option>扫描中...</option>';
+            try {
+                const res = await fetch('/api/ports');
+                const data = await res.json();
+                select.innerHTML = data.ports.length ? '' : '<option value="">未找到串口设备</option>';
+                data.ports.forEach(p => select.innerHTML += `<option value="${p}">${p}</option>`);
+            } catch (err) { select.innerHTML = '<option value="">本地服务未启动</option>'; }
+        };
+
+        const connectPort = async () => {
+            const port = document.getElementById('port-select').value;
+            if(!port) return;
+            const btn = document.getElementById('btn-connect');
+            btn.innerText = "连接中...";
+            try {
+                const res = await fetch('/api/connect', {
+                    method: 'POST', headers: {'Content-Type': 'application/json'}, body: JSON.stringify({port})
+                });
+                const data = await res.json();
+                if(data.status === 'success') {
+                    showToast("串口连接成功！");
+                    btn.innerText = "已连接 (Connected)";
+                    btn.style.background = "#00e676";
+                    btn.style.color = "#000";
+                    document.getElementById('btn-capture').disabled = false;
+                } else {
+                    showToast(data.msg, true);
+                    btn.innerText = "建立连接 (1M)";
+                }
+            } catch (err) { showToast("请求失败", true); btn.innerText = "建立连接 (1M)"; }
+        };
+
+        // --- 独立抓拍业务 ---
+        const triggerCapture = async () => {
+            document.getElementById('loader').style.display = 'flex';
+            document.getElementById('btn-capture').disabled = true;
+            try {
+                const res = await fetch('/api/capture', { method: 'POST' });
+                const data = await res.json();
+                if(data.status === 'success') {
+                    document.getElementById('placeholder-text').style.display = 'none';
+                    const img = document.getElementById('canvas-img');
+                    img.src = "data:image/png;base64," + data.image;
+                    img.style.display = 'block';
+                    document.getElementById('btn-save').style.display = 'block';
+                    showToast("抓拍完成！");
+                } else {
+                    showToast(data.msg, true);
+                }
+            } catch (err) {
+                showToast("抓拍请求超时，请检查 FPGA 连接", true);
+            }
+            document.getElementById('loader').style.display = 'none';
+            document.getElementById('btn-capture').disabled = false;
+        };
+
+        const saveImage = () => {
+            const img = document.getElementById('canvas-img');
+            const link = document.createElement('a');
+            link.download = `FPGA_Capture_${new Date().getTime()}.png`;
+            link.href = img.src;
+            link.click();
+        };
+
+        // --- 页面初始化 ---
+        loadPorts();
+        updateSubModes(); // 初始化时填充子模式下拉框
+    </script>
+</body>
+</html>

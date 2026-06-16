@@ -1,0 +1,5 @@
+r8,din_rgb565
+g8,din_rgb565
+b8,din_rgb565
+gray,r8,g8,b8
+bin_val,gray,!rst_n,!de_d1

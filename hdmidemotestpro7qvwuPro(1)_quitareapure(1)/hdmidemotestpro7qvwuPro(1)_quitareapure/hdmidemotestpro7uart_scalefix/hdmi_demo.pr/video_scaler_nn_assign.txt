@@ -1,0 +1,14 @@
+s_step,safe_step
+s_y_dst,y_dst
+y_dst_offset,s_y_dst
+y_src_scaled,y_dst_offset,s_step
+y_src_mapped,y_src_scaled
+y_is_black,y_src_mapped,y_src_mapped
+y_req,y_src_mapped,y_src_mapped
+s_x_dst,x_dst
+x_dst_offset,s_x_dst
+x_src_scaled,x_dst_offset,s_step
+x_src_mapped,x_src_scaled
+x_is_black,x_src_mapped,x_src_mapped
+x_req,x_src_mapped,x_src_mapped,x_src_mapped,!rst_n,!rst_n,!flush_mode,!rst_n
+actual_x_req,rot_180_latched,x_req,x_req,!rst_n

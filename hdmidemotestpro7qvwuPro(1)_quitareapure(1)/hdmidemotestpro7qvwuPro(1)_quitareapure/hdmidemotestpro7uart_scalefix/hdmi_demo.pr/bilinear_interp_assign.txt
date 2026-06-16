@@ -1,0 +1,14 @@
+r11,p11
+g11,p11
+b11,p11
+r12,p12
+g12,p12
+b12,p12
+r21,p21
+g21,p21
+b21,p21
+r22,p22
+g22,p22
+b22,p22
+inv_wx,weight_x
+inv_wy,weight_y

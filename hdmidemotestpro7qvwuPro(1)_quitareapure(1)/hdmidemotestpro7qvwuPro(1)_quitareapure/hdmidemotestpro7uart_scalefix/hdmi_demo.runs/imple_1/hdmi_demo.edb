@@ -1,0 +1,29 @@
+2026-06-10 14:41:25,870 [INFO] [ARC_Proc_5]:Deserialize device ends.
+2026-06-10 14:41:25,942 [INFO] [ARC_Proc_1]:Deserialize tiles ends.
+2026-06-10 14:41:26,051 [INFO] [ARC_Proc_3]:Deserialize cfgcells ends.
+2026-06-10 14:41:26,065 [INFO] [ARC_Proc_4]:Deserialize configmode ends.
+2026-06-10 14:41:26,279 [INFO] [UDM_Load_0]:Load eLinx design check point(.ecp) complete.
+2026-06-10 14:41:26,289 [INFO] [UDM_IP_1]:Begin parsing IP file(s)...
+2026-06-10 14:41:26,295 [INFO] [UDM_IP_1]:parse_ip_specific complete.
+2026-06-10 14:41:26,311 [INFO] [UDM_Mem_46]:Memory initial file [ hdmi_demo.hdmi_ctrl0.rtl.mif ] is in db file !
+2026-06-10 14:41:26,311 [INFO] [UDM_Mem_46]:Memory initial file [ db\hdmi_demo.rom0_strong_thresh_rom_16bae775.hdl.mif ] is in db file !
+2026-06-10 14:41:26,311 [INFO] [UDM_Mem_46]:Memory initial file [ db\hdmi_demo.rom0_weak_stages_acc_rom_e40fa5d7.hdl.mif ] is in db file !
+2026-06-10 14:41:26,330 [INFO] [UDM_Mem_1]:parse_mem_initial complete.
+2026-06-10 14:41:26,330 [INFO] [BitGen_Proc_1]:Launched cram extraction...
+2026-06-10 14:41:27,302 [INFO] [BitGen_Proc_5]:Cram configuration total time consumed 0.969 second(s).
+2026-06-10 14:41:27,303 [INFO] [BitGen_Proc_6]:Launched bram extraction...
+2026-06-10 14:41:27,303 [INFO] [BitGen_Proc_7]:Bram extraction success.
+2026-06-10 14:41:27,304 [INFO] [BitGen_Proc_8]:Launched bram configuration...
+2026-06-10 14:41:27,313 [INFO] [BitGen_Proc_9]:Bram configuration success.
+2026-06-10 14:41:27,313 [INFO] [BitGen_Proc_10]:Bram processing total time consumed 0.000 second(s).
+2026-06-10 14:41:27,313 [DEBUG] [BitGen_Proc_9]:FST(Cram fast simulation) begin.
+2026-06-10 14:41:27,574 [INFO] [BitGen_Proc_9]:FST(Cram fast simulation) file output success.
+2026-06-10 14:41:27,575 [DEBUG] [BitGen_Proc_9]:MIN(Bram fast simulation) begin.
+2026-06-10 14:41:27,613 [INFO] [BitGen_Proc_9]:MIN(Bram fast simulation) file output success.
+2026-06-10 14:41:27,614 [INFO] [BitGen_Proc_20]:Head information:Device=EQ6HL130;Package=CSG484_H;Top=hdmi_ctrl;Version=eLinx3.0.7;Date=2026/06/10;Time=14:41:27
+2026-06-10 14:41:30,599 [INFO] [BitGen_Proc_10]:Raw PSK file output success.
+2026-06-10 14:41:31,046 [INFO] [BitGen_Proc_10]:Compressed PSK file output success.
+2026-06-10 14:41:31,046 [INFO] [BitGen_Proc_10]:Compressed PSK file output time consumed 0.172 second(s)
+2026-06-10 14:41:31,050 [INFO] [BitGen_Proc_10]:Bitstream file(s) output success.
+2026-06-10 14:41:31,050 [INFO] [BitGen_Proc_10]:Bitstream file(s) output time consumed 3.436 second(s).
+Bitgen all was well

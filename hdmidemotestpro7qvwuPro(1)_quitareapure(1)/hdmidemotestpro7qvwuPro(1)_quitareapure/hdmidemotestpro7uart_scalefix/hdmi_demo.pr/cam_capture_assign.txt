@@ -1,0 +1,5 @@
+pic_flag,~vsync_dly,cam_vsync,!sys_rst_n,!sys_rst_n,!sys_rst_n,~data_flag,!sys_rst_n
+pixel_data_neg,pic_valid,data_out_reg
+pixel_valid_neg,pic_valid,data_flag_dly1,!sys_rst_n
+pixel_data,pixel_data_pos
+pixel_valid,pixel_valid_pos

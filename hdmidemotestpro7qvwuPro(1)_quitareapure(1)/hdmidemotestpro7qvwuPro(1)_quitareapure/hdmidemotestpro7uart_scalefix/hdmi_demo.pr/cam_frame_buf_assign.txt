@@ -1,0 +1,2 @@
+new_line_rdy,lt_sync,lt_sync
+buf_ready,br_sync,~wr_bank,!rd_en_d,~wr_bank

@@ -1,0 +1,6 @@
+raw_hs,cnt_h,H_SYNC
+raw_vs,cnt_v,V_SYNC,!sys_rst_n
+video_de,de_shift
+video_hs,hs_shift
+video_vs,vs_shift
+video_rgb,video_de,pixel_data

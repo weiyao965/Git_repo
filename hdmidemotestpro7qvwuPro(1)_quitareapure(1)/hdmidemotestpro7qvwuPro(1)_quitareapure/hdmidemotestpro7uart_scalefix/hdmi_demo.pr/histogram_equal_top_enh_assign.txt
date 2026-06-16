@@ -1,0 +1,4 @@
+r8,din_rgb565,din_rgb565
+g8,din_rgb565,din_rgb565
+b8,din_rgb565,din_rgb565
+vsync_pos,vsync,~vsync_d,!rst_n

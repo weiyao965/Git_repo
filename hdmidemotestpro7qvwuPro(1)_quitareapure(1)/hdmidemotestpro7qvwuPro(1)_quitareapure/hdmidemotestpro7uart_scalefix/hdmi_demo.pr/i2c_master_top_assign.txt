@@ -1,0 +1,2 @@
+i2c_read_req_ack,state,S_RD_ACK
+i2c_write_req_ack,state,S_WR_ACK

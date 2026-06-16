@@ -1,0 +1,1 @@
+scl_sync,dSCL,~sSCL,scl_oen,~nReset,!ena,!nReset,!nReset,!ena,!nReset,~nReset,~nReset,~sSDA,~dSDA,!nReset,~sto_condition,~nReset,~nReset,~sSDA,~cmd_stop,&sSCL,~dSCL,!nReset

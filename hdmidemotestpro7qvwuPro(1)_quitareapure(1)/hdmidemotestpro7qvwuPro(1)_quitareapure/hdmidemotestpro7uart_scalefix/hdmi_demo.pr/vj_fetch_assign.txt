@@ -1,0 +1,15 @@
+row_init_go,vj_fetch_go,&vj_row_ready,vj_row,pic_height_r,!rstn,&cascade_end,!rstn,&vj_row_ready,!rstn,!rstn
+cnt_row_init_max_f,cnt_row_init,!rstn,&cnt_row_init_max_f,!rstn
+row_init_ready,cnt_row_init_max_f,coloum_ready,!rstn,!cnt_row_init_max_f
+,coloum_fetch_go
+,coloum_fetch_go_r,!rstn
+cnt_fetch_max_f,cnt_fetch,!rstn,!rstn
+,cnt_fetch_max_f
+,cnt_fetch_max_f_r,!rstn
+,cnt_fetch_e
+,cnt_fetch_e_r,!rstn,!rstn
+coloum_ready,cnt_fetch_max_f,!rstn,!rstn,!rstn,!rstn,!rstn,!rstn
+true_row,read_row_addr
+true_col,read_col_addr
+linear_addr,true_row,true_row,true_col
+aa_frame_buf,linear_addr,!rstn,!rstn,!rstn

@@ -1,0 +1,5 @@
+t_200us_done,cnt_200us,T_200US
+O_sdram_init_done,O_sdram_init_state
+sdram_ref_ack,O_sdram_work_state
+O_sdram_wr_ack,O_sdram_work_state,~O_sdram_rd_wr,O_sdram_work_state,O_sdram_work_state,O_cnt_clk,I_sdram_wr_burst
+O_sdram_rd_ack,O_sdram_work_state,O_cnt_clk,O_cnt_clk,I_sdram_rd_burst

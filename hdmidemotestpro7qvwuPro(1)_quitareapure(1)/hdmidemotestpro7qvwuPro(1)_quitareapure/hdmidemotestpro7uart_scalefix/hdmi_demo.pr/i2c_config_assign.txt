@@ -1,0 +1,8 @@
+sda_pad_i,i2c_sda
+i2c_sda,~sda_padoen_o,sda_pad_o
+scl_pad_i,i2c_scl
+i2c_scl,~scl_padoen_o,scl_pad_o
+done,state,S_WR_I2C_DONE
+i2c_slave_dev_addr,lut_dev_addr
+i2c_slave_reg_addr,lut_reg_addr
+i2c_write_data,lut_reg_data
