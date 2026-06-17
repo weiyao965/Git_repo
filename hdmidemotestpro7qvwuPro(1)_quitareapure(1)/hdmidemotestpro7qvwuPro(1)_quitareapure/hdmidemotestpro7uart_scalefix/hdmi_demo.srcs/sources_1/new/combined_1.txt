@@ -1,0 +1,1335 @@
+hdmi_ctrl.v:
+`timescale 1ns / 1ps
+
+module hdmi_ctrl(
+    input           sys_clk,
+    input           sys_rst_n,
+
+    input           cmos_key1, 
+    input           cmos_key2, 
+    input           cmos_key3, 
+    output          cmos_led1,  
+    output          cmos_led2,  
+    output          cmos_led3,  
+    output          cmos_led4,  
+
+    input           uart_rxd,   
+    output          uart_txd,   
+
+    output          hdmi_clk,
+    output  [23:0]  hdmi_d,
+    output          hdmi_de,
+    output          hdmi_hs,
+    output          hdmi_vs,
+    output          hdmi_rst_n,
+    inout           hdmi_scl,
+    inout           hdmi_sda,
+
+    output wire     cmos_xclk,
+    output wire     cmos_rst_n,
+    output wire     cmos_pwdn,
+    input  wire     cmos_pclk,
+    input  wire     cmos_href,
+    input  wire     cmos_vsync,
+    input  wire [7:0] cmos_d,
+    inout  wire     cmos_scl,
+    inout  wire     cmos_sda,
+    
+    output wire         sdram_clk,
+    output wire         sdram_cke,
+    output wire         sdram_cs_n,
+    output wire         sdram_ras_n,
+    output wire         sdram_cas_n,
+    output wire         sdram_we_n,
+    output wire [1:0]   sdram_bank,
+    output wire [12:0]  sdram_addr,
+    inout  wire [15:0]  sdram_dq
+);
+
+// =========================================================
+// 1. 时钟与复位
+// =========================================================
+wire    video_clk;
+wire    clk_100mhz;
+wire    pll_locked;
+wire    clk_100mhz_shift;
+
+assign hdmi_clk   = video_clk;
+assign hdmi_rst_n = pll_locked;
+
+clk_gen clk_gen_inst(
+    .areset  (~sys_rst_n), 
+    .inclk0  (sys_clk   ),
+    .c0      (clk_100mhz),
+    .c1      (video_clk ),        
+    .c2      (clk_100mhz_shift),
+    .locked  (pll_locked)
+);
+wire rst_n = sys_rst_n & pll_locked;
+
+// =========================================================
+// 2. 双源控制：按键与串口
+// =========================================================
+wire key1_pulse, key2_pulse, key3_pulse;
+key_debounce u_key1(.clk(clk_100mhz), .rst_n(rst_n), .key_in(cmos_key1), .key_pulse(key1_pulse));
+key_debounce u_key2(.clk(clk_100mhz), .rst_n(rst_n), .key_in(cmos_key2), .key_pulse(key2_pulse));
+key_debounce u_key3(.clk(clk_100mhz), .rst_n(rst_n), .key_in(cmos_key3), .key_pulse(key3_pulse));
+
+wire [7:0]  uart_rx_data; wire uart_rx_flag; wire uart_cmd_valid;
+wire [7:0]  uart_cmd_type; wire [15:0] uart_cmd_data;
+
+uart_rx #(.CLK_FREQ(100_000_000), .UART_BPS(1000000)) u_uart_rx (
+    .sys_clk(clk_100mhz), .sys_rst_n(rst_n), .rx(uart_rxd), .po_data(uart_rx_data), .po_flag(uart_rx_flag)
+);
+uart_cmd_parser u_parser (
+    .clk(clk_100mhz), .rst_n(rst_n), .rx_data(uart_rx_data), .rx_flag(uart_rx_flag),
+    .cmd_valid(uart_cmd_valid), .cmd_type(uart_cmd_type), .cmd_data(uart_cmd_data)
+);
+
+// Python 触发抓拍 (0xC1)
+reg py_cap_toggle;
+always @(posedge clk_100mhz) begin
+    if (!rst_n) py_cap_toggle <= 1'b0;
+    else if (uart_rx_flag && uart_rx_data == 8'hC1) py_cap_toggle <= ~py_cap_toggle;
+end
+reg [2:0] py_cap_sync;
+always @(posedge cmos_pclk) py_cap_sync <= {py_cap_sync[1:0], py_cap_toggle};
+wire py_cap_pulse = py_cap_sync[2] ^ py_cap_sync[1]; 
+
+// Python 触发回传 (0xC2)
+wire py_tx_pulse = (uart_rx_flag && uart_rx_data == 8'hC2);
+
+// =========================================================
+// 【终极锁定】：死锁缩放系数，彻底杜绝4分屏和串口干扰！
+// =========================================================
+wire [12:0] scale_step = 13'd256; 
+wire        rot_180_en = 1'b0;    
+wire        menu_state = 1'b0;    
+wire [3:0]  select_idx = 4'd0;    
+
+wire key1_pressed = ~cmos_key1; wire key2_pressed = ~cmos_key2; wire key3_pressed = ~cmos_key3;
+assign cmos_led4 = 1'b0; assign cmos_led3 = 1'b0; 
+assign cmos_led2 = 1'b0; assign cmos_led1 = 1'b0; 
+
+// =========================================================
+// 4. 摄像头时钟与初始化
+// =========================================================
+wire cam_xclk_w;
+cam_clk_gen cam_clk_gen_inst(.clk_in(clk_100mhz), .rst_n(pll_locked), .cam_xclk(cam_xclk_w));
+assign cmos_xclk = cam_xclk_w;
+
+reg [23:0] cam_rst_cnt; reg cam_rst_n_reg; reg cam_pwdn_reg;
+always @(posedge clk_100mhz or negedge pll_locked) begin
+    if (!pll_locked) begin cam_rst_cnt <= 24'd0; cam_rst_n_reg <= 1'b0; cam_pwdn_reg <= 1'b1; end 
+    else begin
+        if (cam_rst_cnt < 24'd1_000_000) begin cam_rst_cnt <= cam_rst_cnt + 1'b1; cam_pwdn_reg <= 1'b1; cam_rst_n_reg <= 1'b0; end 
+        else if (cam_rst_cnt < 24'd2_000_000) begin cam_rst_cnt <= cam_rst_cnt + 1'b1; cam_pwdn_reg <= 1'b0; cam_rst_n_reg <= 1'b0; end 
+        else if (cam_rst_cnt < 24'd4_000_000) begin cam_rst_cnt <= cam_rst_cnt + 1'b1; cam_pwdn_reg <= 1'b0; cam_rst_n_reg <= 1'b1; end 
+        else begin cam_rst_n_reg <= 1'b1; cam_pwdn_reg <= 1'b0; end
+    end
+end
+assign cmos_rst_n = cam_rst_n_reg; assign cmos_pwdn  = cam_pwdn_reg;
+
+wire [9:0]  cam_lut_index; wire [31:0] cam_lut_data; wire cam_init_done;
+ov5640_init ov5640_init_inst(.rot_180_en(rot_180_en), .lut_index (cam_lut_index), .lut_data  (cam_lut_data));
+cam_i2c_config cam_i2c_cfg(.rst(~cam_rst_n_reg), .clk(clk_100mhz), .clk_div_cnt(16'd249), .lut_index(cam_lut_index), .lut_data(cam_lut_data), .init_done(cam_init_done), .i2c_scl(cmos_scl), .i2c_sda(cmos_sda));
+
+// =========================================================
+// 5. 前级输入流水线与缩放
+// =========================================================
+wire pipeline_rst_n = rst_n & cam_init_done;
+wire [15:0] cap_pixel_data; wire cap_pixel_valid;
+cam_capture cam_capture_inst(.sys_rst_n(pipeline_rst_n), .cam_pclk(cmos_pclk), .cam_href(cmos_href), .cam_vsync(cmos_vsync), .cam_data(cmos_d), .pixel_data(cap_pixel_data), .pixel_valid(cap_pixel_valid));
+
+wire [15:0] scaled_pixel_data; wire scaled_pixel_valid;
+video_scaler_nn video_scaler_nn_inst (.clk(cmos_pclk), .rst_n(pipeline_rst_n), .scale_step(scale_step), .cam_vsync(cmos_vsync), .cam_href(cmos_href), .cam_data_in(cap_pixel_data), .cam_data_valid(cap_pixel_valid), .scaler_data_out(scaled_pixel_data), .scaler_valid_out(scaled_pixel_valid), .rot_180_en(rot_180_en));
+
+// =========================================================
+// 6. UART 抓图与 AI 诊断锁存 (无短路稳定版)
+// =========================================================
+wire [7:0] mock_g = {scaled_pixel_data[10:5], 2'b0};
+
+reg [10:0] mock_x;
+reg [10:0] mock_y;
+always @(posedge cmos_pclk) begin
+    if (!pipeline_rst_n || cmos_vsync) begin
+        mock_x <= 0;
+        mock_y <= 0;
+    end else if (scaled_pixel_valid) begin
+        if (mock_x == 639) begin
+            mock_x <= 0; mock_y <= mock_y + 1;
+        end else begin
+            mock_x <= mock_x + 1;
+        end
+    end
+end
+
+(* ramstyle = "block" *) reg [7:0] dbg_bram [0:19199];
+reg [14:0] dbg_wr_addr;
+reg dbg_capturing;
+
+always @(posedge cmos_pclk) begin
+    if (!pipeline_rst_n) begin
+        dbg_wr_addr <= 0;
+        dbg_capturing <= 0;
+    end else begin
+        if (key1_pulse || py_cap_pulse) dbg_capturing <= 1;
+
+        if (dbg_capturing && scaled_pixel_valid) begin
+            if (mock_x[1:0] == 2'b00 && mock_y[1:0] == 2'b00) begin
+                dbg_bram[dbg_wr_addr] <= mock_g;
+                if (dbg_wr_addr == 15'd19199) begin
+                    dbg_wr_addr <= 0; dbg_capturing <= 0; 
+                end else begin
+                    dbg_wr_addr <= dbg_wr_addr + 1;
+                end
+            end
+        end
+    end
+end
+
+wire [10:0] face_x, face_y, face_w, face_h;
+wire        face_valid;
+
+reg [10:0] dbg_face_x, dbg_face_y, dbg_face_w, dbg_face_h;
+reg        dbg_face_valid;
+
+always @(posedge clk_100mhz) begin
+    if (!rst_n) begin
+        dbg_face_valid <= 0;
+    end else if (key1_pulse || py_cap_pulse) begin
+        dbg_face_valid <= face_valid;
+        dbg_face_x <= face_x;
+        dbg_face_y <= face_y;
+        dbg_face_w <= face_w;
+        dbg_face_h <= face_h;
+    end
+end
+
+reg [14:0] tx_rd_addr;
+reg [11:0] tx_wait_cnt;
+reg tx_sending;
+reg [7:0] uart_tx_data;
+reg uart_tx_flag;
+
+always @(posedge clk_100mhz) begin
+    if (!rst_n) begin
+        tx_sending <= 0; tx_rd_addr <= 0; tx_wait_cnt <= 0; uart_tx_flag <= 0;
+    end else begin
+        if ((key2_pulse || py_tx_pulse) && !dbg_capturing) begin
+            tx_sending <= 1; tx_rd_addr <= 0; tx_wait_cnt <= 0;
+        end
+        uart_tx_flag <= 0; 
+
+        if (tx_sending) begin
+            if (tx_wait_cnt == 0) begin
+                if (tx_rd_addr < 15'd19200)
+                    uart_tx_data <= dbg_bram[tx_rd_addr]; 
+                else if (tx_rd_addr == 15'd19200)
+                    uart_tx_data <= dbg_face_valid ? 8'h01 : 8'h00; 
+                else if (tx_rd_addr == 15'd19201)
+                    uart_tx_data <= dbg_face_x[9:2]; 
+                else if (tx_rd_addr == 15'd19202)
+                    uart_tx_data <= dbg_face_y[9:2]; 
+                else if (tx_rd_addr == 15'd19203)
+                    uart_tx_data <= dbg_face_w[9:2]; 
+                else if (tx_rd_addr == 15'd19204)
+                    uart_tx_data <= dbg_face_h[9:2]; 
+
+                uart_tx_flag <= 1; tx_wait_cnt <= 1200; 
+                
+                if (tx_rd_addr == 15'd19204) begin 
+                    tx_sending <= 0; 
+                end else begin
+                    tx_rd_addr <= tx_rd_addr + 1;
+                end
+            end else begin
+                tx_wait_cnt <= tx_wait_cnt - 1;
+            end
+        end
+    end
+end
+
+uart_tx #(
+    .CLK_FREQ(100_000_000), 
+    .UART_BPS(1000000)
+) u_uart_tx_dbg (
+    .sys_clk(clk_100mhz), .sys_rst_n(rst_n), .pi_data(uart_tx_data), .pi_flag(uart_tx_flag), .tx(uart_txd)       
+);
+
+// =========================================================
+// 7. AI 人脸追踪协处理器 
+// =========================================================
+ai_face_tracker #(
+    .SRC_W(640), .SRC_H(480), .AI_W(160), .AI_H(120)
+) u_ai_face_tracker (
+    .clk_sys(video_clk), .rst_n(rst_n), .cam_pclk(cmos_pclk), .cam_vsync(cmos_vsync),    
+    .cam_de(scaled_pixel_valid), .cam_data(scaled_pixel_data),
+    .face_x(face_x), .face_y(face_y), .face_w(face_w), .face_h(face_h),
+    .face_valid(face_valid) // 连接真实的 AI 引擎输出！
+);
+
+// =========================================================
+// 8. SDRAM 帧缓存 
+// =========================================================
+wire sdram_init_done; wire [15:0] sdram_rd_data; wire cam_rd_en_w;
+wire wr_flush = ~rst_n | ~cam_init_done; 
+
+sdram_top sdram_top_inst(
+    .I_ref_clk(clk_100mhz), .I_out_clk(clk_100mhz_shift), .I_rst_n(rst_n),              
+    .I_fifo_wr_clk(cmos_pclk), .I_fifo_wr_req(scaled_pixel_valid), .I_fifo_wr_data(scaled_pixel_data), .I_fifo_wr_load(wr_flush),          
+    .I_wr_burst(10'd128), .I_wr_saddr(24'd0), .I_wr_eaddr(24'd307200),        
+    .I_fifo_rd_clk(video_clk), .I_fifo_rd_req(cam_rd_en_w), .O_fifo_rd_data(sdram_rd_data), .I_fifo_rd_load(~rst_n),              
+    .I_rd_burst(10'd128), .I_rd_saddr(24'd0), .I_rd_eaddr(24'd307200),
+    .I_sdram_rd_valid(1'b1), .I_sdram_pingpang_en(1'b1), .O_sdram_init_done(sdram_init_done),
+    .O_sdram_clk(sdram_clk), .O_sdram_cke(sdram_cke), .O_sdram_cs_n(sdram_cs_n), .O_sdram_ras_n(sdram_ras_n), .O_sdram_cas_n(sdram_cas_n), .O_sdram_we_n(sdram_we_n), .O_sdram_bank(sdram_bank), 
+    .O_sdram_addr(sdram_addr), .IO_sdram_dq(sdram_dq), .rot_180_en(rot_180_en)
+);
+
+// =========================================================
+// 9. HDMI 视频驱动基准生成
+// =========================================================
+wire        video_hs, video_vs, video_de; wire [10:0] pixel_xpos, pixel_ypos;
+wire        data_req; wire [23:0] pixel_data_w;
+wire [7:0] cam_R = {sdram_rd_data[15:11], 3'b000};
+wire [7:0] cam_G = {sdram_rd_data[10:5],  2'b00};
+wire [7:0] cam_B = {sdram_rd_data[4:0],   3'b000};
+wire [23:0] buf_pixel_data = {cam_R, cam_G, cam_B};
+
+hdmi_display hdmi_display_inst(
+    .hdmi_clk(video_clk), .rst_n(rst_n), .data_req(data_req), .pixel_xpos(pixel_xpos), .pixel_ypos(pixel_ypos),
+    .pixel_data(pixel_data_w), .cam_pixel_data(buf_pixel_data),  
+    .cam_buf_ready(sdram_init_done), .cam_rd_en(cam_rd_en_w), .dbg_vsync(cmos_vsync), .dbg_href(cmos_href)
+);
+
+wire drv_hs, drv_vs, drv_de; wire [23:0] drv_rgb;
+hdmi_driver hdmi_driver_u(
+    .pixel_clk(video_clk), .sys_rst_n(rst_n),      
+    .pixel_data(pixel_data_w), .pixel_xpos(pixel_xpos), .pixel_ypos(pixel_ypos),
+    .data_req(data_req), .video_hs(drv_hs), .video_vs(drv_vs), .video_de(drv_de), .video_rgb(drv_rgb) 
+);
+
+// =========================================================
+// 10. 深层打拍与对齐流水线 
+// =========================================================
+reg hs_d1, hs_d2, hs_d3, hs_d4, hs_d5, hs_d6;
+reg vs_d1, vs_d2, vs_d3, vs_d4, vs_d5, vs_d6;
+reg de_d1, de_d2, de_d3, de_d4, de_d5, de_d6;
+reg [23:0] rgb_d1, rgb_d2, rgb_d3, rgb_d4, rgb_d5, rgb_d6;
+
+reg [10:0] xpos_d1, xpos_d2, xpos_d3, xpos_d4, xpos_d5, xpos_d6;
+reg [10:0] ypos_d1, ypos_d2, ypos_d3, ypos_d4, ypos_d5, ypos_d6;
+
+always @(posedge video_clk) begin
+    hs_d1 <= drv_hs; hs_d2 <= hs_d1; hs_d3 <= hs_d2; hs_d4 <= hs_d3; hs_d5 <= hs_d4; hs_d6 <= hs_d5;
+    vs_d1 <= drv_vs; vs_d2 <= vs_d1; vs_d3 <= vs_d2; vs_d4 <= vs_d3; vs_d5 <= vs_d4; vs_d6 <= vs_d5;
+    de_d1 <= drv_de; de_d2 <= de_d1; de_d3 <= de_d2; de_d4 <= de_d3; de_d5 <= de_d4; de_d6 <= de_d5;
+    rgb_d1 <= drv_rgb; rgb_d2 <= rgb_d1; rgb_d3 <= rgb_d2; rgb_d4 <= rgb_d3; rgb_d5 <= rgb_d4; rgb_d6 <= rgb_d5;
+
+    xpos_d1 <= pixel_xpos; xpos_d2 <= xpos_d1; xpos_d3 <= xpos_d2; xpos_d4 <= xpos_d3; xpos_d5 <= xpos_d4; xpos_d6 <= xpos_d5;
+    ypos_d1 <= pixel_ypos; ypos_d2 <= ypos_d1; ypos_d3 <= ypos_d2; ypos_d4 <= ypos_d3; ypos_d5 <= ypos_d4; ypos_d6 <= ypos_d5;
+end
+
+// =========================================================
+// 11. 终极多路复用器、硬裁剪与 OSD 算法
+// =========================================================
+reg        hdmi_hs_out, hdmi_vs_out, hdmi_de_out;
+reg [23:0] hdmi_rgb_out;
+
+always @(posedge video_clk) begin
+    hdmi_hs_out <= hs_d6; hdmi_vs_out <= vs_d6;               
+    hdmi_de_out <= de_d6; hdmi_rgb_out <= rgb_d6;
+end
+
+reg [10:0] final_x_cnt;
+always @(posedge video_clk) begin
+    if (!hdmi_de_out) final_x_cnt <= 11'd0;
+    else final_x_cnt <= final_x_cnt + 1'b1;
+end
+
+wire [10:0] curr_x = xpos_d6;
+wire [10:0] curr_y = ypos_d6;
+
+// 固定引导框
+wire [10:0] roi_x = 11'd160;
+wire [10:0] roi_y = 11'd80;
+wire [10:0] roi_w = 11'd320;
+wire [10:0] roi_h = 11'd320;
+
+wire draw_roi_x = (curr_x >= roi_x) && (curr_x <= roi_x + roi_w) &&
+                  ((curr_x < roi_x + 3) || (curr_x > roi_x + roi_w - 3)); 
+wire draw_roi_y = (curr_y >= roi_y) && (curr_y <= roi_y + roi_h) &&
+                  ((curr_y < roi_y + 3) || (curr_y > roi_y + roi_h - 3));
+
+wire is_roi_edge = (draw_roi_x && (curr_y >= roi_y) && (curr_y <= roi_y + roi_h)) ||
+                   (draw_roi_y && (curr_x >= roi_x) && (curr_x <= roi_x + roi_w));
+                   
+// 【连接真实的 AI 动态输出坐标】
+wire [10:0] mapped_face_x = face_x; 
+wire [10:0] mapped_face_y = face_y;
+wire [10:0] mapped_face_w = face_w;
+wire [10:0] mapped_face_h = face_h;
+
+wire draw_face_x = (curr_x >= mapped_face_x) && (curr_x <= mapped_face_x + mapped_face_w) &&
+                   ((curr_x < mapped_face_x + 3) || (curr_x > mapped_face_x + mapped_face_w - 3));
+wire draw_face_y = (curr_y >= mapped_face_y) && (curr_y <= mapped_face_y + mapped_face_h) &&
+                   ((curr_y < mapped_face_y + 3) || (curr_y > mapped_face_y + mapped_face_h - 3));
+
+wire is_face_edge = face_valid && (
+                   (draw_face_x && (curr_y >= mapped_face_y) && (curr_y <= mapped_face_y + mapped_face_h)) ||
+                   (draw_face_y && (curr_x >= mapped_face_x) && (curr_x <= mapped_face_x + mapped_face_w))
+                   );
+
+assign hdmi_hs = hdmi_hs_out;
+assign hdmi_vs = hdmi_vs_out;
+assign hdmi_de = hdmi_de_out;
+
+// 【颜色动态切换逻辑】当检测到人脸时，大检测框也会变成红色
+wire [23:0] roi_color = face_valid ? 24'hFF0000 : 24'h00FF00;
+
+// 【像素渲染优先级】小红框优先 -> 大判定框 -> 摄像头原画
+assign hdmi_d  = (hdmi_de_out && (final_x_cnt < 11'd634)) ? 
+                 (is_face_edge ? 24'hFF0000 : 
+                 (is_roi_edge  ? roi_color  : 
+                 hdmi_rgb_out)) : 
+                 24'h000000;
+                 
+// =========================================================
+// 12. HDMI SII9134 I2C 初始化
+// =========================================================
+wire [9:0] lut_index;
+wire [31:0] lut_data;
+i2c_config i2c_config_m0(.rst(~pll_locked), .clk(clk_100mhz), .clk_div_cnt(16'd499), .i2c_addr_2byte(1'b0), .lut_index(lut_index), .lut_dev_addr(lut_data[31:24]), .lut_reg_addr(lut_data[23:8]), .lut_reg_data(lut_data[7:0]), .error(), .done(), .i2c_scl(hdmi_scl), .i2c_sda(hdmi_sda));
+lut_sil9134 lut_sil9134_m0(.lut_index(lut_index), .lut_data(lut_data));
+
+endmodule 
+hdmi_display.v:
+module hdmi_display(
+    input               hdmi_clk,
+    input               rst_n,
+    input               data_req,
+    input       [10:0]  pixel_xpos,
+    input       [10:0]  pixel_ypos,
+    output  reg [23:0]  pixel_data,
+    input       [23:0]  cam_pixel_data,
+    input               cam_buf_ready,
+    output  wire        cam_rd_en,
+    output  wire        vs_start,       // 保留端口但不使用
+    input               dbg_vsync,
+    input               dbg_href
+);
+
+// 摄像头读使能：在有效显示区域且缓存就绪时读取
+assign cam_rd_en = data_req & cam_buf_ready;
+assign vs_start  = 1'b0; // 不再需要
+
+// =========================================================
+// 绿纹暴力抑制器 (动态色彩超限抑制)
+// =========================================================
+wire [7:0] cur_r = cam_pixel_data[23:16];
+wire [7:0] cur_g = cam_pixel_data[15:8];
+wire [7:0] cur_b = cam_pixel_data[7:0];
+
+// =========================================================
+
+always @(posedge hdmi_clk or negedge rst_n) begin
+    if (!rst_n) 
+        pixel_data <= 24'h0;
+    else if (data_req) begin// <--- 彻底去掉了 if (data_req) 的限制！
+        if (!cam_buf_ready) begin
+            // SDRAM未初始化完成时显示彩条
+            if      (pixel_xpos < 11'd80)  pixel_data <= 24'hFFFFFF;
+            else if (pixel_xpos < 11'd160) pixel_data <= 24'hFFFF00;
+            else if (pixel_xpos < 11'd240) pixel_data <= 24'h00FFFF;
+            else if (pixel_xpos < 11'd320) pixel_data <= 24'h00FF00;
+            else if (pixel_xpos < 11'd400) pixel_data <= 24'hFF00FF;
+            else if (pixel_xpos < 11'd480) pixel_data <= 24'hFF0000;
+            else if (pixel_xpos < 11'd560) pixel_data <= 24'h0000FF;
+            else                           pixel_data <= 24'h000000;
+        end else begin
+            // 输出经过安全处理的像素，彻底屏蔽耀眼的绿纹
+            pixel_data <= {cur_r, cur_g, cur_b};
+        end
+    end
+end
+
+endmodule 
+hdmi_driver.v:
+`timescale 1ns / 1ps
+
+module hdmi_driver(
+    input               pixel_clk   ,
+    input               sys_rst_n   ,
+
+    //RGB接口
+    output              video_hs    ,     
+    output              video_vs    ,     
+    output              video_de    ,     
+    output      [23:0]  video_rgb   ,    
+    output  reg         data_req    ,
+
+    input       [23:0]  pixel_data  ,   
+    output  reg [10:0]  pixel_xpos  ,   
+    output  reg [10:0]  pixel_ypos    
+);
+
+    // 640x480@60Hz 分辨率时序参数（单位：像素时钟周期）
+    parameter  H_SYNC   =  11'd96;
+    parameter  H_BACK   =  11'd48;
+    parameter  H_DISP   =  11'd640;
+    parameter  H_FRONT  =  11'd16;
+    parameter  H_TOTAL  =  11'd800;
+
+    parameter  V_SYNC   =  11'd2;
+    parameter  V_BACK   =  11'd33;
+    parameter  V_DISP   =  11'd480;
+    parameter  V_FRONT  =  11'd10;
+    parameter  V_TOTAL  =  11'd525;
+
+    reg  [11:0] cnt_h;
+    reg  [11:0] cnt_v;
+
+    // 请求像素点颜色数据输入
+    always @(posedge pixel_clk or negedge sys_rst_n) begin
+        if(!sys_rst_n)
+            data_req <= 1'b0;
+        else if(((cnt_h >= H_SYNC + H_BACK - 2'd2) && (cnt_h < H_SYNC + H_BACK + H_DISP - 2'd2))
+                && ((cnt_v >= V_SYNC + V_BACK) && (cnt_v < V_SYNC + V_BACK+V_DISP)))
+            data_req <= 1'b1;
+        else
+            data_req <= 1'b0;
+    end
+
+    //像素点x坐标
+    always@ (posedge pixel_clk or negedge sys_rst_n) begin
+        if(!sys_rst_n)
+            pixel_xpos <= 11'd0;
+        else if(data_req)
+            pixel_xpos <= cnt_h + 2'd2 - H_SYNC - H_BACK ;
+        else 
+            pixel_xpos <= 11'd0;
+    end
+        
+    //像素点y坐标    
+    always@ (posedge pixel_clk or negedge sys_rst_n) begin
+        if(!sys_rst_n)
+            pixel_ypos <= 11'd0;
+        else if((cnt_v >= (V_SYNC + V_BACK)) && (cnt_v < (V_SYNC + V_BACK + V_DISP)))
+            pixel_ypos <= cnt_v + 1'b1 - (V_SYNC + V_BACK) ;
+        else 
+            pixel_ypos <= 11'd0;
+    end
+
+    //行计数器对像素时钟计数
+    always @(posedge pixel_clk or negedge sys_rst_n) begin
+        if (!sys_rst_n)
+            cnt_h <= 11'd0;
+        else begin
+            if(cnt_h < H_TOTAL - 1'b1)
+                cnt_h <= cnt_h + 1'b1;
+            else 
+                cnt_h <= 11'd0;
+        end
+    end
+
+    //场计数器对行计数
+    always @(posedge pixel_clk or negedge sys_rst_n) begin
+        if (!sys_rst_n)
+            cnt_v <= 11'd0;
+        else if(cnt_h == H_TOTAL - 1'b1) begin
+            if(cnt_v < V_TOTAL - 1'b1)
+                cnt_v <= cnt_v + 1'b1;
+            else 
+                cnt_v <= 11'd0;
+        end
+    end
+
+    // =========================================================
+    // 关键修正：控制信号全量打拍同步 (Total Delay = 7 Cycles)
+    // 解释：FIFO读取(1拍) + 直方图管线(4拍) + MUX选择(1拍) + Display包装(1拍) = 7 拍
+    // 将底层生成的原始消隐和同步信号无缝延迟 7 个时钟周期，强行吻合数据流！
+    // =========================================================
+    wire raw_hs = ( cnt_h < H_SYNC ) ? 1'b0 : 1'b1;
+    wire raw_vs = ( cnt_v < V_SYNC ) ? 1'b0 : 1'b1;
+
+    reg [6:0] de_shift;
+    reg [6:0] hs_shift;
+    reg [6:0] vs_shift;
+
+    always @(posedge pixel_clk or negedge sys_rst_n) begin
+        if(!sys_rst_n) begin
+            de_shift <= 7'd0;
+            hs_shift <= 7'd0;
+            vs_shift <= 7'd0;
+        end else begin
+            // data_req 就是最早触发图像数据流的 Enable 信号，我们将它打 7 拍变成最终的 DE 信号
+            de_shift <= {de_shift[5:0], data_req};
+            hs_shift <= {hs_shift[5:0], raw_hs};
+            vs_shift <= {vs_shift[5:0], raw_vs};
+        end
+    end
+
+    assign video_de = de_shift[6];
+    assign video_hs = hs_shift[6];
+    assign video_vs = vs_shift[6];
+
+    // RGB888数据输出：现在 video_de 已经和 pixel_data 完美对齐，黑边遮罩不会再误杀正常像素
+    assign video_rgb = video_de ? pixel_data : 24'd0;
+
+endmodule 
+Histogram_Equal_Top.v:
+`timescale 1ns / 1ps
+
+module histogram_equal_top (
+    input  wire        clk,        
+    input  wire        rst_n,      
+    input  wire        vsync,      
+    input  wire        de,         
+    input  wire [15:0] din_rgb565, 
+    output reg  [15:0] dout_rgb565 
+);
+
+// =================================================================
+// 1. RGB提取与亮度(Y)转换 
+// =================================================================
+// 修改点：直接将低位补零，防止极细微的 CMOS 底层热噪声进入乘法器被暴力放大
+wire [7:0] r8 = {din_rgb565[15:11], 3'b000};
+wire [7:0] g8 = {din_rgb565[10:5],  2'b00}; 
+wire [7:0] b8 = {din_rgb565[4:0],   3'b000};
+
+reg [7:0] gray_y;
+reg [7:0] r_d1, g_d1, b_d1;
+reg       de_d1;
+
+// --- 第 1 拍：计算灰度 Y 与提取通道 ---
+always @(posedge clk) begin
+// 强制使用 16 位乘法，防止数据在相加前被截断溢出！
+    gray_y  <= (r8 * 16'd77 + g8 * 16'd150 + b8 * 16'd29) >> 8;
+    //gray_y <= (r8 * 8'd77 + g8 * 8'd150 + b8 * 8'd29) >> 8;
+    r_d1   <= r8; 
+    g_d1   <= g8; 
+    b_d1   <= b8;
+    de_d1  <= de;
+end
+
+// =================================================================
+// 2. 分布式 RAM 与 平滑夜视映射状态机 (保持不变)
+// =================================================================
+(* ramstyle = "logic" *) reg [19:0] his_ram [255:0];
+reg [15:0] gain_lut [255:0];
+
+reg [16:0] inv_lut [255:0];
+integer i;
+initial begin
+    inv_lut[0] = 0;
+    for(i=1; i<256; i=i+1) inv_lut[i] = 65536 / i;
+end
+
+reg vsync_d;
+always @(posedge clk) vsync_d <= vsync;
+wire vsync_pos = vsync & ~vsync_d;
+
+reg [2:0]  state;
+reg [8:0]  cnt;
+reg [31:0] cdf_sum;
+reg [7:0]  map_y;
+reg [31:0] map_y_calc;
+
+reg [31:0] raw_gain;
+reg [8:0]  night_vision_floor;
+
+always @(posedge clk or negedge rst_n) begin
+    if (!rst_n) begin
+        state <= 0; cnt <= 0; cdf_sum <= 0;
+    end else begin
+        if (vsync_pos) begin
+            state <= 2; cnt <= 0; cdf_sum <= 0;
+        end 
+        else if (state == 2) begin 
+            cdf_sum <= cdf_sum + his_ram[cnt[7:0]];
+            state   <= 3;
+        end 
+        else if (state == 3) begin
+            map_y_calc <= (cdf_sum * 10'd873) >> 20; 
+            state <= 4;
+        end 
+        else if (state == 4) begin
+            map_y = map_y_calc[7:0];
+            
+            // 基础托底 40：降低极致暴力的放大倍率，换取画面纯净度
+            night_vision_floor = cnt + 8'd40; 
+            if (night_vision_floor > 255) night_vision_floor = 255;
+            
+            if (map_y < night_vision_floor[7:0]) begin
+                map_y = night_vision_floor[7:0];
+            end
+            
+            raw_gain = ({24'd0, map_y} * inv_lut[cnt[7:0]]) >> 8;
+            
+            if (cnt == 0) begin
+                gain_lut[0] <= 16'd2048; // 控制在 8 倍基础增益
+            end else begin
+                // 上限封锁在 16 倍 (4096)，防止画面过度撕裂
+                if (raw_gain > 32'd4096) 
+                    gain_lut[cnt[7:0]] <= 16'd4096; 
+                else 
+                    gain_lut[cnt[7:0]] <= raw_gain[15:0];
+            end
+
+            if (cnt == 255) begin
+                state <= 1; cnt <= 0;
+            end else begin
+                cnt <= cnt + 1; state <= 2; 
+            end
+        end 
+        else if (state == 1) begin
+            if (cnt == 255) begin
+                state <= 0; cnt <= 0;
+            end else cnt <= cnt + 1;
+        end
+    end
+end
+
+always @(posedge clk) begin
+    if (state == 1) begin
+        his_ram[cnt[7:0]] <= 20'd0; 
+    end 
+    else if (state == 0 && de_d1) begin
+        his_ram[gray_y] <= his_ram[gray_y] + 1'b1; 
+    end
+end
+
+// =================================================================
+// 3. 应用增益与【顺滑去色引擎】 (已修复：拆分为多级流水线，对齐4拍)
+// =================================================================
+reg [15:0] current_gain;
+reg [7:0]  r_d2, g_d2, b_d2, y_d2;
+reg        de_d2;
+
+// --- 第 2 拍：获取映射增益与数据对齐 ---
+always @(posedge clk) begin
+    current_gain <= gain_lut[gray_y];
+    r_d2  <= r_d1; 
+    g_d2  <= g_d1; 
+    b_d2  <= b_d1; 
+    y_d2  <= gray_y; 
+    de_d2 <= de_d1;
+end
+
+// --- 第 3 拍：执行高耗时乘法运算 ---
+// (独立分配一个时钟周期跑乘法，彻底解决建立时间违例引发的高位数据乱码/橙红噪点)
+reg [23:0] new_r, new_g, new_b;
+reg [7:0]  y_d3;
+reg        de_d3;
+
+always @(posedge clk) begin
+    if (de_d2) begin
+        new_r <= ({16'd0, r_d2} * current_gain) >> 8;
+        new_g <= ({16'd0, g_d2} * current_gain) >> 8;
+        new_b <= ({16'd0, b_d2} * current_gain) >> 8;
+        y_d3  <= y_d2;
+        de_d3 <= de_d2;
+    end else begin
+        new_r <= 24'd0;
+        new_g <= 24'd0;
+        new_b <= 24'd0;
+        y_d3  <= 8'd0;
+        de_d3 <= 1'b0;
+    end
+end
+
+// --- 第 4 拍：执行加法、B&W转换与输出饱和截断 ---
+// (完美补齐缺失的 1 拍延迟，使得 dout_rgb565 与 hdmi_ctrl 顶层中 sdram_d4 的原图做到像素级精准对齐！)
+reg [23:0] bw_sum;
+reg [23:0] bw_val;
+reg [23:0] final_r, final_g, final_b;
+
+always @(posedge clk) begin
+    if (de_d3) begin
+        bw_sum = new_r + new_g + new_b;
+        bw_val = (bw_sum * 8'd85) >> 8; 
+
+        // 暗部区域切换黑白 + 柔和静噪门
+        if (y_d3 < 8'd40) begin
+            if (bw_val < 8'd60) begin
+                bw_val = bw_val >> 1; 
+            end
+            final_r = bw_val;
+            final_g = bw_val;
+            final_b = bw_val;
+        end else begin
+            final_r = new_r;
+            final_g = new_g;
+            final_b = new_b;
+        end
+
+        // 终极输出：增加硬件饱和截断保护，防止亮部溢出
+        dout_rgb565[15:11] <= (final_r > 255) ? 5'h1F : final_r[7:3];
+        dout_rgb565[10:5]  <= (final_g > 255) ? 6'h3F : final_g[7:2];
+        dout_rgb565[4:0]   <= (final_b > 255) ? 5'h1F : final_b[7:3];
+    end else begin
+        dout_rgb565 <= 16'd0;
+    end
+end
+
+endmodule 
+i2c_config.v:
+module i2c_config(
+    input               rst,
+    input               clk,
+    input       [15:0]  clk_div_cnt,
+    input               i2c_addr_2byte,
+    output reg  [9:0]   lut_index,
+    input       [7:0]   lut_dev_addr,
+    input       [15:0]  lut_reg_addr,
+    input       [7:0]   lut_reg_data,
+    output reg          error,
+    output              done,
+    inout               i2c_scl,
+    inout               i2c_sda
+);
+
+    wire scl_pad_i;
+    wire scl_pad_o;
+    wire scl_padoen_o;
+
+    wire sda_pad_i;
+    wire sda_pad_o;
+    wire sda_padoen_o;
+
+    assign sda_pad_i = i2c_sda;
+    assign i2c_sda = ~sda_padoen_o ? sda_pad_o : 1'bz;
+    assign scl_pad_i = i2c_scl;
+    assign i2c_scl = ~scl_padoen_o ? scl_pad_o : 1'bz;
+
+    reg i2c_read_req;
+    wire i2c_read_req_ack;
+    reg i2c_write_req;
+    wire i2c_write_req_ack;
+    wire[7:0] i2c_slave_dev_addr;
+    wire[15:0] i2c_slave_reg_addr;
+    wire[7:0] i2c_write_data;
+    wire[7:0] i2c_read_data;
+
+    wire err;
+    reg[2:0] state;
+
+    localparam S_IDLE                =  0;
+    localparam S_WR_I2C_CHECK        =  1;
+    localparam S_WR_I2C              =  2;
+    localparam S_WR_I2C_DONE         =  3;
+
+    assign done = (state == S_WR_I2C_DONE);
+    assign i2c_slave_dev_addr  = lut_dev_addr;
+    assign i2c_slave_reg_addr = lut_reg_addr;
+    assign i2c_write_data  = lut_reg_data;
+
+    always@(posedge clk or posedge rst)
+    begin
+        if(rst)
+        begin
+            state <= S_IDLE;
+            error <= 1'b0;
+            lut_index <= 8'd0;
+        end
+        else 
+            case(state)
+                S_IDLE:
+                begin
+                    state <= S_WR_I2C_CHECK;
+                    error <= 1'b0;
+                    lut_index <= 8'd0;
+                end
+                S_WR_I2C_CHECK:
+                begin
+                    if(i2c_slave_dev_addr != 8'hff)
+                    begin
+                        i2c_write_req <= 1'b1;
+                        state <= S_WR_I2C;
+                    end
+                    else
+                    begin
+                        state <= S_WR_I2C_DONE;
+                    end
+                end
+                S_WR_I2C:
+                begin
+                    if(i2c_write_req_ack)
+                    begin
+                        error <= err ? 1'b1 : error; 
+                        lut_index <= lut_index + 8'd1;
+                        i2c_write_req <= 1'b0;
+                        state <= S_WR_I2C_CHECK;
+                    end
+                end
+                S_WR_I2C_DONE:
+                begin
+                    state <= S_WR_I2C_DONE;
+                end
+                default:
+                    state <= S_IDLE;
+            endcase
+    end
+
+    i2c_master_top i2c_master_top_m0(
+        .rst(rst),
+        .clk(clk),
+        .clk_div_cnt(clk_div_cnt),
+        
+        // I2C signals
+        // i2c clock line
+        .scl_pad_i(scl_pad_i),       // SCL-line input
+        .scl_pad_o(scl_pad_o),       // SCL-line output (always 1'b0)
+        .scl_padoen_o(scl_padoen_o),    // SCL-line output enable (active low)
+
+        // i2c data line
+        .sda_pad_i(sda_pad_i),       // SDA-line input
+        .sda_pad_o(sda_pad_o),       // SDA-line output (always 1'b0)
+        .sda_padoen_o(sda_padoen_o),    // SDA-line output enable (active low)
+        
+        .i2c_read_req(i2c_read_req),
+        .i2c_addr_2byte(i2c_addr_2byte),
+        .i2c_read_req_ack(i2c_read_req_ack),
+        .i2c_write_req(i2c_write_req),
+        .i2c_write_req_ack(i2c_write_req_ack),
+        .i2c_slave_dev_addr(i2c_slave_dev_addr),
+        .i2c_slave_reg_addr(i2c_slave_reg_addr),
+        .i2c_write_data(i2c_write_data),
+        .i2c_read_data(i2c_read_data),
+        .error(err)
+    );
+
+endmodule 
+i2c_master_bit_ctrl.v:
+// synopsys translate_off
+`include "timescale.v"
+// synopsys translate_on
+
+module i2c_master_bit_ctrl (
+    input             clk,      // system clock
+    input             rst,      // synchronous active high reset
+    input             nReset,   // asynchronous active low reset
+    input             ena,      // core enable signal
+
+    input      [15:0] clk_cnt,  // clock prescale value
+
+    input      [ 3:0] cmd,      // command (from byte controller)
+    output reg        cmd_ack,  // command complete acknowledge
+    output reg        busy,     // i2c bus busy
+    output reg        al,       // i2c bus arbitration lost
+
+    input             din,
+    output reg        dout,
+
+    input             scl_i,    // i2c clock line input
+    output            scl_o,    // i2c clock line output
+    output reg        scl_oen,  // i2c clock line output enable (active low)
+    input             sda_i,    // i2c data line input
+    output            sda_o,    // i2c data line output
+    output reg        sda_oen   // i2c data line output enable (active low)
+);
+
+    parameter I2C_CMD_NOP    = 4'b0000;
+    parameter I2C_CMD_START  = 4'b0001;
+    parameter I2C_CMD_STOP   = 4'b0010;
+    parameter I2C_CMD_WRITE  = 4'b0100;
+    parameter I2C_CMD_READ   = 4'b1000;
+
+    //
+    // variable declarations
+    //
+
+    reg [ 1:0] cSCL, cSDA;      // capture SCL and SDA
+    reg [ 2:0] fSCL, fSDA;      // SCL and SDA filter inputs
+    reg        sSCL, sSDA;      // filtered and synchronized SCL and SDA inputs
+    reg        dSCL, dSDA;      // delayed versions of sSCL and sSDA
+    reg        dscl_oen;        // delayed scl_oen
+    reg        sda_chk;         // check SDA output (Multi-master arbitration)
+    reg        clk_en;          // clock generation signals
+    reg        slave_wait;      // slave inserts wait states
+    reg [15:0] cnt;             // clock divider counter (synthesis)
+    reg [13:0] filter_cnt;      // clock divider for filter
+
+    // state machine variable
+    reg [17:0] c_state; // synopsys enum_state
+
+    //
+    // module body
+    //
+
+    // whenever the slave is not ready it can delay the cycle by pulling SCL low
+    // delay scl_oen
+    always @(posedge clk)
+      dscl_oen <= #1 scl_oen;
+
+    // slave_wait is asserted when master wants to drive SCL high, but the slave pulls it low
+    // slave_wait remains asserted until the slave releases SCL
+    always @(posedge clk or negedge nReset)
+      if (!nReset) slave_wait <= 1'b0;
+      else         slave_wait <= (scl_oen & ~dscl_oen & ~sSCL) | (slave_wait & ~sSCL);
+
+    // master drives SCL high, but another master pulls it low
+    // master start counting down its low cycle now (clock synchronization)
+    wire scl_sync   = dSCL & ~sSCL & scl_oen;
+
+    // generate clk enable signal
+    always @(posedge clk or negedge nReset)
+      if (~nReset)
+      begin
+          cnt    <= #1 16'h0;
+          clk_en <= #1 1'b1;
+      end
+      else if (rst || ~|cnt || !ena || scl_sync)
+      begin
+          cnt    <= #1 clk_cnt;
+          clk_en <= #1 1'b1;
+      end
+      else if (slave_wait)
+      begin
+          cnt    <= #1 cnt;
+          clk_en <= #1 1'b0;    
+      end
+      else
+      begin
+          cnt    <= #1 cnt - 16'h1;
+          clk_en <= #1 1'b0;
+      end
+
+    // generate bus status controller
+
+    // capture SDA and SCL
+    // reduce metastability risk
+    always @(posedge clk or negedge nReset)
+      if (!nReset)
+      begin
+          cSCL <= #1 2'b00;
+          cSDA <= #1 2'b00;
+      end
+      else if (rst)
+      begin
+          cSCL <= #1 2'b00;
+          cSDA <= #1 2'b00;
+      end
+      else
+      begin
+          cSCL <= {cSCL[0],scl_i};
+          cSDA <= {cSDA[0],sda_i};
+      end
+
+    // filter SCL and SDA signals; (attempt to) remove glitches
+    always @(posedge clk or negedge nReset)
+      if      (!nReset     ) filter_cnt <= 14'h0;
+      else if (rst || !ena ) filter_cnt <= 14'h0;
+      else if (~|filter_cnt) filter_cnt <= clk_cnt >> 2; //16x I2C bus frequency
+      else                   filter_cnt <= filter_cnt -1;
+
+    always @(posedge clk or negedge nReset)
+      if (!nReset)
+      begin
+          fSCL <= 3'b111;
+          fSDA <= 3'b111;
+      end
+      else if (rst)
+      begin
+          fSCL <= 3'b111;
+          fSDA <= 3'b111;
+      end
+      else if (~|filter_cnt)
+      begin
+          fSCL <= {fSCL[1:0],cSCL[1]};
+          fSDA <= {fSDA[1:0],cSDA[1]};
+      end
+
+    // generate filtered SCL and SDA signals
+    always @(posedge clk or negedge nReset)
+      if (~nReset)
+      begin
+          sSCL <= #1 1'b1;
+          sSDA <= #1 1'b1;
+
+          dSCL <= #1 1'b1;
+          dSDA <= #1 1'b1;
+      end
+      else if (rst)
+      begin
+          sSCL <= #1 1'b1;
+          sSDA <= #1 1'b1;
+
+          dSCL <= #1 1'b1;
+          dSDA <= #1 1'b1;
+      end
+      else
+      begin
+          sSCL <= #1 &fSCL[2:1] | &fSCL[1:0] | (fSCL[2] & fSCL[0]);
+          sSDA <= #1 &fSDA[2:1] | &fSDA[1:0] | (fSDA[2] & fSDA[0]);
+
+          dSCL <= #1 sSCL;
+          dSDA <= #1 sSDA;
+      end
+
+    // detect start condition => detect falling edge on SDA while SCL is high
+    // detect stop condition => detect rising edge on SDA while SCL is high
+    reg sta_condition;
+    reg sto_condition;
+    always @(posedge clk or negedge nReset)
+      if (~nReset)
+      begin
+          sta_condition <= #1 1'b0;
+          sto_condition <= #1 1'b0;
+      end
+      else if (rst)
+      begin
+          sta_condition <= #1 1'b0;
+          sto_condition <= #1 1'b0;
+      end
+      else
+      begin
+          sta_condition <= #1 ~sSDA &  dSDA & sSCL;
+          sto_condition <= #1  sSDA & ~dSDA & sSCL;
+      end
+
+    // generate i2c bus busy signal
+    always @(posedge clk or negedge nReset)
+      if      (!nReset) busy <= #1 1'b0;
+      else if (rst    ) busy <= #1 1'b0;
+      else              busy <= #1 (sta_condition | busy) & ~sto_condition;
+
+    // generate arbitration lost signal
+    // aribitration lost when:
+    // 1) master drives SDA high, but the i2c bus is low
+    // 2) stop detected while not requested
+    reg cmd_stop;
+    always @(posedge clk or negedge nReset)
+      if (~nReset)
+          cmd_stop <= #1 1'b0;
+      else if (rst)
+          cmd_stop <= #1 1'b0;
+      else if (clk_en)
+          cmd_stop <= #1 cmd == I2C_CMD_STOP;
+
+    always @(posedge clk or negedge nReset)
+      if (~nReset)
+          al <= #1 1'b0;
+      else if (rst)
+          al <= #1 1'b0;
+      else
+          al <= #1 (sda_chk & ~sSDA & sda_oen) | (|c_state & sto_condition & ~cmd_stop);
+
+    // generate dout signal (store SDA on rising edge of SCL)
+    always @(posedge clk)
+      if (sSCL & ~dSCL) dout <= #1 sSDA;
+
+    // generate statemachine
+
+    // nxt_state decoder
+    parameter [17:0] idle    = 18'b0_0000_0000_0000_0000;
+    parameter [17:0] start_a = 18'b0_0000_0000_0000_0001;
+    parameter [17:0] start_b = 18'b0_0000_0000_0000_0010;
+    parameter [17:0] start_c = 18'b0_0000_0000_0000_0100;
+    parameter [17:0] start_d = 18'b0_0000_0000_0000_1000;
+    parameter [17:0] start_e = 18'b0_0000_0000_0001_0000;
+    parameter [17:0] stop_a  = 18'b0_0000_0000_0010_0000;
+    parameter [17:0] stop_b  = 18'b0_0000_0000_0100_0000;
+    parameter [17:0] stop_c  = 18'b0_0000_0000_1000_0000;
+    parameter [17:0] stop_d  = 18'b0_0000_0001_0000_0000;
+    parameter [17:0] rd_a    = 18'b0_0000_0010_0000_0000;
+    parameter [17:0] rd_b    = 18'b0_0000_0100_0000_0000;
+    parameter [17:0] rd_c    = 18'b0_0000_1000_0000_0000;
+    parameter [17:0] rd_d    = 18'b0_0001_0000_0000_0000;
+    parameter [17:0] wr_a    = 18'b0_0010_0000_0000_0000;
+    parameter [17:0] wr_b    = 18'b0_0100_0000_0000_0000;
+    parameter [17:0] wr_c    = 18'b0_1000_0000_0000_0000;
+    parameter [17:0] wr_d    = 18'b1_0000_0000_0000_0000;
+
+    always @(posedge clk or negedge nReset)
+      if (!nReset)
+      begin
+          c_state <= #1 idle;
+          cmd_ack <= #1 1'b0;
+          scl_oen <= #1 1'b1;
+          sda_oen <= #1 1'b1;
+          sda_chk <= #1 1'b0;
+      end
+      else if (rst | al)
+      begin
+          c_state <= #1 idle;
+          cmd_ack <= #1 1'b0;
+          scl_oen <= #1 1'b1;
+          sda_oen <= #1 1'b1;
+          sda_chk <= #1 1'b0;
+      end
+      else
+      begin
+          cmd_ack   <= #1 1'b0; // default no command acknowledge + assert cmd_ack only 1clk cycle
+
+          if (clk_en)
+              case (c_state) // synopsys full_case parallel_case
+                    // idle state
+                    idle:
+                    begin
+                        case (cmd) // synopsys full_case parallel_case
+                             I2C_CMD_START: c_state <= #1 start_a;
+                             I2C_CMD_STOP:  c_state <= #1 stop_a;
+                             I2C_CMD_WRITE: c_state <= #1 wr_a;
+                             I2C_CMD_READ:  c_state <= #1 rd_a;
+                             default:        c_state <= #1 idle;
+                        endcase
+
+                        scl_oen <= #1 scl_oen; // keep SCL in same state
+                        sda_oen <= #1 sda_oen; // keep SDA in same state
+                        sda_chk <= #1 1'b0;    // don't check SDA output
+                    end
+
+                    // start
+                    start_a:
+                    begin
+                        c_state <= #1 start_b;
+                        scl_oen <= #1 scl_oen; // keep SCL in same state
+                        sda_oen <= #1 1'b1;    // set SDA high
+                        sda_chk <= #1 1'b0;    // don't check SDA output
+                    end
+
+                    start_b:
+                    begin
+                        c_state <= #1 start_c;
+                        scl_oen <= #1 1'b1; // set SCL high
+                        sda_oen <= #1 1'b1; // keep SDA high
+                        sda_chk <= #1 1'b0; // don't check SDA output
+                    end
+
+                    start_c:
+                    begin
+                        c_state <= #1 start_d;
+                        scl_oen <= #1 1'b1; // keep SCL high
+                        sda_oen <= #1 1'b0; // set SDA low
+                        sda_chk <= #1 1'b0; // don't check SDA output
+                    end
+
+                    start_d:
+                    begin
+                        c_state <= #1 start_e;
+                        scl_oen <= #1 1'b1; // keep SCL high
+                        sda_oen <= #1 1'b0; // keep SDA low
+                        sda_chk <= #1 1'b0; // don't check SDA output
+                    end
+
+                    start_e:
+                    begin
+                        c_state <= #1 idle;
+                        cmd_ack <= #1 1'b1;
+                        scl_oen <= #1 1'b0; // set SCL low
+                        sda_oen <= #1 1'b0; // keep SDA low
+                        sda_chk <= #1 1'b0; // don't check SDA output
+                    end
+
+                    // stop
+                    stop_a:
+                    begin
+                        c_state <= #1 stop_b;
+                        scl_oen <= #1 1'b0; // keep SCL low
+                        sda_oen <= #1 1'b0; // set SDA low
+                        sda_chk <= #1 1'b0; // don't check SDA output
+                    end
+
+                    stop_b:
+                    begin
+                        c_state <= #1 stop_c;
+                        scl_oen <= #1 1'b1; // set SCL high
+                        sda_oen <= #1 1'b0; // keep SDA low
+                        sda_chk <= #1 1'b0; // don't check SDA output
+                    end
+
+                    stop_c:
+                    begin
+                        c_state <= #1 stop_d;
+                        scl_oen <= #1 1'b1; // keep SCL high
+                        sda_oen <= #1 1'b0; // keep SDA low
+                        sda_chk <= #1 1'b0; // don't check SDA output
+                    end
+
+                    stop_d:
+                    begin
+                        c_state <= #1 idle;
+                        cmd_ack <= #1 1'b1;
+                        scl_oen <= #1 1'b1; // keep SCL high
+                        sda_oen <= #1 1'b1; // set SDA high
+                        sda_chk <= #1 1'b0; // don't check SDA output
+                    end
+
+                    // read
+                    rd_a:
+                    begin
+                        c_state <= #1 rd_b;
+                        scl_oen <= #1 1'b0; // keep SCL low
+                        sda_oen <= #1 1'b1; // tri-state SDA
+                        sda_chk <= #1 1'b0; // don't check SDA output
+                    end
+
+                    rd_b:
+                    begin
+                        c_state <= #1 rd_c;
+                        scl_oen <= #1 1'b1; // set SCL high
+                        sda_oen <= #1 1'b1; // keep SDA tri-stated
+                        sda_chk <= #1 1'b0; // don't check SDA output
+                    end
+
+                    rd_c:
+                    begin
+                        c_state <= #1 rd_d;
+                        scl_oen <= #1 1'b1; // keep SCL high
+                        sda_oen <= #1 1'b1; // keep SDA tri-stated
+                        sda_chk <= #1 1'b0; // don't check SDA output
+                    end
+
+                    rd_d:
+                    begin
+                        c_state <= #1 idle;
+                        cmd_ack <= #1 1'b1;
+                        scl_oen <= #1 1'b0; // set SCL low
+                        sda_oen <= #1 1'b1; // keep SDA tri-stated
+                        sda_chk <= #1 1'b0; // don't check SDA output
+                    end
+
+                    // write
+                    wr_a:
+                    begin
+                        c_state <= #1 wr_b;
+                        scl_oen <= #1 1'b0; // keep SCL low
+                        sda_oen <= #1 din;  // set SDA
+                        sda_chk <= #1 1'b0; // don't check SDA output (SCL low)
+                    end
+
+                    wr_b:
+                    begin
+                        c_state <= #1 wr_c;
+                        scl_oen <= #1 1'b1; // set SCL high
+                        sda_oen <= #1 din;  // keep SDA
+                        sda_chk <= #1 1'b0; // don't check SDA output yet
+                                            // allow some time for SDA and SCL to settle
+                    end
+
+                    wr_c:
+                    begin
+                        c_state <= #1 wr_d;
+                        scl_oen <= #1 1'b1; // keep SCL high
+                        sda_oen <= #1 din;
+                        sda_chk <= #1 1'b1; // check SDA output
+                    end
+
+                    wr_d:
+                    begin
+                        c_state <= #1 idle;
+                        cmd_ack <= #1 1'b1;
+                        scl_oen <= #1 1'b0; // set SCL low
+                        sda_oen <= #1 din;
+                        sda_chk <= #1 1'b0; // don't check SDA output (SCL low)
+                    end
+
+              endcase
+      end
+
+    // assign scl and sda output (always gnd)
+    assign scl_o = 1'b0;
+    assign sda_o = 1'b0;
+
+endmodule 

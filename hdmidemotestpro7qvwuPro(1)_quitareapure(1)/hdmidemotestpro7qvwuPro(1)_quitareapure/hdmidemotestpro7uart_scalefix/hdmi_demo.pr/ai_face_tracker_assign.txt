@@ -4,7 +4,8 @@ b8,cam_data
 gray,r8,g8,b8
 vsync_fall,cam_vsync_d1,~cam_vsync,!rst_n
 write_en,cam_de,pix_x,pix_y
-write_addr,pix_y,AI_W,pix_x,AI_W,AI_H
+write_addr,pix_y,AI_W,pix_x,AI_W,AI_H,AI_W,AI_H,!rst_n,~wr_bank
+rd_bank,wr_bank_cdc
 frame_start,vsync_cdc,vsync_cdc,!rst_n
 actual_vj_step,current_step
 face_valid,face_valid_reg

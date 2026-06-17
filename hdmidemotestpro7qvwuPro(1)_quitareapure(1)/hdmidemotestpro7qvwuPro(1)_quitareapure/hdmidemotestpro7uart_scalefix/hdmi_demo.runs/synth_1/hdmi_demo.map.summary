@@ -1,12 +1,12 @@
-Analysis & Synthesis Status : Successful - Wed Jun 10 14:40:38 2026
+Analysis & Synthesis Status : Successful - Wed Jun 17 15:07:45 2026
 eLinx 64-Bit Version : 13.0.1 Build 232 06/12/2013 SP 1 SJ Full Version
 Revision Name : hdmi_demo
 Top-level Entity Name : hdmi_ctrl
 Family : eHiChip6
-Total logic elements : 4,730
+Total logic elements : 4,724
 Total pins : 95
 Total virtual pins : 0
 Total memory bits : 345,687
-DSP block 9-bit elements : 30
+DSP block 9-bit elements : 28
 Total PLLs : 1
 Total DLLs : 0

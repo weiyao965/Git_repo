@@ -1,0 +1,1385 @@
+uart_tx.v:
+`timescale  1ns/1ns
+////////////////////////////////////////////////////////////////////////
+// Author        : EmbedFire
+// Create Date   : 2019/06/12
+// Module Name   : uart_tx
+// Project Name  : uart_sdram
+// Target Devices: Altera EP4CE10F17C8N
+// Tool Versions : Quartus 13.0
+// Description   : 
+// 
+// Revision      : V1.0
+// Additional Comments:
+// 
+// 实验平台: 野火_征途Pro_FPGA开发板
+// 公司    : http://www.embedfire.com
+// 论坛    : http://www.firebbs.cn
+// 淘宝    : https://fire-stm32.taobao.com
+////////////////////////////////////////////////////////////////////////
+
+module  uart_tx
+#(
+    parameter   UART_BPS    =   'd9600,         //串口波特率
+    parameter   CLK_FREQ    =   'd50_000_000    //时钟频率
+)
+(
+     input   wire            sys_clk     ,   //系统时钟50MHz
+     input   wire            sys_rst_n   ,   //全局复位
+     input   wire    [7:0]   pi_data     ,   //模块输入的8bit数据
+     input   wire            pi_flag     ,   //并行数据有效标志信号
+ 
+     output  reg             tx              //串转并后的1bit数据
+);
+
+//********************************************************************//
+//****************** Parameter and Internal Signal *******************//
+//********************************************************************//
+//localparam    define
+localparam  BAUD_CNT_MAX    =   CLK_FREQ/UART_BPS   ;
+
+//reg   define
+reg [12:0]  baud_cnt;
+reg         bit_flag;
+reg [3:0]   bit_cnt ;
+reg         work_en ;
+
+//********************************************************************//
+//***************************** Main Code ****************************//
+//********************************************************************//
+//work_en:接收数据工作使能信号
+always@(posedge sys_clk or negedge sys_rst_n)
+        if(sys_rst_n == 1'b0)
+            work_en <= 1'b0;
+        else    if(pi_flag == 1'b1)
+            work_en <= 1'b1;
+        else    if((bit_flag == 1'b1) && (bit_cnt == 4'd9))
+            work_en <= 1'b0;
+
+//baud_cnt:波特率计数器计数，从0计数到BAUD_CNT_MAX - 1
+always@(posedge sys_clk or negedge sys_rst_n)
+        if(sys_rst_n == 1'b0)
+            baud_cnt <= 13'b0;
+        else    if((baud_cnt == BAUD_CNT_MAX - 1) || (work_en == 1'b0))
+            baud_cnt <= 13'b0;
+        else    if(work_en == 1'b1)
+            baud_cnt <= baud_cnt + 1'b1;
+
+//bit_flag:当baud_cnt计数器计数到1时让bit_flag拉高一个时钟的高电平
+always@(posedge sys_clk or negedge sys_rst_n)
+        if(sys_rst_n == 1'b0)
+            bit_flag <= 1'b0;
+        else    if(baud_cnt == 13'd1)
+            bit_flag <= 1'b1;
+        else
+            bit_flag <= 1'b0;
+
+//bit_cnt:数据位数个数计数，10个有效数据（含起始位和停止位）到来后计数器清零
+always@(posedge sys_clk or negedge sys_rst_n)
+    if(sys_rst_n == 1'b0)
+        bit_cnt <= 4'b0;
+    else    if((bit_flag == 1'b1) && (bit_cnt == 4'd9))
+        bit_cnt <= 4'b0;
+    else    if((bit_flag == 1'b1) && (work_en == 1'b1))
+        bit_cnt <= bit_cnt + 1'b1;
+
+//tx:输出数据在满足rs232协议（起始位为0，停止位为1）的情况下一位一位输出
+always@(posedge sys_clk or negedge sys_rst_n)
+        if(sys_rst_n == 1'b0)
+            tx <= 1'b1; //空闲状态时为高电平
+        else    if(bit_flag == 1'b1)
+            case(bit_cnt)
+                0       : tx <= 1'b0;
+                1       : tx <= pi_data[0];
+                2       : tx <= pi_data[1];
+                3       : tx <= pi_data[2];
+                4       : tx <= pi_data[3];
+                5       : tx <= pi_data[4];
+                6       : tx <= pi_data[5];
+                7       : tx <= pi_data[6];
+                8       : tx <= pi_data[7];
+                9       : tx <= 1'b1;
+                default : tx <= 1'b1;
+            endcase
+
+endmodule
+ 
+video_address_mapper.v:
+`timescale 1ns / 1ps
+
+module video_address_mapper (
+    input  wire [1:0]  rot_mode,    // 旋转模式: 00=0°, 01=90°, 10=180°, 11=270°
+    input  wire [10:0] pixel_x,     // 当前视频流所在的 X 坐标
+    input  wire [10:0] pixel_y,     // 当前视频流所在的 Y 坐标
+    input  wire [10:0] img_width,   // 图像原始宽度 (如 640)
+    input  wire [10:0] img_height,  // 图像原始高度 (如 480)
+    
+    output reg  [23:0] sdram_addr   // 映射后的 SDRAM 绝对物理地址
+);
+
+    wire [23:0] orig_addr;
+    wire [23:0] rot90_addr;
+    wire [23:0] rot180_addr;
+    wire [23:0] rot270_addr;
+
+    // 0度：常规线性映射 (Y * 宽度 + X)
+    assign orig_addr = (pixel_y * img_width) + pixel_x;
+
+    // 90度顺时针：矩阵转置 + X轴镜像
+    // 新 X = 原 Y ; 新 Y = (宽度 - 1 - 原 X)
+    assign rot90_addr = ((img_width - 1'b1 - pixel_x) * img_height) + pixel_y;
+
+    // 180度：中心对称点映射
+    assign rot180_addr = ((img_height - 1'b1 - pixel_y) * img_width) + (img_width - 1'b1 - pixel_x);
+
+    // 270度顺时针：矩阵转置 + Y轴镜像
+    // 新 X = (高度 - 1 - 原 Y) ; 新 Y = 原 X
+    assign rot270_addr = (pixel_x * img_height) + (img_height - 1'b1 - pixel_y);
+
+    // 多路选择器输出最终写入地址
+    always @(*) begin
+        case (rot_mode)
+            2'b00: sdram_addr = orig_addr;
+            2'b01: sdram_addr = rot90_addr;
+            2'b10: sdram_addr = rot180_addr;
+            2'b11: sdram_addr = rot270_addr;
+            default: sdram_addr = orig_addr;
+        endcase
+    end
+
+endmodule 
+video_scaler_nn.v:
+`timescale 1ns / 1ps
+
+module video_scaler_nn (
+    input  wire        clk,
+    input  wire        rst_n,
+    input  wire [12:0] scale_step, // 来自上位机/按键的步进参数 (100MHz 异步域)
+
+    input  wire        cam_vsync,
+    input  wire        cam_href,
+    input  wire [15:0] cam_data_in,
+    input  wire        cam_data_valid,
+
+    output reg  [15:0] scaler_data_out,
+    output reg         scaler_valid_out,
+    
+    input  wire        rot_180_en
+);
+
+    // =========================================================
+    // 0. 步调器 (Pacing Generator) 
+    // 原汁原味保留：限制最高输出速率为 12MHz，防止撑爆 FIFO
+    // =========================================================
+    reg pace_en;
+    always @(posedge clk or negedge rst_n) begin
+        if (!rst_n) pace_en <= 1'b0;
+        else        pace_en <= ~pace_en; 
+    end
+
+    // =========================================================
+    // 1. 【核心修复 1】跨时钟域两级同步器 (CDC Synchronizer)
+    // 彻底消除拖拽滑块时的总线亚稳态毛刺
+    // =========================================================
+    reg [12:0] scale_step_sync1;
+    reg [12:0] scale_step_sync2;
+    always @(posedge clk or negedge rst_n) begin
+        if (!rst_n) begin
+            scale_step_sync1 <= 13'd256;
+            scale_step_sync2 <= 13'd256;
+        end else begin
+            scale_step_sync1 <= scale_step;       // 第一拍跨域缓冲
+            scale_step_sync2 <= scale_step_sync1; // 第二拍消除亚稳态
+        end
+    end
+
+    // 绝对帧同步锁存 (使用同步后的干净数据)
+    reg [12:0] safe_step;
+    always @(posedge clk or negedge rst_n) begin
+        if (!rst_n) safe_step <= 13'd256;
+        else if (cam_vsync) safe_step <= scale_step_sync2; // 【修复】改为采样 sync2
+    end
+
+    // 2. 乒乓 BRAM 缓存两行源图数据 (完全原版)
+    (* ramstyle = "block" *) reg [15:0] bank0 [0:639];
+    (* ramstyle = "block" *) reg [15:0] bank1 [0:639];
+
+    reg [10:0] x_src, y_src;
+    reg wr_bank;
+
+    always @(posedge clk or negedge rst_n) begin
+        if (!rst_n) begin 
+            x_src <= 11'd0; y_src <= 11'd0; wr_bank <= 1'b0; 
+        end
+        else if (cam_vsync) begin 
+            x_src <= 11'd0; y_src <= 11'd0; wr_bank <= 1'b0; 
+        end
+        else if (cam_data_valid) begin
+            if (wr_bank == 1'b0) bank0[x_src] <= cam_data_in;
+            else                 bank1[x_src] <= cam_data_in;
+            
+            if (x_src == 11'd639) begin
+                x_src <= 11'd0;
+                y_src <= y_src + 1'b1;
+                wr_bank <= ~wr_bank;
+            end else begin
+                x_src <= x_src + 1'b1;
+            end
+        end
+    end
+
+    // =========================================================
+    // 3. 目标坐标系严谨的有符号数映射 (修复符号位丢失Bug)
+    // =========================================================
+    reg [10:0] x_dst, y_dst;
+    
+    wire signed [13:0] s_step = {1'b0, safe_step};
+
+    // --- Y 坐标映射 ---
+    wire signed [13:0] s_y_dst = {3'b000, y_dst};
+    wire signed [13:0] y_dst_offset = s_y_dst - 14'sd240;
+    wire signed [27:0] y_src_scaled = y_dst_offset * s_step;
+    // 用 [27:8] 手动截断取代 >>> 8，并强制声明为有符号数，绝杀正负反转
+    wire signed [13:0] y_src_mapped = 14'sd240 + $signed(y_src_scaled[27:8]);
+    
+    wire y_is_black = (y_src_mapped < 0 || y_src_mapped > 479);
+    wire [10:0] y_req = (y_src_mapped < 0) ? 11'd0 : y_src_mapped[10:0];
+
+    // --- X 坐标映射 ---
+    wire signed [13:0] s_x_dst = {3'b000, x_dst};
+    wire signed [13:0] x_dst_offset = s_x_dst - 14'sd320;
+    wire signed [27:0] x_src_scaled = x_dst_offset * s_step;
+    // 同理保护 X 方向坐标
+    wire signed [13:0] x_src_mapped = 14'sd320 + $signed(x_src_scaled[27:8]);
+    
+    wire x_is_black = (x_src_mapped < 0 || x_src_mapped > 639);
+    wire [9:0] x_req = (x_src_mapped < 0) ? 10'd0 :
+                       (x_src_mapped > 639) ? 10'd639 : x_src_mapped[9:0];
+
+    // =========================================================
+    // 4. 状态机 
+    // 加入 Flush 救砖补齐，拒绝中途太监
+    // =========================================================
+    localparam S_IDLE  = 2'd0;
+    localparam S_CHECK = 2'd1;
+    localparam S_BURST = 2'd2;
+    reg [1:0] state;
+
+    // 标志旗：VSYNC来了，但我们还没输出完 480 行，拉起红灯！
+    reg flush_mode;
+    always @(posedge clk or negedge rst_n) begin
+        if (!rst_n) flush_mode <= 1'b0;
+        else if (cam_vsync && y_dst > 0 && y_dst < 11'd480) flush_mode <= 1'b1;
+        else if (y_dst == 11'd480) flush_mode <= 1'b0; // 补齐完成，降下红灯
+    end
+
+    always @(posedge clk or negedge rst_n) begin
+        if (!rst_n) begin
+            state <= S_IDLE;
+            y_dst <= 11'd0;
+            x_dst <= 11'd0;
+        end 
+        // 只有当 (VSYNC 高电平) 且 (没在补齐) 且 (已经完美归零)，才乖乖趴在原地等新帧
+        else if (cam_vsync && !flush_mode && y_dst == 11'd0) begin
+            state <= S_CHECK;
+            y_dst <= 11'd0;
+            x_dst <= 11'd0;
+        end 
+        else begin
+            case(state)
+                S_CHECK: begin
+                    if (y_dst == 11'd480) begin
+                        state <= S_IDLE;
+                        y_dst <= 11'd0; // 发满 480 行后，自动重置回 0
+                    end else if (y_is_black || y_src > y_req || flush_mode) begin
+                        state <= S_BURST; 
+                    end
+                end
+                
+                S_BURST: begin
+                    // 正常情况用 12MHz 限速。如果是救砖补齐(flush_mode)，以 24MHz 全速狂飙！
+                    if (pace_en || flush_mode) begin 
+                        if (x_dst == 11'd639) begin
+                            x_dst <= 11'd0;
+                            y_dst <= y_dst + 1'b1;
+                            state <= S_CHECK;
+                        end else begin
+                            x_dst <= x_dst + 1'b1;
+                        end
+                    end
+                end
+                
+                S_IDLE: state <= S_IDLE;
+
+                // ====================================================
+                // 【核心修复 2】状态机致命死锁救砖：添加 default
+                // 防止亚稳态或硬件杂讯导致状态跳入 2'b11 永远卡死的情况
+                // ====================================================
+                default: begin
+                    state <= S_IDLE;
+                    y_dst <= 11'd0;
+                    x_dst <= 11'd0;
+                end
+            endcase
+        end
+    end
+
+    // =========================================================
+    // 5. 数据对齐与黑边渲染流水线
+    // =========================================================
+    reg        valid_p1;
+    reg        is_black_p1;
+    reg        bank_sel_p1;
+    reg [15:0] b_data_0, b_data_1;
+    
+    // 帧锁存器：确保水平翻转只在帧首生效，绝不中途撕裂画面！
+    reg rot_180_latched;
+    always @(posedge clk or negedge rst_n) begin
+        if (!rst_n) rot_180_latched <= 1'b0;
+        else if (cam_vsync) rot_180_latched <= rot_180_en;
+    end
+    
+    // 水平翻转算法：严格使用锁存后的 rot_180_latched，保证整帧状态一致！
+    wire [9:0] actual_x_req = rot_180_latched ? (10'd639 - x_req) : x_req;
+    
+    always @(posedge clk) begin
+        b_data_0 <= bank0[actual_x_req]; 
+        b_data_1 <= bank1[actual_x_req]; 
+        
+        valid_p1 <= (state == S_BURST) && (pace_en || flush_mode); 
+        
+        // 在强制补齐期间，统统输出纯黑像素，不读内存，防错乱！
+        is_black_p1 <= y_is_black || x_is_black || flush_mode;
+        bank_sel_p1 <= y_req[0]; 
+    end
+
+    always @(posedge clk or negedge rst_n) begin
+        if (!rst_n) begin
+            scaler_valid_out <= 1'b0;
+            scaler_data_out  <= 16'd0;
+        end else begin
+            scaler_valid_out <= valid_p1;
+            if (is_black_p1) 
+                scaler_data_out <= 16'h0000;
+            else 
+                scaler_data_out <= bank_sel_p1 ? b_data_1 : b_data_0;
+        end
+    end
+
+endmodule 
+vj.v:
+// Copyright (c) 2018  LulinChen, All Rights Reserved
+// 终极一维拍平修复版 - 避开国产 EDA 综合器二维数组索引 MUX 坍塌 Bug
+
+`include "global.v"
+
+module vj(
+	input					clk,
+	input 					rstn,
+	input	[`W_PW:0]		pic_width,
+	input	[`W_PH:0]		pic_height,
+	input					init,
+	input	[`W1P*`W_SIZE-1:0]		pixel_i,
+	input					pixel_i_en,
+	output reg				ready_for_next_col,				
+	output					cascade_ready,
+	
+	output					col_end,
+	output reg				face_detected
+	);
+
+(* max_fanout = 32 *)	reg		[32:0]	pixel_i_en_d;
+	always @(*)		pixel_i_en_d[0] = pixel_i_en;
+	always @(`CLK_RST_EDGE)
+        if (`RST)	pixel_i_en_d[32:1] <= 0;
+		else		pixel_i_en_d[32:1] <= pixel_i_en_d[31:0]; 
+	
+	genvar i;
+	genvar j;	
+	genvar k;	
+		
+	// 【核心修复 1】彻底拍平 p_d 为 1D 数组 [0:575]
+	reg		[`WII :0]	p_d [0:575];
+	generate 	
+		for (i=0; i<`W_SIZE; i=i+1) begin : RERANGE_PIXEL
+			always @(*)		p_d[i] = pixel_i[`W1P*(`W_SIZE-i) -1 -:`W1P];
+		end
+	endgenerate		
+	
+	generate 	
+		for (j=1; j<`W_SIZE; j=j+1) begin : GEN_COL_II
+			always @(`CLK_EDGE)	begin : assign_p_d
+				integer idx;
+				if (pixel_i_en_d[j-1]) begin
+					for (idx=0; idx<`W_SIZE; idx=idx+1) begin
+						if (idx < j) 
+							p_d[j*24 + idx] <= p_d[(j-1)*24 + idx];
+						else if (idx == j)
+							p_d[j*24 + idx] <= p_d[(j-1)*24 + j-1] + p_d[(j-1)*24 + j];
+						else
+							p_d[j*24 + idx] <= p_d[(j-1)*24 + idx];
+					end
+				end
+			end
+		end
+	endgenerate
+
+// 【核心修复 2】彻底拍平积分图 ii_reg 为 1D 数组
+	// 【终极防优化】：将数组容量强行扩张到 1024，覆盖 10-bit 寻址的全部空间
+	// 防止 eLinx 综合器因判定“可能越界”而将读取端强制置 0 并删除所有坐标 ROM！
+	reg		[`WII :0] 	ii_reg [0:1023]; 
+	reg			ii_reg_shift;
+	
+	generate 	
+		for (j=0; j<`W_SIZE -1; j=j+1) begin : GEN_ROW_II
+			for (k=0; k<`W_SIZE; k=k+1) begin : PIXEL_ADD
+				always @(`CLK_RST_EDGE)
+					if (`RST)					ii_reg[j*24 + k] <= 0;
+					else if (ii_reg_shift)
+							ii_reg[j*24 + k] <= ii_reg[(j+1)*24 + k] - ii_reg[k]; 
+			end
+		end
+		for (k=0; k<`W_SIZE; k=k+1) begin : PIXEL_ADD_LAST
+			always @(`CLK_RST_EDGE)
+				if (`RST)	ii_reg[23*24 + k] <= 0;
+				else if (ii_reg_shift) 
+							ii_reg[23*24 + k] <= ii_reg[23*24 + k] - ii_reg[k] + p_d[23*24 + k];
+		end
+		// 【填充安全垫】：将扩容出来的尾部空间显式赋 0，彻底满足综合器的安全感
+		for (k=576; k<1024; k=k+1) begin : SAFE_PADDING
+			always @(`CLK_RST_EDGE)
+				if (`RST)	ii_reg[k] <= 0;
+				else		ii_reg[k] <= 0;
+		end
+	endgenerate
+	
+	//=================================================================================================
+	
+	// 【核心修复 3】拍平 ps_d
+	reg		[`WSII :0]	ps_d [0:575];
+	generate 	
+		for (j=0; j<`W_SIZE; j=j+1) begin : CAL_SQUARE
+			always @(*)		ps_d[j] = pixel_i[`W1P*(`W_SIZE-j) -1 -:`W1P] * pixel_i[`W1P*(`W_SIZE-j) -1 -:`W1P];
+		end
+	endgenerate
+
+	generate 	
+		for (j=1; j<`W_SIZE; j=j+1) begin : GEN_COL_SQUARE_INTER
+			always @(`CLK_EDGE)	begin : assign_ps_d
+				integer idx;
+				if (pixel_i_en_d[j-1]) begin
+					for (idx=0; idx<`W_SIZE; idx=idx+1) begin
+						if (idx < j)
+							ps_d[j*24 + idx] <= ps_d[(j-1)*24 + idx];
+						else if (idx == j)
+							ps_d[j*24 + idx] <= ps_d[(j-1)*24 + j-1] + ps_d[(j-1)*24 + j];
+						else
+							ps_d[j*24 + idx] <= ps_d[(j-1)*24 + idx];
+					end
+				end
+			end
+		end
+	endgenerate
+	
+	// 【核心修复 4】拍平平方积分图 square_ii_reg
+	reg		[`WSII :0] 	square_ii_reg [0:575];
+	generate 	
+		for (j=0; j<`W_SIZE -1; j=j+1) begin : GEN_ROW_SQUARE_INTER
+			for (k=0; k<`W_SIZE; k=k+1) begin : PIXEL_SQ_ADD
+				always @(`CLK_RST_EDGE)
+					if (`RST)					square_ii_reg[j*24 + k] <= 0;
+					else if (ii_reg_shift)
+							square_ii_reg[j*24 + k] <= square_ii_reg[(j+1)*24 + k] - square_ii_reg[k];
+			end
+		end
+		for (k=0; k<`W_SIZE; k=k+1) begin : PIXEL_SQ_ADD_LAST
+			always @(`CLK_RST_EDGE)
+				if (`RST)	square_ii_reg[23*24 + k] <= 0;
+				else if (ii_reg_shift) 
+							square_ii_reg[23*24 + k] <= square_ii_reg[23*24 + k] - square_ii_reg[k] + ps_d[23*24 + k];
+		end
+	endgenerate
+	
+	//=================================================================================================
+	
+	reg		[11:0]		aa_rect0_rom;
+	wire	[19:0]		qa_rect0_rom;
+	wire	[`W_WEIGHT:0]		qa_rect0_weight_rom;
+	reg		[19:0]		qa_rect0_rom_d1;
+	always @(`CLK_RST_EDGE)
+		if (`ZST)	qa_rect0_rom_d1 <= 0;
+		else 		qa_rect0_rom_d1 <= qa_rect0_rom;
+	reg		[`W_WEIGHT:0]		qa_rect0_weight_rom_d1;
+	always @(`CLK_RST_EDGE)
+		if (`ZST)	qa_rect0_weight_rom_d1 <= 0;
+		else 		qa_rect0_weight_rom_d1 <= qa_rect0_weight_rom;
+	wire	[4:0]		rect0_x, rect0_y, rect0_w, rect0_h;
+	
+	assign 				{rect0_x, rect0_y, rect0_w, rect0_h} = qa_rect0_rom_d1;  
+	rect0_rom rect0_rom(
+		.clk		(clk),
+		.addr		(aa_rect0_rom),
+		.q			(qa_rect0_rom)
+		);
+	rect0_wieght_rom rect0_wieght_rom(
+		.clk		(clk),
+		.addr		(aa_rect0_rom),
+		.q			(qa_rect0_weight_rom)
+		);
+		
+	reg		[11:0]		aa_rect1_rom;
+	wire	[19:0]		qa_rect1_rom;
+	wire	[`W_WEIGHT:0]		qa_rect1_weight_rom;
+	reg		[19:0]		qa_rect1_rom_d1;
+	always @(`CLK_RST_EDGE)
+		if (`ZST)	qa_rect1_rom_d1 <= 0;
+		else 		qa_rect1_rom_d1 <= qa_rect1_rom;
+	reg		[`W_WEIGHT:0]		qa_rect1_weight_rom_d1;
+	always @(`CLK_RST_EDGE)
+		if (`ZST)	qa_rect1_weight_rom_d1 <= 0;
+		else 		qa_rect1_weight_rom_d1 <= qa_rect1_weight_rom;
+	
+	
+	wire	[4:0]		rect1_x, rect1_y, rect1_w, rect1_h;
+	assign 				{rect1_x, rect1_y, rect1_w, rect1_h} = qa_rect1_rom_d1;
+	rect1_rom rect1_rom(
+		.clk		(clk),
+		.addr		(aa_rect1_rom),
+		.q			(qa_rect1_rom)
+		);
+	rect1_wieght_rom rect1_wieght_rom(
+		.clk		(clk),
+		.addr		(aa_rect1_rom),
+		.q			(qa_rect1_weight_rom)
+		);
+		
+	reg		[11:0]		aa_rect2_rom;
+	wire	[19:0]		qa_rect2_rom;
+	wire	[`W_WEIGHT:0]		qa_rect2_weight_rom;
+	reg		[19:0]		qa_rect2_rom_d1;
+	always @(`CLK_RST_EDGE)
+		if (`ZST)	qa_rect2_rom_d1 <= 0;
+		else 		qa_rect2_rom_d1 <= qa_rect2_rom;
+	reg		[`W_WEIGHT:0]		qa_rect2_weight_rom_d1;
+	always @(`CLK_RST_EDGE)
+		if (`ZST)	qa_rect2_weight_rom_d1 <= 0;
+		else 		qa_rect2_weight_rom_d1 <= qa_rect2_weight_rom;
+	wire	[4:0]		rect2_x, rect2_y, rect2_w, rect2_h;
+	assign 				{rect2_x, rect2_y, rect2_w, rect2_h} = qa_rect2_rom_d1;
+	rect2_rom rect2_rom(
+		.clk		(clk),
+		.addr		(aa_rect2_rom),
+		.q			(qa_rect2_rom)
+		);
+	rect2_wieght_rom rect2_wieght_rom(
+		.clk		(clk),
+		.addr		(aa_rect2_rom),
+		.q			(qa_rect2_weight_rom)
+		);
+		
+	reg		[11:0]				aa_weak_thresh_rom;
+	wire	[`W_WEAK_TH:0]		qa_weak_thresh_rom;
+	reg		[`W_WEAK_TH:0]		qa_weak_thresh_rom_d1;
+	always @(`CLK_RST_EDGE)
+		if (`ZST)	qa_weak_thresh_rom_d1 <= 0;
+		else 		qa_weak_thresh_rom_d1 <= qa_weak_thresh_rom;
+	
+	weak_thresh_rom weak_thresh_rom(
+		.clk		(clk),
+		.addr		(aa_weak_thresh_rom),
+		.q			(qa_weak_thresh_rom)
+		);
+		
+	reg		[11:0]				aa_left_tree_rom;
+	wire	[`W_TREE:0]			qa_left_tree_rom;
+	reg		[`W_TREE:0]		qa_left_tree_rom_d1;
+	always @(`CLK_RST_EDGE)
+		if (`ZST)	qa_left_tree_rom_d1 <= 0;
+		else 		qa_left_tree_rom_d1 <= qa_left_tree_rom;	
+	
+	left_tree_rom left_tree_rom(
+		.clk		(clk),
+		.addr		(aa_left_tree_rom),
+		.q			(qa_left_tree_rom)
+		);
+		
+	reg		[11:0]				aa_right_tree_rom;
+	wire	[`W_TREE:0]			qa_right_tree_rom;
+	reg		[`W_TREE:0]		qa_right_tree_rom_d1;
+	always @(`CLK_RST_EDGE)
+		if (`ZST)	qa_right_tree_rom_d1 <= 0;
+		else 		qa_right_tree_rom_d1 <= qa_right_tree_rom;	
+	
+	right_tree_rom right_tree_rom(
+		.clk		(clk),
+		.addr		(aa_right_tree_rom),
+		.q			(qa_right_tree_rom)
+		);
+	
+	reg		[4:0]				aa_strong_thresh_rom;
+	wire	[`W_STRONG_TH:0]		qa_strong_thresh_rom;
+	reg		[`W_STRONG_TH:0]		qa_strong_thresh_rom_d1;
+	always @(`CLK_RST_EDGE)
+		if (`ZST)	qa_strong_thresh_rom_d1 <= 0;
+		else 		qa_strong_thresh_rom_d1 <= qa_strong_thresh_rom;
+		
+	strong_thresh_rom strong_thresh_rom(
+		.clk		(clk),
+		.addr		(aa_strong_thresh_rom),
+		.q			(qa_strong_thresh_rom)
+		);
+		
+	//=================================================================================================
+	reg		[`W_PW:0]	ii_reg_col_cnt; 
+	reg					ii_reg_inited; 
+	reg					ii_reg_ready; 
+	wire				variance_sqrt_valid; 
+	reg					classify_go; 
+	reg					classify_en; 
+	reg		[11:0]		weak_cnt;
+	reg		[4:0]		strong_cnt;
+	reg					first_weak, last_weak;
+	reg					last_strong;
+	wire				detected_fail;
+	reg					strong_fail;
+	wire				cascade_end; 
+	reg		[11:0]		weak_stages_acc;
+	assign	col_end = (ii_reg_col_cnt == pic_width) & cascade_end;
+	
+	reg		[4:0]		strong_cnt_d1, strong_cnt_d2, strong_cnt_d3;
+	reg		[4:0]		strong_cnt_b2, strong_cnt_b1;
+	always @(`CLK_RST_EDGE)
+		if (`ZST)	{strong_cnt_b1, strong_cnt, strong_cnt_d1, strong_cnt_d2, strong_cnt_d3} <= 0;
+		else 		{strong_cnt_b1, strong_cnt, strong_cnt_d1, strong_cnt_d2, strong_cnt_d3} <= {strong_cnt_b2, strong_cnt_b1, strong_cnt, strong_cnt_d1, strong_cnt_d2};
+
+	reg		[7:0]	ii_reg_ready_d;
+	always @(*)	ii_reg_ready_d[0] = ii_reg_ready;
+	always @(`CLK_RST_EDGE)
+		if (`RST)	ii_reg_ready_d[7:1] <= 0;
+		else 		ii_reg_ready_d[7:1] <= ii_reg_ready_d[6:0];	
+	
+	reg		[32:0]	classify_en_d;
+	always @(*)		classify_en_d[0] = classify_en;
+	always @(`CLK_RST_EDGE)
+        if (`RST)	classify_en_d[32:1] <= 0;
+		else		classify_en_d[32:1] <= classify_en_d[31:0];
+		
+	reg		[32:0]	first_weak_d;
+	always @(*)		first_weak_d[0] = first_weak;
+	always @(`CLK_RST_EDGE)
+        if (`RST)	first_weak_d[32:1] <= 0;
+		else		first_weak_d[32:1] <= first_weak_d[31:0];
+
+	reg		[32:0]	last_weak_d;
+	always @(*)		last_weak_d[0] = last_weak;
+	always @(`CLK_RST_EDGE)
+        if (`RST)	last_weak_d[32:1] <= 0;
+		else		last_weak_d[32:1] <= last_weak_d[31:0];
+	
+	reg		[32:0]	last_strong_d;
+	always @(*)		last_strong_d[0] = last_strong;
+	always @(`CLK_RST_EDGE)
+        if (`RST)	last_strong_d[32:1] <= 0;
+		else		last_strong_d[32:1] <= last_strong_d[31:0];
+	
+	wire	ii_reg_inited_f = ii_reg_shift&(ii_reg_col_cnt==`W_SIZE-1);
+	always @(`CLK_RST_EDGE)
+        if (`RST)					ii_reg_col_cnt <= 0;
+		else if (init)				ii_reg_col_cnt <= 0;
+		else if (ii_reg_shift)		ii_reg_col_cnt <= ii_reg_col_cnt + 1;
+
+	always @(`CLK_RST_EDGE)
+        if (`RST)					ii_reg_inited <= 0;
+		else if (init)				ii_reg_inited <= 0;
+		else if (ii_reg_inited_f)	ii_reg_inited <= 1;
+
+	always @(`CLK_RST_EDGE)
+        if (`RST)								ii_reg_ready <= 0;
+		else if (ii_reg_inited_f)				ii_reg_ready <= 1;
+		else if (ii_reg_shift&ii_reg_inited)	ii_reg_ready <= 1;
+		else 									ii_reg_ready <= 0;
+	
+	reg		ii_reg_shift_b1;
+	reg		[1:0]	line_ii_semaphore;
+	reg				ii_reg_ready_b1;
+	reg				cascade_done;
+
+	always @(`CLK_RST_EDGE)
+        if (`RST)					cascade_done <= 0;
+		else if (ii_reg_shift_b1)	cascade_done <= 0;
+		else if (cascade_end)		cascade_done <= 1;
+
+	always @(`CLK_RST_EDGE)
+        if (`RST)	line_ii_semaphore <= 0;
+		else case ( {pixel_i_en_d[22], ii_reg_shift_b1})
+			2'b10 : line_ii_semaphore <= line_ii_semaphore + 1;
+			2'b01 : line_ii_semaphore <= line_ii_semaphore - 1;
+			endcase
+			
+	reg		ii_reg_inited_b1;
+	reg		[`W_PW:0]	ii_reg_col_cnt_b1;
+	always @(`CLK_RST_EDGE)
+        if (`RST)					ii_reg_col_cnt_b1 <= 0;
+		else if (init)				ii_reg_col_cnt_b1 <= 0;
+		else if (ii_reg_shift_b1)	ii_reg_col_cnt_b1 <= ii_reg_col_cnt_b1 + 1;
+		
+	wire	ii_reg_inited_f_b1 = ii_reg_shift_b1&(ii_reg_col_cnt_b1==24-1);
+
+	always @(`CLK_RST_EDGE)
+        if (`RST)							ii_reg_inited_b1 <= 0;
+		else if (init)						ii_reg_inited_b1 <= 0;
+		else if (ii_reg_inited_f_b1)		ii_reg_inited_b1 <= 1;
+							
+	always @(*)	ii_reg_shift_b1 = (~ii_reg_inited_b1&pixel_i_en_d[22] )|| (cascade_done&&line_ii_semaphore!=0);
+	
+	always @(`CLK_RST_EDGE)
+		if (`RST)	ii_reg_shift <= 0;
+		else 		ii_reg_shift <= ii_reg_shift_b1;
+
+	wire		ii_reg_shift__ = (~ii_reg_inited&pixel_i_en_d[23] )|| (cascade_done&&line_ii_semaphore!=0);
+	
+	always @(`CLK_RST_EDGE)
+        if (`RST)	ready_for_next_col <= 0;
+		else		ready_for_next_col <= ii_reg_ready;
+		
+	//------------------------------------------------------------
+	wire	[11:0]	qa_weak_stages_acc_rom;
+	weak_stages_acc_rom weak_stages_acc_rom(
+		.clk		(clk),
+		.addr		(strong_cnt_b2),
+		.q			(qa_weak_stages_acc_rom)
+		);
+
+	always @(`CLK_RST_EDGE)
+        if (`RST)			classify_go <= 0;
+		else 				classify_go <= variance_sqrt_valid;
+
+	always @(*)		strong_fail = detected_fail & last_weak_d[8];
+	
+	// =========================================================================
+	// 【恢复智力】：提升到第 8 关及格，防止误抓墙壁阴影！
+	// =========================================================================
+	wire early_pass = !detected_fail & last_weak_d[8] & (strong_cnt_b1 >= 5'd8);
+
+	assign cascade_end   = (strong_fail & !last_strong_d[8]) | (weak_cnt == `TATAL_WEAK_STAGES-1) | early_pass;
+	
+	always @(*) face_detected = early_pass;
+	
+	assign cascade_ready = strong_fail | early_pass;
+	// =========================================================================
+	
+	always @(`CLK_RST_EDGE)
+        if (`RST)									classify_en <= 1;
+		else if (classify_go)						classify_en <= 1;
+		else if (strong_fail || (weak_cnt == `TATAL_WEAK_STAGES-1) || early_pass)	
+													classify_en <= 0;
+	always @(`CLK_RST_EDGE)
+        if (`RST)				weak_cnt <= 0;
+		else					weak_cnt <= classify_en? weak_cnt + 1 : 0;
+		
+	always @(`CLK_RST_EDGE)
+        if (`RST)				weak_stages_acc <= 0;
+		else					weak_stages_acc <= qa_weak_stages_acc_rom;
+
+	always @(`CLK_RST_EDGE)
+        if (`RST)								strong_cnt_b2 <= 0;
+		else if (classify_go)					strong_cnt_b2 <= 0;
+		else if (strong_fail || early_pass)		strong_cnt_b2 <= 0;
+		else if (weak_cnt==weak_stages_acc-3)	strong_cnt_b2 <= (strong_cnt_b2==`STAGE_N-1 )? 0 : strong_cnt_b2+1;
+
+	always @(`CLK_RST_EDGE)
+        if (`RST)	last_weak <= 0;	
+		else 		last_weak <= weak_cnt==weak_stages_acc-2 ? 1 : 0;
+		
+	always @(`CLK_RST_EDGE)
+        if (`RST)	first_weak <= 0;
+		else 		first_weak <= classify_go || ( last_weak & !last_strong);
+		
+		
+	always @(`CLK_RST_EDGE)
+        if (`RST)	last_strong <= 0;
+		else 		last_strong <= strong_cnt_b1==`STAGE_N-1 ? 1 : 0;
+
+	
+	//==========================================================
+	wire		[`WII:0]	mean = ii_reg[23*24 + 23];
+	wire		[`WSII:0]	square_mean = square_ii_reg[23*24 + 23];
+	
+	reg			[`WII+`WII+1:0]	mean_x2;
+	always @(`CLK_RST_EDGE)
+        if (`ZST)				mean_x2 <= 0;
+		else if (ii_reg_ready)	mean_x2 = mean * mean;
+
+	reg			[`WII+`WII+1:0]	square_mean_x_size;
+	always @(`CLK_RST_EDGE)
+        if (`ZST)				square_mean_x_size <= 0;
+		else if (ii_reg_ready)	square_mean_x_size <= square_mean * (`W_SIZE * `W_SIZE);
+	
+	reg		[`W_VAR+`W_VAR+1:0]			variance;
+	wire	[`W_VAR:0]					variance_sqrt;
+
+	always @(`CLK_RST_EDGE)
+        if (`ZST)		variance <= 0;
+		// 【终极方差钳位保护】：防止定点数舍入导致负数溢出爆炸！
+		else if (square_mean_x_size > mean_x2) 
+						variance <= square_mean_x_size - mean_x2;
+		else 			variance <= 0; // 如果出现负数，直接钳位到 0！
+
+	sqrt_root2 #(.WI	(`W_VAR+`W_VAR+1+1)) sqrt_root(
+		.clk			(clk), 
+		.rstn			(rstn), 
+		.en				(ii_reg_ready_d[2]), 
+		.radical		(variance), 		
+		.root_en		(variance_sqrt_valid),	 
+		.root			(variance_sqrt),		
+		.remainder	    ()
+		);
+	
+	always @(*)		aa_rect0_rom = weak_cnt;
+	always @(*)		aa_rect1_rom = weak_cnt;
+	always @(*)		aa_rect2_rom = weak_cnt;
+	always @(*)		aa_weak_thresh_rom = weak_cnt;
+	always @(*)		aa_left_tree_rom = weak_cnt;
+	always @(*)		aa_right_tree_rom = weak_cnt;
+	
+	always @(*)		aa_strong_thresh_rom = strong_cnt;
+	
+	//=================================================================================================
+	reg		[`W_WEIGHT:0] w0, w1, w2;
+	reg		[`W_WEAK_TH:0]		weak_thresh;
+	reg		[`W_TREE:0]			right_tree, left_tree;
+	reg		[`W_STRONG_TH:0]	strong_thresh;
+	always @(`CLK_RST_EDGE)
+		if (`ZST)	{w0, w1, w2} <= 0;
+		else 		{w0, w1, w2} <= {qa_rect0_weight_rom_d1, qa_rect1_weight_rom_d1, qa_rect2_weight_rom_d1};
+	
+	always @(`CLK_RST_EDGE)
+		if (`ZST)	weak_thresh <= 0;
+		else		weak_thresh <= qa_weak_thresh_rom_d1;
+		
+	always @(`CLK_RST_EDGE)
+		if (`ZST)	{right_tree, left_tree} <= 0;
+		else		{right_tree, left_tree} <= {qa_right_tree_rom_d1, qa_left_tree_rom_d1};
+
+	always @(`CLK_RST_EDGE)
+		if (`ZST)	strong_thresh <= 0;
+		else		strong_thresh <= qa_strong_thresh_rom_d1;
+		
+	// 【核心修复 5】将所有坐标提取为 1D 安全地址
+	wire [9:0] r0_p0_idx = (rect0_x==0 || rect0_y==0) ? 10'd0 : (rect0_x-1)*24 + (rect0_y-1);
+	wire [9:0] r0_p1_idx = ((rect0_x+rect0_w)==0 || rect0_y==0) ? 10'd0 : (rect0_x+rect0_w-1)*24 + (rect0_y-1);
+	wire [9:0] r0_p2_idx = (rect0_x==0 || (rect0_y+rect0_h)==0) ? 10'd0 : (rect0_x-1)*24 + (rect0_y+rect0_h-1);
+	wire [9:0] r0_p3_idx = ((rect0_x+rect0_w)==0 || (rect0_y+rect0_h)==0) ? 10'd0 : (rect0_x+rect0_w-1)*24 + (rect0_y+rect0_h-1);
+	
+	reg		[`WII:0] rect0_p0, rect0_p1, rect0_p2, rect0_p3;
+	always @(`CLK_RST_EDGE) begin
+		if (`RST)	rect0_p0 <= 0;
+		else if (rect0_x==0 || rect0_y==0) rect0_p0 <= 0;
+		else		rect0_p0 <= ii_reg[r0_p0_idx];
+	end
+	always @(`CLK_RST_EDGE) begin
+		if (`RST)	rect0_p1 <= 0;
+		else if ((rect0_x+rect0_w)==0 || rect0_y==0) rect0_p1 <= 0;
+		else		rect0_p1 <= ii_reg[r0_p1_idx];
+	end
+	always @(`CLK_RST_EDGE) begin
+		if (`RST)	rect0_p2 <= 0;
+		else if (rect0_x==0 || (rect0_y+rect0_h)==0) rect0_p2 <= 0;
+		else		rect0_p2 <= ii_reg[r0_p2_idx];
+	end
+	always @(`CLK_RST_EDGE) begin
+		if (`RST)	rect0_p3 <= 0;
+		else if ((rect0_x+rect0_w)==0 || (rect0_y+rect0_h)==0) rect0_p3 <= 0;
+		else		rect0_p3 <= ii_reg[r0_p3_idx];
+	end
+	
+	wire [9:0] r1_p0_idx = (rect1_x==0 || rect1_y==0) ? 10'd0 : (rect1_x-1)*24 + (rect1_y-1);
+	wire [9:0] r1_p1_idx = ((rect1_x+rect1_w)==0 || rect1_y==0) ? 10'd0 : (rect1_x+rect1_w-1)*24 + (rect1_y-1);
+	wire [9:0] r1_p2_idx = (rect1_x==0 || (rect1_y+rect1_h)==0) ? 10'd0 : (rect1_x-1)*24 + (rect1_y+rect1_h-1);
+	wire [9:0] r1_p3_idx = ((rect1_x+rect1_w)==0 || (rect1_y+rect1_h)==0) ? 10'd0 : (rect1_x+rect1_w-1)*24 + (rect1_y+rect1_h-1);
+	
+	reg		[`WII:0] rect1_p0, rect1_p1, rect1_p2, rect1_p3; 
+	always @(`CLK_RST_EDGE) begin
+		if (`RST)	rect1_p0 <= 0;
+		else if (rect1_x==0 || rect1_y==0) rect1_p0 <= 0;
+		else		rect1_p0 <= ii_reg[r1_p0_idx];
+	end
+	always @(`CLK_RST_EDGE) begin
+		if (`RST)	rect1_p1 <= 0;
+		else if ((rect1_x+rect1_w)==0 || rect1_y==0) rect1_p1 <= 0;
+		else		rect1_p1 <= ii_reg[r1_p1_idx];
+	end
+	always @(`CLK_RST_EDGE) begin
+		if (`RST)	rect1_p2 <= 0;
+		else if (rect1_x==0 || (rect1_y+rect1_h)==0) rect1_p2 <= 0;
+		else		rect1_p2 <= ii_reg[r1_p2_idx];
+	end
+	always @(`CLK_RST_EDGE) begin
+		if (`RST)	rect1_p3 <= 0;
+		else if ((rect1_x+rect1_w)==0 || (rect1_y+rect1_h)==0) rect1_p3 <= 0;
+		else		rect1_p3 <= ii_reg[r1_p3_idx];
+	end
+	
+	wire [9:0] r2_p0_idx = (rect2_x==0 || rect2_y==0) ? 10'd0 : (rect2_x-1)*24 + (rect2_y-1);
+	wire [9:0] r2_p1_idx = ((rect2_x+rect2_w)==0 || rect2_y==0) ? 10'd0 : (rect2_x+rect2_w-1)*24 + (rect2_y-1);
+	wire [9:0] r2_p2_idx = (rect2_x==0 || (rect2_y+rect2_h)==0) ? 10'd0 : (rect2_x-1)*24 + (rect2_y+rect2_h-1);
+	wire [9:0] r2_p3_idx = ((rect2_x+rect2_w)==0 || (rect2_y+rect2_h)==0) ? 10'd0 : (rect2_x+rect2_w-1)*24 + (rect2_y+rect2_h-1);
+	
+	reg		[`WII:0] rect2_p0, rect2_p1, rect2_p2, rect2_p3; 
+	always @(`CLK_RST_EDGE) begin
+		if (`RST)	rect2_p0 <= 0;
+		else if (rect2_x==0 || rect2_y==0) rect2_p0 <= 0;
+		else		rect2_p0 <= ii_reg[r2_p0_idx];
+	end
+	always @(`CLK_RST_EDGE) begin
+		if (`RST)	rect2_p1 <= 0;
+		else if ((rect2_x+rect2_w)==0 || rect2_y==0) rect2_p1 <= 0;
+		else		rect2_p1 <= ii_reg[r2_p1_idx];
+	end
+	always @(`CLK_RST_EDGE) begin
+		if (`RST)	rect2_p2 <= 0;
+		else if (rect2_x==0 || (rect2_y+rect2_h)==0) rect2_p2 <= 0;
+		else		rect2_p2 <= ii_reg[r2_p2_idx];
+	end
+	always @(`CLK_RST_EDGE) begin
+		if (`RST)	rect2_p3 <= 0;
+		else if ((rect2_x+rect2_w)==0 || (rect2_y+rect2_h)==0) rect2_p3 <= 0;
+		else		rect2_p3 <= ii_reg[r2_p3_idx];
+	end
+		
+	classifier classifier(
+		.clk			(clk		),
+		.rstn			(rstn		),
+		.init			(classify_go),
+		.first_weak		(first_weak_d[3]),
+		.en				(classify_en_d[3]),
+		.w0				(w0),
+		.w1				(w1),
+		.w2				(w2),
+		.r0 			(rect0_p0),
+		.r1 			(rect0_p1),
+		.r2 			(rect0_p2),
+		.r3 			(rect0_p3),
+		.r4 			(rect1_p0),
+		.r5 			(rect1_p1),
+		.r6 			(rect1_p2),
+		.r7 			(rect1_p3),
+		.r8 			(rect2_p0),
+		.r9 			(rect2_p1),
+		.r10			(rect2_p2),
+		.r11			(rect2_p3),
+		
+		.variance_sqrt	(variance_sqrt	),
+		.weak_thresh	(weak_thresh	),
+		.left_tree		(left_tree	),
+		.right_tree		(right_tree	),
+		.strong_thresh	(strong_thresh	),
+		.detected_fail	(detected_fail	)
+		);
+endmodule 
+
+// latency  5 clk
+module classifier(
+	input					clk,
+	input 					rstn,
+	
+	input					init,   
+	input					first_weak,   
+	input					en,
+	
+	input	[`W_WEIGHT:0]	w0, w1, w2,
+	
+	input	[`WII:0]		r0, r1, r2, r3,					
+	input	[`WII:0]		r4, r5, r6, r7,					
+	input	[`WII:0]		r8, r9, r10, r11,					
+	
+	input 	[`W_VAR:0]			variance_sqrt,
+	input	[`W_WEAK_TH:0]		weak_thresh,
+	input signed	[`W_TREE:0]	right_tree, left_tree,
+	input	[`W_STRONG_TH:0]	strong_thresh,
+	output	reg					result_valid,
+	output	reg					detected_fail			
+	);
+
+	reg		signed [`W_WEIGHT:0]		w0_d1, w1_d1, w2_d1;
+	always @(`CLK_RST_EDGE)
+		if (`ZST)	{w0_d1, w1_d1, w2_d1} <= 0;
+		else 		{w0_d1, w1_d1, w2_d1} <= {w0, w1, w2};
+		
+	reg	signed	[`W_WEAK_TH:0]		weak_thresh_d1, weak_thresh_d2, weak_thresh_d3;
+	always @(`CLK_RST_EDGE)
+		if (`ZST)	{weak_thresh_d1, weak_thresh_d2, weak_thresh_d3} <= 0;
+		else 		{weak_thresh_d1, weak_thresh_d2, weak_thresh_d3} <= {weak_thresh, weak_thresh_d1, weak_thresh_d2};
+	
+	reg	signed	[`W_TREE:0]		right_tree_d1, right_tree_d2, right_tree_d3;
+	always @(`CLK_RST_EDGE)
+		if (`ZST)	{right_tree_d1, right_tree_d2, right_tree_d3} <= 0;
+		else 		{right_tree_d1, right_tree_d2, right_tree_d3} <= {right_tree, right_tree_d1, right_tree_d2};
+	
+	reg	signed	[`W_TREE:0]		left_tree_d1, left_tree_d2, left_tree_d3;
+	always @(`CLK_RST_EDGE)
+		if (`ZST)	{left_tree_d1, left_tree_d2, left_tree_d3} <= 0;
+		else 		{left_tree_d1, left_tree_d2, left_tree_d3} <= {left_tree, left_tree_d1, left_tree_d2};
+	
+	reg						en_d1, en_d2, en_d3, en_d4, en_d5;
+	always @(`CLK_RST_EDGE)
+		if (`ZST)	{en_d1, en_d2, en_d3, en_d4, en_d5} <= 0;
+		else 		{en_d1, en_d2, en_d3, en_d4, en_d5} <= {en, en_d1, en_d2, en_d3, en_d4};
+
+	reg						first_weak_d1, first_weak_d2, first_weak_d3, first_weak_d4, first_weak_d5;
+	always @(`CLK_RST_EDGE)
+		if (`ZST)	{first_weak_d1, first_weak_d2, first_weak_d3, first_weak_d4, first_weak_d5} <= 0;
+		else 		{first_weak_d1, first_weak_d2, first_weak_d3, first_weak_d4, first_weak_d5} <= {first_weak, first_weak_d1, first_weak_d2, first_weak_d3, first_weak_d4};
+
+	reg	signed		[`W_STRONG_TH:0] strong_thresh_d1, strong_thresh_d2, strong_thresh_d3, strong_thresh_d4, strong_thresh_d5;
+	always @(`CLK_RST_EDGE)
+		if (`ZST)	{strong_thresh_d1, strong_thresh_d2, strong_thresh_d3, strong_thresh_d4, strong_thresh_d5} <= 0;
+		else 		{strong_thresh_d1, strong_thresh_d2, strong_thresh_d3, strong_thresh_d4, strong_thresh_d5} <= {strong_thresh, strong_thresh_d1, strong_thresh_d2, strong_thresh_d3, strong_thresh_d4};
+
+	reg	signed	[`WII:0]					result_rect0, result_rect1, result_rect2; 
+	reg	signed	[`WII+`W_WEIGHT+1:0]		result_feature;
+	
+	always @(`CLK_RST_EDGE)
+		if (`ZST)	result_rect0 <= 0;
+		else 		result_rect0 <= (r0 + r3) - (r1 + r2);
+
+	always @(`CLK_RST_EDGE)
+		if (`ZST)	result_rect1 <= 0;
+		else 		result_rect1 <= (r4 + r7) - (r5 + r6);
+		
+	always @(`CLK_RST_EDGE)
+		if (`ZST)	result_rect2 <= 0;
+		else 		result_rect2 <= (r8 + r11) - (r9 + r10);
+		
+	always @(`CLK_RST_EDGE)
+		if (`RST)	result_feature <= 0;
+		else 		result_feature <= w0_d1*result_rect0 + w1_d1*result_rect1 + w2_d1*result_rect2;
+	
+	
+	wire		result_feature_valid = en_d2;
+	wire		strong_accumulator_result_valid = en_d4;
+	
+	
+	reg	signed	[34:0]	var_norm_weak_thresh;	
+	always @(`CLK_RST_EDGE)
+		if (`RST)					var_norm_weak_thresh <= 0;
+		else if (variance_sqrt==0)	var_norm_weak_thresh <= weak_thresh_d1;
+		else 						var_norm_weak_thresh <= $signed({1'b0, variance_sqrt}) * weak_thresh_d1;
+	
+	reg						tree_mux_sel;
+	reg	 signed	[`W_ACC:0]		strong_accumulator_result;
+	
+	always @(`CLK_RST_EDGE)
+		if (`ZST)		tree_mux_sel <= 0;
+		else 			tree_mux_sel <=  (result_feature >= var_norm_weak_thresh)? 1: 0;
+		
+	wire 	signed	[`W_TREE:0]	tree =  tree_mux_sel? $signed(right_tree_d3) : $signed(left_tree_d3);
+
+	always @(`CLK_RST_EDGE)
+		if (`ZST)			strong_accumulator_result <= 0;
+		else if (init)		strong_accumulator_result <= 0;
+		else if (first_weak_d3)strong_accumulator_result <= tree;
+		else if (en_d3)		strong_accumulator_result <= strong_accumulator_result +  tree;
+		
+	always @(`CLK_RST_EDGE)
+		if (`RST)			detected_fail <= 0;										
+		// 【定点数容错】：给真实的算分逻辑提供 +1000 的硬件补偿
+		else if (en_d4)		detected_fail <= ($signed(strong_accumulator_result) + 1000 < $signed(strong_thresh_d4)) ? 1 : 0;
+		
+	always @(`CLK_RST_EDGE)
+		if (`RST)			result_valid <= 0;										
+		else				result_valid <= en_d4;
+
+endmodule
+
+module sqrt_root2 #(parameter WI = 26)(
+	input					clk,
+	input 					rstn,
+	input 					en,
+	input 		[WI-1:0]	radical,
+	output reg					root_en,		
+	output reg		[WI/2 -1:0]	root,		
+	output		[WI/2:0]	remainder
+	);
+	
+	localparam W_CNT_BITS = $clog2(WI);
+	
+	wire	[WI/2 -1:0] one	= 1;
+	
+	reg	[WI-1:0]	radical_d [0:WI+2];
+	always @(*)	radical_d[0] = radical;
+	
+	integer r_i;
+	always @(`CLK_RST_EDGE) begin
+		if (`RST) begin
+			for (r_i=1; r_i<=WI+2; r_i=r_i+1)
+				radical_d[r_i] <= 0;
+		end else begin
+			for (r_i=1; r_i<=WI+2; r_i=r_i+1)
+				radical_d[r_i] <= radical_d[r_i-1];
+		end
+	end
+		
+	reg	[WI+2:0]	en_d;
+	always @(*)	en_d[0] = en;
+	always @(`CLK_RST_EDGE)
+		if (`RST)	en_d[WI+2:1] <= 0;
+		else 		en_d[WI+2:1] <= en_d[WI+1:0];
+
+	reg		 [WI/2 -1:0]	tmp_res; 
+	reg						tmp_res_gt;
+	always @(`CLK_RST_EDGE)
+		if (`RST)	tmp_res_gt <= 0;
+		else 		tmp_res_gt <= tmp_res*tmp_res >  radical;
+	
+	wire	cnt_bits_go = en;	
+	reg						cnt_bits_e;
+	reg		[ W_CNT_BITS:0]		cnt_bits;
+	wire				cnt_bits_max_f = cnt_bits == WI-1;
+	always @(`CLK_RST_EDGE)
+		if (`RST)					cnt_bits_e <= 0;
+		else if (cnt_bits_go)		cnt_bits_e <= 1;
+		else if (cnt_bits_max_f)	cnt_bits_e <= 0;
+	
+	always @(`CLK_RST_EDGE)
+		if (`RST)	cnt_bits <= 0;
+		else 		cnt_bits <= cnt_bits_e? cnt_bits + 1 : 0;
+
+	always @(`CLK_RST_EDGE)
+		if (`RST)				tmp_res <= 0;
+		else if (cnt_bits_go)	tmp_res <= one << (WI/2 -1);
+		else if (cnt_bits[0])	
+			if (tmp_res_gt)	
+				tmp_res <= tmp_res ^ (one << (WI/2 -1 -cnt_bits[W_CNT_BITS:1]));
+			else 
+				tmp_res <= tmp_res;
+		else if (!cnt_bits[0])	
+				tmp_res <= tmp_res | (one << (WI/2 - 2 -cnt_bits[W_CNT_BITS:1]));
+	
+	reg	[7:0]	cnt_bits_max_f_d;
+	always @(*)	cnt_bits_max_f_d[0] = cnt_bits_max_f;
+	always @(`CLK_RST_EDGE)
+		if (`RST)	cnt_bits_max_f_d[7:1] <= 0;
+		else 		cnt_bits_max_f_d[7:1] <= cnt_bits_max_f_d[6:0];
+	
+	always @(`CLK_RST_EDGE)
+		if (`RST)	root_en <= 0;
+		else 		root_en <= cnt_bits_max_f_d[1];
+		
+	always @(`CLK_RST_EDGE)
+		if (`RST)						root <= 0;
+		else if (cnt_bits_max_f_d[1])	root <= tmp_res;
+		
+	assign 	remainder = radical_d[WI+2] - root*root ;
+	wire	[WI-1:0] 	radical_o = radical_d[WI];
+	
+endmodule 
+vj_fetch.v:
+// Copyright (c) 2018  LulinChen, All Rights Reserved
+// 终极时序完美对齐版 - 专为国产 FPGA 纯同步 BRAM 优化
+// 彻底解决图像撕裂、消除 1 周期时序偏差的 3 拍流水线版本
+
+`include "global.v"
+
+module vj_fetch(
+	input							clk,
+	input							rstn,
+	input	[`W_PW:0]				pic_width,
+	input	[`W_PH:0]				pic_height,
+	input	[4:0]					step,
+	
+	input							vj_fetch_go,
+	output reg	[`W1P*`W_SIZE-1:0]	pixels,
+	output reg						pixels_en,
+	output reg						vj_row_init,
+	input							ready_for_next_col,				
+	input							cascade_end,
+	input							col_end,
+	output reg		[`W_PW:0]		vj_col,
+	output reg		[`W_PH:0]		vj_row,
+	output reg						vj_frame_ready,
+	
+	// 【终极修复 1】：将地址端口由 reg 改为 wire，消除打拍造成的 1 周期延迟
+	output wire 	[`W_AFRAMEBUF:0]	aa_frame_buf,
+	output reg							cena_frame_buf,
+	input		[`W1:0]					qa_frame_buf,
+	
+	input								face_detected
+	);
+	
+	reg		[`W_PW:0]	pic_width_r;
+	reg		[`W_PH:0]	pic_height_r;
+	always @(`CLK_RST_EDGE)
+		if (`RST)	{ pic_width_r, pic_height_r} <= -1;
+		else if (vj_fetch_go) begin
+			pic_width_r <= pic_width;
+			pic_height_r <= pic_height;
+		end
+	
+	reg		[`W_PW:0]		read_col;
+	reg		[`W_PH:0]		read_row;
+		
+	wire	coloum_ready;
+	wire	row_init_ready;
+
+	reg		vj_row_ready;
+	wire	row_init_go = vj_fetch_go | vj_row_ready&(vj_row != pic_height_r-`W_SIZE);
+	always@* vj_row_init = row_init_go;
+	reg		coloum_fetch_go;
+	always @(`CLK_RST_EDGE)
+		if (`RST)	vj_row_ready <= 0;
+		else 		vj_row_ready <= cascade_end & (vj_col == pic_width_r-`W_SIZE);
+	always @(`CLK_RST_EDGE)
+		if (`RST)	vj_frame_ready <= 0;
+		else 		vj_frame_ready <= vj_row_ready & (vj_row == pic_height_r-`W_SIZE);
+	
+	always @(`CLK_RST_EDGE)
+		if (`RST)					vj_col <= 0;
+		else if (row_init_go)		vj_col <= 0;
+		else if (cascade_end)		vj_col <= vj_col + 1;
+		
+	always @(`CLK_RST_EDGE)
+		if (`RST)					vj_row <= 0;
+		else if (vj_fetch_go) 		vj_row <= 0;	
+		else if (row_init_go)		vj_row <= vj_row + 1;	
+
+	reg					cnt_row_init_e;
+	reg		[ 4 :0]		cnt_row_init;
+	wire				cnt_row_init_max_f = cnt_row_init == `W_SIZE -1;
+	always @(`CLK_RST_EDGE)
+		if (`RST)						cnt_row_init_e <= 0;
+		else if (row_init_go)			cnt_row_init_e <= 1;
+		else if (cnt_row_init_max_f&coloum_ready)	cnt_row_init_e <= 0;
+	
+	always @(`CLK_RST_EDGE)
+		if (`RST)					cnt_row_init <= 0;
+		else if(cnt_row_init_e)		cnt_row_init <= cnt_row_init + coloum_ready;
+		else 						cnt_row_init <= 0;
+	assign row_init_ready = cnt_row_init_max_f&coloum_ready;
+	
+	always @(`CLK_RST_EDGE)
+		if (`RST)														coloum_fetch_go <= 0;
+		else if (row_init_go)											coloum_fetch_go <= 1;
+		else if (cnt_row_init_e & coloum_ready &!cnt_row_init_max_f) 	coloum_fetch_go <= 1; 
+		else if (ready_for_next_col && read_col < pic_width_r)			coloum_fetch_go <= 1;
+		else 															coloum_fetch_go <= 0;
+
+	reg [8:1] coloum_fetch_go_r;
+	wire [8:0] coloum_fetch_go_d;
+	assign coloum_fetch_go_d[0] = coloum_fetch_go;
+	assign coloum_fetch_go_d[8:1] = coloum_fetch_go_r;
+	always @(`CLK_RST_EDGE) begin
+		if (`RST) coloum_fetch_go_r <= 8'd0;
+		else      coloum_fetch_go_r <= {coloum_fetch_go_r[7:1], coloum_fetch_go_d[0]};
+	end
+		
+	reg					cnt_fetch_e;
+	reg		[ 4 :0]		cnt_fetch;
+	wire				cnt_fetch_max_f = cnt_fetch == `W_SIZE-1;
+	always @(`CLK_RST_EDGE)
+		if (`RST)					cnt_fetch_e <= 0;
+		else if (coloum_fetch_go)	cnt_fetch_e <= 1;
+		else if (cnt_fetch_max_f)	cnt_fetch_e <= 0;
+	
+	always @(`CLK_RST_EDGE)
+		if (`RST)	cnt_fetch <= 0;
+		else if(cnt_fetch_e)		cnt_fetch <= cnt_fetch_max_f? 0: cnt_fetch + 1;
+
+	// 保留足够的延迟线位宽
+	reg [8:1] cnt_fetch_max_f_r;
+	wire [8:0] cnt_fetch_max_f_d;
+	assign cnt_fetch_max_f_d[0] = cnt_fetch_max_f;
+	assign cnt_fetch_max_f_d[8:1] = cnt_fetch_max_f_r;
+	always @(`CLK_RST_EDGE) begin
+		if (`RST) cnt_fetch_max_f_r <= 8'd0;
+		else      cnt_fetch_max_f_r <= {cnt_fetch_max_f_r[7:1], cnt_fetch_max_f_d[0]};
+	end
+
+	reg [8:1] cnt_fetch_e_r;
+	wire [8:0] cnt_fetch_e_d;
+	assign cnt_fetch_e_d[0] = cnt_fetch_e;
+	assign cnt_fetch_e_d[8:1] = cnt_fetch_e_r;
+	always @(`CLK_RST_EDGE) begin
+		if (`RST) cnt_fetch_e_r <= 8'd0;
+		else      cnt_fetch_e_r <= {cnt_fetch_e_r[7:1], cnt_fetch_e_d[0]};
+	end
+
+	reg [4:0] cnt_fetch_d0, cnt_fetch_d1, cnt_fetch_d2, cnt_fetch_d3, cnt_fetch_d4;
+	always @(*) cnt_fetch_d0 = cnt_fetch;
+	always @(`CLK_RST_EDGE) begin
+		if (`RST) begin
+			cnt_fetch_d1 <= 0; cnt_fetch_d2 <= 0; cnt_fetch_d3 <= 0; cnt_fetch_d4 <= 0;
+		end else begin
+			cnt_fetch_d1 <= cnt_fetch_d0;
+			cnt_fetch_d2 <= cnt_fetch_d1;
+			cnt_fetch_d3 <= cnt_fetch_d2;
+			cnt_fetch_d4 <= cnt_fetch_d3;
+		end
+	end
+		
+	assign coloum_ready = cnt_fetch_max_f;
+	
+	always @(`CLK_RST_EDGE)
+		if (`RST)						read_col <= 0;
+		else if(row_init_go)			read_col <= 0;
+		else if (cnt_fetch_max_f_d[1])	read_col <= read_col + 1;
+		
+	always @(`CLK_RST_EDGE)
+		if (`RST)						read_row <= 0;
+		else 							read_row <= vj_row + cnt_fetch;
+	
+	reg		[`W_FRAME_COL+1:0] 	read_col_addr;
+	reg		[`W_FRAME_ROW+1:0] 	vj_row_addr;
+	reg		[`W_FRAME_ROW+1:0] 	read_row_addr;
+	reg		[`W_AFRAMEBUF:0] 	row_step;	
+	always @(`CLK_RST_EDGE)
+		if (`RST)	row_step <= 0;
+		else		row_step <= step*`FRAME_BUF_LINE; 
+	
+	always @(`CLK_RST_EDGE)
+		if (`RST)						read_col_addr <= 0;
+		else if(row_init_go)			read_col_addr <= 0;	
+		else if(cnt_fetch_max_f_d[1]) 	read_col_addr <= read_col_addr + step;	
+	
+	always @(`CLK_RST_EDGE)
+		if (`RST)					vj_row_addr <= 0;
+		else if (vj_fetch_go) 		vj_row_addr <= 0;	
+		else if (row_init_go)		vj_row_addr <= vj_row_addr + step;	
+	
+	always @(`CLK_RST_EDGE)
+		if (`RST)						read_row_addr <= 0;
+		else if(coloum_fetch_go_d[1])	read_row_addr <= vj_row_addr;
+		else if(cnt_fetch_e_d[1]) 		read_row_addr <= read_row_addr + step;	
+		
+	// -------------------------------------------------------------
+	// 终极修复区：精准匹配 BRAM 的 1 周期读取延迟
+	// -------------------------------------------------------------
+	wire [8:0] true_row = read_row_addr[`W_FRAME_ROW+1:1];
+	wire [8:0] true_col = read_col_addr[`W_FRAME_COL+1 : 1];
+	
+	// 计算地址并零延迟送出
+	wire [16:0] linear_addr = (true_row << 7) + (true_row << 5) + true_col;
+	assign aa_frame_buf = linear_addr;
+	
+	always @(`CLK_RST_EDGE)
+		if (`RST)	cena_frame_buf <= 1;
+		else 		cena_frame_buf <= ~cnt_fetch_e_d[1];
+	
+	reg	[`W1P*`W_SIZE-1:0]	pixels_alias;
+	always @(`CLK_RST_EDGE) begin
+		if (`RST) begin
+			pixels_alias <= 0;
+		end else if (cnt_fetch_e_d[2]) begin
+			// 【绝杀修复】：在时钟沿 2 获取 BRAM 数据时，
+			// 必须使用早已在沿 1 稳定的 d1 索引，才能精准放进正确的篮子！
+			pixels_alias[(23 - cnt_fetch_d1)*8 +: 8] <= qa_frame_buf;
+		end
+	end
+
+	always @(*)	pixels = pixels_alias;
+	
+	always @(`CLK_RST_EDGE)
+		if (`RST)	pixels_en <= 0;
+		else 		pixels_en <= cnt_fetch_max_f_d[2];
+
+endmodule 

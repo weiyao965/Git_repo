@@ -2,8 +2,8 @@ Design Route Statue
 
                                              :          #nets:
 ---------------------------------------------:---------------:
-# of logical nets........................... :           5020:
-# of nets not needing routing............... :           2117:
+# of logical nets........................... :           5010:
+# of nets not needing routing............... :           2103:
 # of internally routed nets................. :              0:
 # of routable nets.......................... :              0:
 # of fully routed nets...................... :              0:

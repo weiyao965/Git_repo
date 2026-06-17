@@ -1,63 +1,63 @@
-2026-06-10 14:40:39,540 [INFO] Copyright (C) 2017-2024 eHiWAY Corporation
-2026-06-10 14:40:39,540 [INFO] Your use of eHiWAY Corporation's design tools, logic functions 
-2026-06-10 14:40:39,540 [INFO] and other software and tools, and its EMPP partner logic 
-2026-06-10 14:40:39,540 [INFO] functions, and any output files from any of the foregoing 
-2026-06-10 14:40:39,540 [INFO] (including device programming or simulation files), and any 
-2026-06-10 14:40:39,540 [INFO] associated documentation or information are expressly subject 
-2026-06-10 14:40:39,540 [INFO] to the terms and conditions of the eHiWAY Program License 
-2026-06-10 14:40:39,540 [INFO] Subscription Agreement, or other applicable license agreement, including, 
-2026-06-10 14:40:39,540 [INFO] without limitation, that your use is for the sole purpose of 
-2026-06-10 14:40:39,540 [INFO] programming logic devices manufactured by eHiWAY and sold by 
-2026-06-10 14:40:39,540 [INFO] eHiWAY or its authorized distributors.  Please refer to the 
-2026-06-10 14:40:39,540 [INFO] applicable agreement for further details.
-2026-06-10 14:40:39,540 [INFO] VENDOR "eHiWAY"
+2026-06-17 15:07:47,733 [INFO] Copyright (C) 2017-2024 eHiWAY Corporation
+2026-06-17 15:07:47,733 [INFO] Your use of eHiWAY Corporation's design tools, logic functions 
+2026-06-17 15:07:47,733 [INFO] and other software and tools, and its EMPP partner logic 
+2026-06-17 15:07:47,733 [INFO] functions, and any output files from any of the foregoing 
+2026-06-17 15:07:47,733 [INFO] (including device programming or simulation files), and any 
+2026-06-17 15:07:47,733 [INFO] associated documentation or information are expressly subject 
+2026-06-17 15:07:47,733 [INFO] to the terms and conditions of the eHiWAY Program License 
+2026-06-17 15:07:47,734 [INFO] Subscription Agreement, or other applicable license agreement, including, 
+2026-06-17 15:07:47,734 [INFO] without limitation, that your use is for the sole purpose of 
+2026-06-17 15:07:47,734 [INFO] programming logic devices manufactured by eHiWAY and sold by 
+2026-06-17 15:07:47,734 [INFO] eHiWAY or its authorized distributors.  Please refer to the 
+2026-06-17 15:07:47,734 [INFO] applicable agreement for further details.
+2026-06-17 15:07:47,734 [INFO] VENDOR "eHiWAY"
 
-2026-06-10 14:40:39,540 [INFO] PROGRAM "eLinx 64-Bit"
-2026-06-10 14:40:39,540 [INFO] VERSION "Version 3.0.7 Build 1/22/2025 Full Version"
-2026-06-10 14:40:39,832 [INFO] [ARC_Proc_5]:Deserialize device ends.
-2026-06-10 14:40:39,905 [INFO] [ARC_Proc_1]:Deserialize tiles ends.
-2026-06-10 14:40:39,950 [INFO] [UDM_Nlist_1]:Lauched netlist parser: Checking lpm/series_status_list/psf info...
-2026-06-10 14:40:39,950 [INFO] [UDM_Nlist_1]:Current top_level_entity name is hdmi_ctrl.
-2026-06-10 14:40:39,951 [INFO] [UDM_Nlist_1]:Current series name is eHiChip6.
-2026-06-10 14:40:39,951 [INFO] [UDM_Nlist_1]:Current device name is EQ6HL130.
-2026-06-10 14:40:39,951 [INFO] [UDM_Nlist_15]:Begin parsing netlist...
-2026-06-10 14:40:41,706 [INFO] [UDM_udm_parser_1]:ValidWire set have NOT signal \gnd , so port 110 link gnd signal!
-2026-06-10 14:40:41,706 [INFO] [UDM_udm_parser_1]:ValidWire set have NOT signal clk_unconnected_wire_2 , so port 25 link gnd signal!
-2026-06-10 14:40:41,706 [INFO] [UDM_udm_parser_1]:ValidWire set have NOT signal clk_unconnected_wire_1 , so port 25 link gnd signal!
-2026-06-10 14:40:41,706 [INFO] [UDM_udm_parser_1]:ValidWire set have NOT signal clk_unconnected_wire_0 , so port 25 link gnd signal!
-2026-06-10 14:40:41,706 [INFO] [UDM_udm_parser_1]:ValidWire set have NOT signal clk_unconnected_wire_5 , so port 25 link gnd signal!
-2026-06-10 14:40:41,706 [INFO] [UDM_udm_parser_1]:ValidWire set have NOT signal clk_unconnected_wire_4 , so port 25 link gnd signal!
-2026-06-10 14:40:41,706 [INFO] [UDM_udm_parser_1]:ValidWire set have NOT signal clk_unconnected_wire_3 , so port 25 link gnd signal!
-2026-06-10 14:40:41,706 [INFO] [UDM_udm_parser_1]:ValidWire set have NOT signal clk_unconnected_wire_8 , so port 25 link gnd signal!
-2026-06-10 14:40:41,706 [INFO] [UDM_udm_parser_1]:ValidWire set have NOT signal clk_unconnected_wire_7 , so port 25 link gnd signal!
-2026-06-10 14:40:41,706 [INFO] [UDM_udm_parser_1]:ValidWire set have NOT signal clk_unconnected_wire_6 , so port 25 link gnd signal!
-2026-06-10 14:40:41,747 [INFO] [UDM_Nlist_19]:Check netlist file is normal after Parse netlist file .
-2026-06-10 14:40:41,748 [INFO] [UDM_Nlist_20]:Parse netlist file success.
-2026-06-10 14:40:41,748 [INFO] [UDM_Nlist_21]:Netlist parser time consumed 1.797 second(s).
-2026-06-10 14:40:41,754 [INFO] [UDM_IP_1]:Begin parsing IP file(s)...
-2026-06-10 14:40:41,760 [INFO] [UDM_IP_1]:Parse IP file success.
-2026-06-10 14:40:41,760 [INFO] [UDM_IP_1]:parse_ip_specific complete.
-2026-06-10 14:40:41,779 [INFO] [UDM_Mem_46]:Memory initial file [ hdmi_demo.hdmi_ctrl0.rtl.mif ] is in db file !
-2026-06-10 14:40:41,779 [INFO] [UDM_Mem_46]:Memory initial file [ db\hdmi_demo.rom0_strong_thresh_rom_16bae775.hdl.mif ] is in db file !
-2026-06-10 14:40:41,780 [INFO] [UDM_Mem_46]:Memory initial file [ db\hdmi_demo.rom0_weak_stages_acc_rom_e40fa5d7.hdl.mif ] is in db file !
-2026-06-10 14:40:41,804 [INFO] [UDM_Mem_1]:parse_mem_initial complete.
-2026-06-10 14:40:41,807 [INFO] udm drc.....
+2026-06-17 15:07:47,734 [INFO] PROGRAM "eLinx 64-Bit"
+2026-06-17 15:07:47,734 [INFO] VERSION "Version 3.0.7 Build 1/22/2025 Full Version"
+2026-06-17 15:07:48,021 [INFO] [ARC_Proc_5]:Deserialize device ends.
+2026-06-17 15:07:48,095 [INFO] [ARC_Proc_1]:Deserialize tiles ends.
+2026-06-17 15:07:48,140 [INFO] [UDM_Nlist_1]:Lauched netlist parser: Checking lpm/series_status_list/psf info...
+2026-06-17 15:07:48,140 [INFO] [UDM_Nlist_1]:Current top_level_entity name is hdmi_ctrl.
+2026-06-17 15:07:48,140 [INFO] [UDM_Nlist_1]:Current series name is eHiChip6.
+2026-06-17 15:07:48,140 [INFO] [UDM_Nlist_1]:Current device name is EQ6HL130.
+2026-06-17 15:07:48,141 [INFO] [UDM_Nlist_15]:Begin parsing netlist...
+2026-06-17 15:07:49,863 [INFO] [UDM_udm_parser_1]:ValidWire set have NOT signal \gnd , so port 110 link gnd signal!
+2026-06-17 15:07:49,863 [INFO] [UDM_udm_parser_1]:ValidWire set have NOT signal clk_unconnected_wire_2 , so port 25 link gnd signal!
+2026-06-17 15:07:49,863 [INFO] [UDM_udm_parser_1]:ValidWire set have NOT signal clk_unconnected_wire_1 , so port 25 link gnd signal!
+2026-06-17 15:07:49,863 [INFO] [UDM_udm_parser_1]:ValidWire set have NOT signal clk_unconnected_wire_0 , so port 25 link gnd signal!
+2026-06-17 15:07:49,863 [INFO] [UDM_udm_parser_1]:ValidWire set have NOT signal clk_unconnected_wire_5 , so port 25 link gnd signal!
+2026-06-17 15:07:49,863 [INFO] [UDM_udm_parser_1]:ValidWire set have NOT signal clk_unconnected_wire_4 , so port 25 link gnd signal!
+2026-06-17 15:07:49,863 [INFO] [UDM_udm_parser_1]:ValidWire set have NOT signal clk_unconnected_wire_3 , so port 25 link gnd signal!
+2026-06-17 15:07:49,863 [INFO] [UDM_udm_parser_1]:ValidWire set have NOT signal clk_unconnected_wire_8 , so port 25 link gnd signal!
+2026-06-17 15:07:49,863 [INFO] [UDM_udm_parser_1]:ValidWire set have NOT signal clk_unconnected_wire_7 , so port 25 link gnd signal!
+2026-06-17 15:07:49,863 [INFO] [UDM_udm_parser_1]:ValidWire set have NOT signal clk_unconnected_wire_6 , so port 25 link gnd signal!
+2026-06-17 15:07:49,903 [INFO] [UDM_Nlist_19]:Check netlist file is normal after Parse netlist file .
+2026-06-17 15:07:49,903 [INFO] [UDM_Nlist_20]:Parse netlist file success.
+2026-06-17 15:07:49,903 [INFO] [UDM_Nlist_21]:Netlist parser time consumed 1.75 second(s).
+2026-06-17 15:07:49,910 [INFO] [UDM_IP_1]:Begin parsing IP file(s)...
+2026-06-17 15:07:49,916 [INFO] [UDM_IP_1]:Parse IP file success.
+2026-06-17 15:07:49,917 [INFO] [UDM_IP_1]:parse_ip_specific complete.
+2026-06-17 15:07:49,935 [INFO] [UDM_Mem_46]:Memory initial file [ hdmi_demo.hdmi_ctrl0.rtl.mif ] is in db file !
+2026-06-17 15:07:49,935 [INFO] [UDM_Mem_46]:Memory initial file [ db\hdmi_demo.rom0_strong_thresh_rom_16bae775.hdl.mif ] is in db file !
+2026-06-17 15:07:49,935 [INFO] [UDM_Mem_46]:Memory initial file [ db\hdmi_demo.rom0_weak_stages_acc_rom_e40fa5d7.hdl.mif ] is in db file !
+2026-06-17 15:07:49,955 [INFO] [UDM_Mem_1]:parse_mem_initial complete.
+2026-06-17 15:07:49,958 [INFO] udm drc.....
 
-2026-06-10 14:40:41,902 [INFO] [Packer_Proc_1]:Launched Packer...
-2026-06-10 14:40:45,698 [INFO] [Packer]:Pre-processing run-time is 0.002 seconds.
-2026-06-10 14:40:45,782 [INFO] CanGlobal_Signal: cmos_pclk
-2026-06-10 14:40:45,782 [INFO] CanGlobal_Signal: cam_rst_n_reg
-2026-06-10 14:40:45,782 [INFO] CanGlobal_Signal: \clk_gen:clk_gen_inst|altpll:altpll_component|_clk0
-2026-06-10 14:40:45,782 [INFO] CanGlobal_Signal: \clk_gen:clk_gen_inst|altpll:altpll_component|_clk1
-2026-06-10 14:40:45,782 [INFO] CanGlobal_Signal: \clk_gen:clk_gen_inst|altpll:altpll_component|_locked
-2026-06-10 14:40:45,782 [INFO] CanGlobal_Signal: pipeline_rst_n
-2026-06-10 14:40:45,782 [INFO] CanGlobal_Signal: rst_n
-2026-06-10 14:40:45,782 [INFO] CanGlobal_Signal: \sdram_top:sdram_top_inst|sdram_fifo_ctrl:sdram_fifo_ctrl|comb~0
-2026-06-10 14:40:45,893 [INFO] [Packer_Proc_0]:DoPacking, Pack with module. 
-2026-06-10 14:40:45,904 [INFO] [Packer_Proc_0]:PARALLEL PACK begin. 
-2026-06-10 14:40:46,245 [INFO] [Packer_Proc_2]:Packer process is complete.
-2026-06-10 14:40:46,471 [INFO] [UDM_ICAP_1]:Parse Icap file success.
-2026-06-10 14:40:46,471 [INFO] [UDM_ICAP_1]:parse_icap_specific complete.
-2026-06-10 14:40:46,474 [INFO] Writing statistical info to file is completed
-2026-06-10 14:40:46,644 [INFO] [UDM_Save_0]:Save eLinx design check point(.ecp) complete.
-2026-06-10 14:40:48,171 [INFO] [UDM_Write_10]:Write cluster XML file complete.
+2026-06-17 15:07:50,055 [INFO] [Packer_Proc_1]:Launched Packer...
+2026-06-17 15:07:56,939 [INFO] [Packer]:Pre-processing run-time is 0.004 seconds.
+2026-06-17 15:07:57,080 [INFO] CanGlobal_Signal: cmos_pclk
+2026-06-17 15:07:57,080 [INFO] CanGlobal_Signal: cam_rst_n_reg
+2026-06-17 15:07:57,080 [INFO] CanGlobal_Signal: \clk_gen:clk_gen_inst|altpll:altpll_component|_clk0
+2026-06-17 15:07:57,080 [INFO] CanGlobal_Signal: \clk_gen:clk_gen_inst|altpll:altpll_component|_clk1
+2026-06-17 15:07:57,080 [INFO] CanGlobal_Signal: \clk_gen:clk_gen_inst|altpll:altpll_component|_locked
+2026-06-17 15:07:57,080 [INFO] CanGlobal_Signal: pipeline_rst_n
+2026-06-17 15:07:57,080 [INFO] CanGlobal_Signal: rst_n
+2026-06-17 15:07:57,080 [INFO] CanGlobal_Signal: \sdram_top:sdram_top_inst|sdram_fifo_ctrl:sdram_fifo_ctrl|comb~0
+2026-06-17 15:07:57,278 [INFO] [Packer_Proc_0]:DoPacking, Pack with module. 
+2026-06-17 15:07:57,296 [INFO] [Packer_Proc_0]:PARALLEL PACK begin. 
+2026-06-17 15:07:57,984 [INFO] [Packer_Proc_2]:Packer process is complete.
+2026-06-17 15:07:58,432 [INFO] [UDM_ICAP_1]:Parse Icap file success.
+2026-06-17 15:07:58,434 [INFO] [UDM_ICAP_1]:parse_icap_specific complete.
+2026-06-17 15:07:58,440 [INFO] Writing statistical info to file is completed
+2026-06-17 15:07:58,730 [INFO] [UDM_Save_0]:Save eLinx design check point(.ecp) complete.
+2026-06-17 15:08:01,626 [INFO] [UDM_Write_10]:Write cluster XML file complete.

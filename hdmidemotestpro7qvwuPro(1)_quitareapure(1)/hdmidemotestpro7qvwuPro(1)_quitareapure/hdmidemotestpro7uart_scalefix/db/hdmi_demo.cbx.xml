@@ -3,14 +3,12 @@
 	<PROJECT NAME="hdmi_demo">
 		<CBX_INST_ENTRY INSTANCE_NAME="|hdmi_ctrl|ai_face_tracker:u_ai_face_tracker|vj:u_vj|sqrt_root2:sqrt_root|lpm_mult:Mult0" CBX_FILE_NAME="mult_32t.tdf"/>
 		<CBX_INST_ENTRY INSTANCE_NAME="|hdmi_ctrl|ai_face_tracker:u_ai_face_tracker|vj:u_vj|weak_stages_acc_rom:weak_stages_acc_rom|altsyncram:Ram0_rtl_0" CBX_FILE_NAME="altsyncram_4181.tdf"/>
-		<CBX_INST_ENTRY INSTANCE_NAME="|hdmi_ctrl|ai_face_tracker:u_ai_face_tracker|lpm_mult:Mult1" CBX_FILE_NAME="mult_vus.tdf"/>
 		<CBX_INST_ENTRY INSTANCE_NAME="|hdmi_ctrl|ai_face_tracker:u_ai_face_tracker|vj:u_vj|classifier:classifier|lpm_mult:Mult3" CBX_FILE_NAME="mult_qqs.tdf"/>
 		<CBX_INST_ENTRY INSTANCE_NAME="|hdmi_ctrl|altshift_taps:rgb_d1_rtl_0" CBX_FILE_NAME="shift_taps_6rl.tdf"/>
 		<CBX_INST_ENTRY INSTANCE_NAME="|hdmi_ctrl|ai_face_tracker:u_ai_face_tracker|vj:u_vj|rect0_rom:rect0_rom|altsyncram:WideOr0_rtl_0" CBX_FILE_NAME="altsyncram_7qv.tdf"/>
 		<CBX_INST_ENTRY INSTANCE_NAME="|hdmi_ctrl|sdram_top:sdram_top_inst|sdram_fifo_ctrl:sdram_fifo_ctrl|sdram_rd_fifo:sdram_rd_fifo_inst|dcfifo:dcfifo" CBX_FILE_NAME="dcfifo_48n1.tdf"/>
 		<CBX_INST_ENTRY INSTANCE_NAME="|hdmi_ctrl|ai_face_tracker:u_ai_face_tracker|vj:u_vj|classifier:classifier|altmult_add:Add10_rtl_0" CBX_FILE_NAME="mult_add_qdl3.tdf"/>
 		<CBX_INST_ENTRY INSTANCE_NAME="|hdmi_ctrl|video_scaler_nn:video_scaler_nn_inst|altsyncram:bank0_rtl_0" CBX_FILE_NAME="altsyncram_dng1.tdf"/>
-		<CBX_INST_ENTRY INSTANCE_NAME="|hdmi_ctrl|ai_face_tracker:u_ai_face_tracker|lpm_mult:Mult0" CBX_FILE_NAME="mult_vus.tdf"/>
 		<CBX_INST_ENTRY INSTANCE_NAME="|hdmi_ctrl|ai_face_tracker:u_ai_face_tracker|vj:u_vj|altmult_add:Add600_rtl_0" CBX_FILE_NAME="mult_add_epq3.tdf"/>
 		<CBX_INST_ENTRY INSTANCE_NAME="|hdmi_ctrl|ai_face_tracker:u_ai_face_tracker|vj:u_vj|altshift_taps:qa_left_tree_rom_d1_rtl_0" CBX_FILE_NAME="shift_taps_b9m.tdf"/>
 		<CBX_INST_ENTRY INSTANCE_NAME="|hdmi_ctrl|ai_face_tracker:u_ai_face_tracker|vj:u_vj|altshift_taps:qa_strong_thresh_rom_d1_rtl_0" CBX_FILE_NAME="shift_taps_a9m.tdf"/>

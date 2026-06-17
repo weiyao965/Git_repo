@@ -57,25 +57,41 @@ module ai_face_tracker #(
     wire write_en = cam_de && (pix_x[1:0] == 2'b00) && (pix_y[1:0] == 2'b00);
     wire [16:0] write_addr = (pix_y[10:2] * AI_W) + pix_x[10:2]; // BRAM 写入地址
 
-	// =========================================================
-    // 2. inferred 双口 BRAM (存放给 AI 计算的灰度小图)
+// =========================================================
+    // 2. 乒乓双缓冲 BRAM (Ping-Pong RAM) 彻底消除跨时钟域图像撕裂
     // =========================================================
-	// 160 * 120 = 19200 字节的双口 BRAM
-    // 强烈建议加上 ramstyle 原语强制推断 BRAM
-    (* ramstyle = "block" *) reg [7:0] ai_frame_buf [0:AI_W*AI_H-1];
-	
-    // 摄像头的写端口 (跨时钟域写)
+    (* ramstyle = "block" *) reg [7:0] ai_frame_buf_0 [0:AI_W*AI_H-1];
+    (* ramstyle = "block" *) reg [7:0] ai_frame_buf_1 [0:AI_W*AI_H-1];
+
+    // 摄像头写 Bank 切换 (每帧翻转一次)
+    reg wr_bank;
+    always @(posedge cam_pclk or negedge rst_n) begin
+        if (!rst_n) wr_bank <= 1'b0;
+        else if (vsync_fall) wr_bank <= ~wr_bank;
+    end
+
+    // 安全地将写 Bank 状态同步到 AI 读时钟域
+    reg [2:0] wr_bank_cdc;
+    always @(posedge clk_sys) wr_bank_cdc <= {wr_bank_cdc[1:0], wr_bank};
+    
+    // AI 永远读取那个【没有在被写入】的安全 Bank
+    wire rd_bank = ~wr_bank_cdc[2]; 
+
+    // 摄像头的写端口
     always @(posedge cam_pclk) begin
-        if (write_en) ai_frame_buf[write_addr] <= gray;
+        if (write_en) begin
+            if (wr_bank == 1'b0) ai_frame_buf_0[write_addr] <= gray;
+            else                 ai_frame_buf_1[write_addr] <= gray;
+        end
     end
 	
-	// 1. 显式声明总线宽度，防止隐式定义成 1-bit 导致地址被截断！
     wire [16:0] read_addr_w;
     reg  [7:0]  read_data_w;
 
-    // 2. 推断双口 BRAM 的读端口 (AI 引擎的读时钟域)
+    // AI 引擎的读端口
     always @(posedge clk_sys) begin
-        read_data_w <= ai_frame_buf[read_addr_w];
+        if (rd_bank == 1'b0) read_data_w <= ai_frame_buf_0[read_addr_w];
+        else                 read_data_w <= ai_frame_buf_1[read_addr_w];
     end
 
 // =========================================================
@@ -96,7 +112,7 @@ module ai_face_tracker #(
     localparam MS_IDLE = 2'd0;
     localparam MS_RUN  = 2'd1;
     localparam MS_NEXT = 2'd2;
-    localparam MAX_STEP = 5'd4; // 开启 4 个尺度 (在 640x480 下检测 96, 192, 288, 384 大小的脸)
+    localparam MAX_STEP = 5'd1; // 【降维打击】：由 4 缩减为 1，砍掉 75% 的冗余算力消耗！
 
     always @(posedge clk_sys or negedge rst_n) begin
         if (!rst_n) begin
@@ -161,9 +177,9 @@ module ai_face_tracker #(
     vj_fetch u_vj_fetch(
         .clk                (clk_sys),
         .rstn               (rst_n),
-        .pic_width          (cur_pic_w),    // 𑐠动态输入当前尺度的宽
-        .pic_height         (cur_pic_h),    // 𑐠动态输入当前尺度的高
-        .step               (actual_vj_step), // 𑐠传入左移修正后的真实步长
+        .pic_width          (cur_pic_w),    // ᐠ动态输入当前尺度的宽
+        .pic_height         (cur_pic_h),    // ᐠ动态输入当前尺度的高
+        .step               (actual_vj_step), // ᐠ传入左移修正后的真实步长
         .vj_fetch_go        (vj_go),
         .pixels             (pixels_w),
         .pixels_en          (pixels_en_w),
@@ -183,7 +199,7 @@ module ai_face_tracker #(
     vj u_vj (
         .clk                (clk_sys),
         .rstn               (rst_n),
-        .pic_width          (cur_pic_w),    // 𑐠同样需要动态宽高
+        .pic_width          (cur_pic_w),    // ᐠ同样需要动态宽高
         .pic_height         (cur_pic_h),
         .init               (vj_init_w),
         .pixel_i            (pixels_w),
@@ -206,14 +222,14 @@ module ai_face_tracker #(
         end else if (frame_start) begin  
             // 每一帧画面重新开始扫描时，清除上一帧的红框状态
             face_valid_reg <= 1'b0;
-        end else if (vj_face_detected && !face_valid_reg) begin
-            // 𑐠多尺度终极映射算法：
-            // BRAM真实坐标 = 模型输出(vj_out) * 缩放步进(current_step)
-            // 原图绝对坐标 = BRAM真实坐标 * 4倍降采样恢复
-            face_x <= (vj_x_out * current_step) << 2;
-            face_y <= (vj_y_out * current_step) << 2;
+		end else if (vj_face_detected && !face_valid_reg) begin
+            // ᐠ多尺度终极映射算法：
+            // vj_x_out 在底层已经包含了 step(x2) 的物理步进
+            // 经过严格推导，映射回 640x480 的屏幕绝对坐标，只需统一左移 1 位 (x2)
+            face_x <= vj_x_out << 1;  // 𑠠修复双重放大脱轨 Bug
+            face_y <= vj_y_out << 1;  // 𑠠修复双重放大脱轨 Bug
             
-            // 探测框尺寸 = (24 * 步进) * 4
+            // 探测框尺寸 = 基础框(24) * 放大率(4) * 步进
             face_w <= (24 * current_step) << 2;
             face_h <= (24 * current_step) << 2;
             

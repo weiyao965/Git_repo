@@ -1,3 +1,3 @@
+Warning (10268): Verilog HDL information at vj.v(439): always construct contains both blocking and non-blocking assignments
 Warning (10268): Verilog HDL information at Histogram_Equal_Top.v(61): always construct contains both blocking and non-blocking assignments
 Warning (10268): Verilog HDL information at Histogram_Equal_Top.v(167): always construct contains both blocking and non-blocking assignments
-Warning (10268): Verilog HDL information at vj.v(439): always construct contains both blocking and non-blocking assignments

@@ -389,7 +389,7 @@ module vj(
 	// =========================================================================
 	// 【恢复智力】：提升到第 8 关及格，防止误抓墙壁阴影！
 	// =========================================================================
-	wire early_pass = !detected_fail & last_weak_d[8] & (strong_cnt_b1 >= 5'd8);
+	wire early_pass = !detected_fail & last_weak_d[8] & (strong_cnt_b1 >= 5'd3);
 
 	assign cascade_end   = (strong_fail & !last_strong_d[8]) | (weak_cnt == `TATAL_WEAK_STAGES-1) | early_pass;
 	

@@ -1,11 +1,11 @@
 Synthesis Status : Successful
 eLinx Version : 3.0 
 Top-level Entity Name : hdmi_ctrl
-Total LUTs : 4731
-Total FFs : 2710
-Total CLBs : 701
+Total LUTs : 4725
+Total FFs : 2698
+Total CLBs : 705
 Total Memorys : 95
-Total DSPs : 5
+Total DSPs : 4
 Total PLLs : 1
 Total Pins : 95
 Device Min Height : 4

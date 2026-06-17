@@ -155,8 +155,9 @@ always @(posedge cmos_pclk) begin
         mock_x <= 0;
         mock_y <= 0;
     end else if (scaled_pixel_valid) begin
-        if (mock_x == 639) begin
-            mock_x <= 0; mock_y <= mock_y + 1;
+        if (mock_x == 11'd639) begin  // 【必须改回 639】：缩放器输出的是640像素流，绝不能在159斩断！
+            mock_x <= 0; 
+			mock_y <= mock_y + 1;
         end else begin
             mock_x <= mock_x + 1;
         end

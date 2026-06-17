@@ -1,1028 +1,781 @@
-2026-06-10 14:40:48,408 [INFO] Copyright (C) 2017-2024 eHiWAY Corporation
-2026-06-10 14:40:48,408 [INFO] Your use of eHiWAY Corporation's design tools, logic functions 
-2026-06-10 14:40:48,408 [INFO] and other software and tools, and its EMPP partner logic 
-2026-06-10 14:40:48,408 [INFO] functions, and any output files from any of the foregoing 
-2026-06-10 14:40:48,408 [INFO] (including device programming or simulation files), and any 
-2026-06-10 14:40:48,408 [INFO] associated documentation or information are expressly subject 
-2026-06-10 14:40:48,408 [INFO] to the terms and conditions of the eHiWAY Program License 
-2026-06-10 14:40:48,408 [INFO] Subscription Agreement, or other applicable license agreement, including, 
-2026-06-10 14:40:48,408 [INFO] without limitation, that your use is for the sole purpose of 
-2026-06-10 14:40:48,408 [INFO] programming logic devices manufactured by eHiWAY and sold by 
-2026-06-10 14:40:48,408 [INFO] eHiWAY or its authorized distributors.  Please refer to the 
-2026-06-10 14:40:48,408 [INFO] applicable agreement for further details.
-2026-06-10 14:40:48,408 [INFO] VENDOR "eHiWAY"
+2026-06-17 15:08:01,998 [INFO] Copyright (C) 2017-2024 eHiWAY Corporation
+2026-06-17 15:08:01,998 [INFO] Your use of eHiWAY Corporation's design tools, logic functions 
+2026-06-17 15:08:01,998 [INFO] and other software and tools, and its EMPP partner logic 
+2026-06-17 15:08:01,998 [INFO] functions, and any output files from any of the foregoing 
+2026-06-17 15:08:01,998 [INFO] (including device programming or simulation files), and any 
+2026-06-17 15:08:01,998 [INFO] associated documentation or information are expressly subject 
+2026-06-17 15:08:01,998 [INFO] to the terms and conditions of the eHiWAY Program License 
+2026-06-17 15:08:01,999 [INFO] Subscription Agreement, or other applicable license agreement, including, 
+2026-06-17 15:08:01,999 [INFO] without limitation, that your use is for the sole purpose of 
+2026-06-17 15:08:01,999 [INFO] programming logic devices manufactured by eHiWAY and sold by 
+2026-06-17 15:08:01,999 [INFO] eHiWAY or its authorized distributors.  Please refer to the 
+2026-06-17 15:08:01,999 [INFO] applicable agreement for further details.
+2026-06-17 15:08:01,999 [INFO] VENDOR "eHiWAY"
 
-2026-06-10 14:40:48,408 [INFO] PROGRAM "eLinx 64-Bit"
-2026-06-10 14:40:48,408 [INFO] VERSION "Version 3.0.7 Build 1/22/2025 Full Version"
-2026-06-10 14:40:48,540 [INFO] [UDM_Load_0]:Load eLinx design check point(.ecp) complete.
-2026-06-10 14:40:48,657 [INFO] [ARC_Proc_5]:Deserialize device ends.
-2026-06-10 14:40:48,732 [INFO] [ARC_Proc_1]:Deserialize tiles ends.
-2026-06-10 14:40:48,954 [INFO] PrePlace design rule check  start record
+2026-06-17 15:08:01,999 [INFO] PROGRAM "eLinx 64-Bit"
+2026-06-17 15:08:01,999 [INFO] VERSION "Version 3.0.7 Build 1/22/2025 Full Version"
+2026-06-17 15:08:02,127 [INFO] [UDM_Load_0]:Load eLinx design check point(.ecp) complete.
+2026-06-17 15:08:02,242 [INFO] [ARC_Proc_5]:Deserialize device ends.
+2026-06-17 15:08:02,316 [INFO] [ARC_Proc_1]:Deserialize tiles ends.
+2026-06-17 15:08:02,540 [INFO] PrePlace design rule check  start record
 
-2026-06-10 14:40:48,954 [INFO] start ucm drc.....
+2026-06-17 15:08:02,540 [INFO] start ucm drc.....
 
-2026-06-10 14:40:48,954 [INFO] start udm drc.....
+2026-06-17 15:08:02,540 [INFO] start udm drc.....
 
-2026-06-10 14:40:48,954 [INFO] PrePlace design rule check  run times:0.00 s
+2026-06-17 15:08:02,540 [INFO] PrePlace design rule check  run times:0.00 s
 
-2026-06-10 14:40:49,096 [INFO] [Placer]:Launched Placer...
-2026-06-10 14:40:49,096 [DEBUG] [Placer]:Read in placement constraints...
+2026-06-17 15:08:02,678 [INFO] [Placer]:Launched Placer...
+2026-06-17 15:08:02,678 [DEBUG] [Placer]:Read in placement constraints...
 
-2026-06-10 14:40:49,096 [DEBUG] [Placer]:Read in PlaceOpts from UCM...
+2026-06-17 15:08:02,678 [DEBUG] [Placer]:Read in PlaceOpts from UCM...
 
-2026-06-10 14:40:49,096 [DEBUG] [Placer]:there is no add_cells_to_pblock/add_insts_to_pblock in UCM.
+2026-06-17 15:08:02,679 [DEBUG] [Placer]:there is no add_cells_to_pblock/add_insts_to_pblock in UCM.
 
-2026-06-10 14:40:49,098 [DEBUG] [Placer]:there is no create_pblock/resize_pblock in UCM.
+2026-06-17 15:08:02,680 [DEBUG] [Placer]:there is no create_pblock/resize_pblock in UCM.
 
-2026-06-10 14:40:49,101 [DEBUG] [Placer]:NetVec=4175
+2026-06-17 15:08:02,683 [DEBUG] [Placer]:NetVec=4161
 
-2026-06-10 14:40:49,101 [DEBUG] [Placer]:vccNum=2
+2026-06-17 15:08:02,683 [DEBUG] [Placer]:vccNum=2
 
-2026-06-10 14:40:49,101 [DEBUG] [Placer]:globalNum=5
+2026-06-17 15:08:02,683 [DEBUG] [Placer]:globalNum=5
 
-2026-06-10 14:40:49,101 [DEBUG] [Placer]:internalNetNum=2910
+2026-06-17 15:08:02,683 [DEBUG] [Placer]:internalNetNum=2890
 
-2026-06-10 14:40:49,101 [DEBUG] [Placer]:emptyNum=75
+2026-06-17 15:08:02,683 [DEBUG] [Placer]:emptyNum=65
 
-2026-06-10 14:40:49,106 [DEBUG] [Placer]:blkConnectedNets = 12633
+2026-06-17 15:08:02,688 [DEBUG] [Placer]:blkConnectedNets = 12598
 
-2026-06-10 14:40:49,107 [DEBUG] [Placer]:there is no INCREMENTAL_IMPLEMENTATION settings in UCM.
+2026-06-17 15:08:02,690 [DEBUG] [Placer]:there is no INCREMENTAL_IMPLEMENTATION settings in UCM.
 
-2026-06-10 14:40:49,147 [DEBUG] [Placer]:Clk sig num is 4
+2026-06-17 15:08:02,730 [DEBUG] [Placer]:Clk sig num is 4
 
-2026-06-10 14:40:49,147 [DEBUG] [Placer]:Interface run-time is 0.051 seconds
+2026-06-17 15:08:02,730 [DEBUG] [Placer]:Interface run-time is 0.052 seconds
 
-2026-06-10 14:40:49,248 [DEBUG] [Placer]: Completed placement consistency check successfully.
+2026-06-17 15:08:02,831 [DEBUG] [Placer]: Completed placement consistency check successfully.
 
-2026-06-10 14:40:49,361 [DEBUG] [Placer]:Creating initial analytic placement for 707 cells, random placement wirelen = 327540
+2026-06-17 15:08:02,942 [DEBUG] [Placer]:Creating initial analytic placement for 706 cells, random placement wirelen = 328971
 
-2026-06-10 14:40:49,392 [DEBUG] [Placer]:at initial placer iter 0, wirelen = 9671
+2026-06-17 15:08:02,974 [DEBUG] [Placer]:at initial placer iter 0, wirelen = 9896
 
-2026-06-10 14:40:49,420 [DEBUG] [Placer]:at initial placer iter 1, wirelen = 8885
+2026-06-17 15:08:03,003 [DEBUG] [Placer]:at initial placer iter 1, wirelen = 9148
 
-2026-06-10 14:40:49,449 [DEBUG] [Placer]:at initial placer iter 2, wirelen = 8671
+2026-06-17 15:08:03,032 [DEBUG] [Placer]:at initial placer iter 2, wirelen = 8844
 
-2026-06-10 14:40:49,476 [DEBUG] [Placer]:at initial placer iter 3, wirelen = 8712
+2026-06-17 15:08:03,060 [DEBUG] [Placer]:at initial placer iter 3, wirelen = 8744
 
-2026-06-10 14:40:49,476 [DEBUG] [Placer]:Running main analytical placer.
+2026-06-17 15:08:03,060 [DEBUG] [Placer]:Running main analytical placer.
 
-2026-06-10 14:40:49,501 [DEBUG] [Placer]:Heap at iteration 1, wirelen solved = 9568, spread = 69898, legal = 70550, best_hpwl = 2147483647.
+2026-06-17 15:08:03,085 [DEBUG] [Placer]:Heap at iteration 1, wirelen solved = 9450, spread = 73201, legal = 73691, best_hpwl = 2147483647.
 
-2026-06-10 14:40:49,511 [DEBUG] [Placer]:Heap at iteration 1, wirelen solved = 55513, spread = 56366, legal = 57997, best_hpwl = 2147483647.
+2026-06-17 15:08:03,095 [DEBUG] [Placer]:Heap at iteration 1, wirelen solved = 60687, spread = 61782, legal = 62644, best_hpwl = 2147483647.
 
-2026-06-10 14:40:49,522 [DEBUG] [Placer]:Heap at iteration 1, wirelen solved = 38526, spread = 43637, legal = 44545, best_hpwl = 2147483647.
+2026-06-17 15:08:03,105 [DEBUG] [Placer]:Heap at iteration 1, wirelen solved = 42737, spread = 46806, legal = 47875, best_hpwl = 2147483647.
 
-2026-06-10 14:40:49,558 [DEBUG] [Placer]:Heap at iteration 1, wirelen solved = 8851, spread = 66109, legal = 60753, best_hpwl = 2147483647.
+2026-06-17 15:08:03,139 [DEBUG] [Placer]:Heap at iteration 1, wirelen solved = 8803, spread = 67464, legal = 65781, best_hpwl = 2147483647.
 
-2026-06-10 14:40:49,648 [DEBUG] [Placer]:Heap at iteration 2, wirelen solved = 17996, spread = 54528, legal = 54883, best_hpwl = 60753.
+2026-06-17 15:08:03,226 [DEBUG] [Placer]:Heap at iteration 2, wirelen solved = 17846, spread = 54605, legal = 54936, best_hpwl = 65781.
 
-2026-06-10 14:40:49,657 [DEBUG] [Placer]:Heap at iteration 2, wirelen solved = 52793, spread = 52793, legal = 53667, best_hpwl = 60753.
+2026-06-17 15:08:03,235 [DEBUG] [Placer]:Heap at iteration 2, wirelen solved = 53010, spread = 52998, legal = 53712, best_hpwl = 65781.
 
-2026-06-10 14:40:49,668 [DEBUG] [Placer]:Heap at iteration 2, wirelen solved = 42887, spread = 50879, legal = 50472, best_hpwl = 60753.
+2026-06-17 15:08:03,245 [DEBUG] [Placer]:Heap at iteration 2, wirelen solved = 43340, spread = 47860, legal = 47061, best_hpwl = 65781.
 
-2026-06-10 14:40:49,713 [DEBUG] [Placer]:Heap at iteration 2, wirelen solved = 9516, spread = 62174, legal = 60835, best_hpwl = 60753.
+2026-06-17 15:08:03,276 [DEBUG] [Placer]:Heap at iteration 2, wirelen solved = 9414, spread = 59102, legal = 58389, best_hpwl = 65781.
 
-2026-06-10 14:40:49,807 [DEBUG] [Placer]:Heap at iteration 3, wirelen solved = 17980, spread = 58221, legal = 58327, best_hpwl = 60753.
+2026-06-17 15:08:03,360 [DEBUG] [Placer]:Heap at iteration 3, wirelen solved = 16778, spread = 53172, legal = 53386, best_hpwl = 58389.
 
-2026-06-10 14:40:49,816 [DEBUG] [Placer]:Heap at iteration 3, wirelen solved = 55374, spread = 55374, legal = 55972, best_hpwl = 60753.
+2026-06-17 15:08:03,369 [DEBUG] [Placer]:Heap at iteration 3, wirelen solved = 51372, spread = 51333, legal = 52445, best_hpwl = 58389.
 
-2026-06-10 14:40:49,827 [DEBUG] [Placer]:Heap at iteration 3, wirelen solved = 42730, spread = 46414, legal = 47183, best_hpwl = 60753.
+2026-06-17 15:08:03,379 [DEBUG] [Placer]:Heap at iteration 3, wirelen solved = 41465, spread = 45272, legal = 45443, best_hpwl = 58389.
 
-2026-06-10 14:40:49,858 [DEBUG] [Placer]:Heap at iteration 3, wirelen solved = 10046, spread = 55180, legal = 55352, best_hpwl = 60753.
+2026-06-17 15:08:03,411 [DEBUG] [Placer]:Heap at iteration 3, wirelen solved = 10341, spread = 45590, legal = 46885, best_hpwl = 58389.
 
-2026-06-10 14:40:49,946 [DEBUG] [Placer]:Heap at iteration 4, wirelen solved = 17891, spread = 50101, legal = 50614, best_hpwl = 55352.
+2026-06-17 15:08:03,499 [DEBUG] [Placer]:Heap at iteration 4, wirelen solved = 17292, spread = 50853, legal = 51060, best_hpwl = 46885.
 
-2026-06-10 14:40:49,955 [DEBUG] [Placer]:Heap at iteration 4, wirelen solved = 49872, spread = 49878, legal = 50155, best_hpwl = 55352.
+2026-06-17 15:08:03,508 [DEBUG] [Placer]:Heap at iteration 4, wirelen solved = 49089, spread = 49270, legal = 49973, best_hpwl = 46885.
 
-2026-06-10 14:40:49,965 [DEBUG] [Placer]:Heap at iteration 4, wirelen solved = 39201, spread = 42365, legal = 43454, best_hpwl = 55352.
+2026-06-17 15:08:03,519 [DEBUG] [Placer]:Heap at iteration 4, wirelen solved = 40869, spread = 44750, legal = 45982, best_hpwl = 46885.
 
-2026-06-10 14:40:49,995 [DEBUG] [Placer]:Heap at iteration 4, wirelen solved = 10331, spread = 51300, legal = 51389, best_hpwl = 55352.
+2026-06-17 15:08:03,549 [DEBUG] [Placer]:Heap at iteration 4, wirelen solved = 10626, spread = 46600, legal = 47557, best_hpwl = 46885.
 
-2026-06-10 14:40:50,083 [DEBUG] [Placer]:Heap at iteration 5, wirelen solved = 18004, spread = 50828, legal = 51032, best_hpwl = 51389.
+2026-06-17 15:08:03,635 [DEBUG] [Placer]:Heap at iteration 5, wirelen solved = 18555, spread = 47514, legal = 47835, best_hpwl = 46885.
 
-2026-06-10 14:40:50,092 [DEBUG] [Placer]:Heap at iteration 5, wirelen solved = 50556, spread = 50582, legal = 50888, best_hpwl = 51389.
+2026-06-17 15:08:03,643 [DEBUG] [Placer]:Heap at iteration 5, wirelen solved = 45901, spread = 45901, legal = 46727, best_hpwl = 46885.
 
-2026-06-10 14:40:50,102 [DEBUG] [Placer]:Heap at iteration 5, wirelen solved = 40665, spread = 43977, legal = 45683, best_hpwl = 51389.
+2026-06-17 15:08:03,653 [DEBUG] [Placer]:Heap at iteration 5, wirelen solved = 37668, spread = 44256, legal = 44301, best_hpwl = 46885.
 
-2026-06-10 14:40:50,135 [DEBUG] [Placer]:Heap at iteration 5, wirelen solved = 10568, spread = 48832, legal = 49840, best_hpwl = 51389.
+2026-06-17 15:08:03,683 [DEBUG] [Placer]:Heap at iteration 5, wirelen solved = 10780, spread = 39400, legal = 40468, best_hpwl = 46885.
 
-2026-06-10 14:40:50,223 [DEBUG] [Placer]:Heap at iteration 6, wirelen solved = 18619, spread = 48454, legal = 48998, best_hpwl = 49840.
+2026-06-17 15:08:03,767 [DEBUG] [Placer]:Heap at iteration 6, wirelen solved = 16998, spread = 45263, legal = 45798, best_hpwl = 40468.
 
-2026-06-10 14:40:50,232 [DEBUG] [Placer]:Heap at iteration 6, wirelen solved = 48454, spread = 48733, legal = 49075, best_hpwl = 49840.
+2026-06-17 15:08:03,775 [DEBUG] [Placer]:Heap at iteration 6, wirelen solved = 44314, spread = 44392, legal = 44561, best_hpwl = 40468.
 
-2026-06-10 14:40:50,243 [DEBUG] [Placer]:Heap at iteration 6, wirelen solved = 39567, spread = 45820, legal = 45587, best_hpwl = 49840.
+2026-06-17 15:08:03,787 [DEBUG] [Placer]:Heap at iteration 6, wirelen solved = 39493, spread = 43978, legal = 44318, best_hpwl = 40468.
 
-2026-06-10 14:40:50,273 [DEBUG] [Placer]:Heap at iteration 6, wirelen solved = 10842, spread = 51401, legal = 52146, best_hpwl = 49840.
+2026-06-17 15:08:03,816 [DEBUG] [Placer]:Heap at iteration 6, wirelen solved = 11016, spread = 42874, legal = 44456, best_hpwl = 40468.
 
-2026-06-10 14:40:50,361 [DEBUG] [Placer]:Heap at iteration 7, wirelen solved = 18797, spread = 47494, legal = 48036, best_hpwl = 49840.
+2026-06-17 15:08:03,900 [DEBUG] [Placer]:Heap at iteration 7, wirelen solved = 18428, spread = 44423, legal = 44618, best_hpwl = 40468.
 
-2026-06-10 14:40:50,371 [DEBUG] [Placer]:Heap at iteration 7, wirelen solved = 47393, spread = 47564, legal = 47841, best_hpwl = 49840.
+2026-06-17 15:08:03,908 [DEBUG] [Placer]:Heap at iteration 7, wirelen solved = 43460, spread = 43547, legal = 43672, best_hpwl = 40468.
 
-2026-06-10 14:40:50,381 [DEBUG] [Placer]:Heap at iteration 7, wirelen solved = 39497, spread = 43380, legal = 43119, best_hpwl = 49840.
+2026-06-17 15:08:03,919 [DEBUG] [Placer]:Heap at iteration 7, wirelen solved = 35563, spread = 44552, legal = 44575, best_hpwl = 40468.
 
-2026-06-10 14:40:50,410 [DEBUG] [Placer]:Heap at iteration 7, wirelen solved = 11129, spread = 46460, legal = 47923, best_hpwl = 49840.
+2026-06-17 15:08:03,948 [DEBUG] [Placer]:Heap at iteration 7, wirelen solved = 11067, spread = 41696, legal = 42167, best_hpwl = 40468.
 
-2026-06-10 14:40:50,498 [DEBUG] [Placer]:Heap at iteration 8, wirelen solved = 18015, spread = 43430, legal = 44086, best_hpwl = 47923.
+2026-06-17 15:08:04,031 [DEBUG] [Placer]:Heap at iteration 8, wirelen solved = 16457, spread = 45184, legal = 45682, best_hpwl = 40468.
 
-2026-06-10 14:40:50,507 [DEBUG] [Placer]:Heap at iteration 8, wirelen solved = 43608, spread = 43837, legal = 44086, best_hpwl = 47923.
+2026-06-17 15:08:04,039 [DEBUG] [Placer]:Heap at iteration 8, wirelen solved = 44257, spread = 44293, legal = 44653, best_hpwl = 40468.
 
-2026-06-10 14:40:50,517 [DEBUG] [Placer]:Heap at iteration 8, wirelen solved = 36541, spread = 41940, legal = 42405, best_hpwl = 47923.
+2026-06-17 15:08:04,049 [DEBUG] [Placer]:Heap at iteration 8, wirelen solved = 36053, spread = 43922, legal = 43586, best_hpwl = 40468.
 
-2026-06-10 14:40:50,546 [DEBUG] [Placer]:Heap at iteration 8, wirelen solved = 11202, spread = 47578, legal = 49664, best_hpwl = 47923.
+2026-06-17 15:08:04,078 [DEBUG] [Placer]:Heap at iteration 8, wirelen solved = 11376, spread = 41197, legal = 42599, best_hpwl = 40468.
 
-2026-06-10 14:40:50,635 [DEBUG] [Placer]:Heap at iteration 9, wirelen solved = 18857, spread = 46756, legal = 47393, best_hpwl = 47923.
+2026-06-17 15:08:04,161 [DEBUG] [Placer]:Heap at iteration 9, wirelen solved = 17475, spread = 46007, legal = 46241, best_hpwl = 40468.
 
-2026-06-10 14:40:50,644 [DEBUG] [Placer]:Heap at iteration 9, wirelen solved = 46425, spread = 46425, legal = 46812, best_hpwl = 47923.
+2026-06-17 15:08:04,170 [DEBUG] [Placer]:Heap at iteration 9, wirelen solved = 43821, spread = 44018, legal = 44573, best_hpwl = 40468.
 
-2026-06-10 14:40:50,655 [DEBUG] [Placer]:Heap at iteration 9, wirelen solved = 39117, spread = 43896, legal = 44847, best_hpwl = 47923.
+2026-06-17 15:08:04,180 [DEBUG] [Placer]:Heap at iteration 9, wirelen solved = 35807, spread = 40055, legal = 40595, best_hpwl = 40468.
 
-2026-06-10 14:40:50,685 [DEBUG] [Placer]:Heap at iteration 9, wirelen solved = 11526, spread = 46686, legal = 46899, best_hpwl = 47923.
+2026-06-17 15:08:04,209 [DEBUG] [Placer]:Heap at iteration 9, wirelen solved = 11449, spread = 41486, legal = 44136, best_hpwl = 40468.
 
-2026-06-10 14:40:50,774 [DEBUG] [Placer]:Heap at iteration 10, wirelen solved = 19396, spread = 48105, legal = 48570, best_hpwl = 46899.
+2026-06-17 15:08:04,291 [DEBUG] [Placer]:Heap at iteration 10, wirelen solved = 18862, spread = 41947, legal = 42692, best_hpwl = 40468.
 
-2026-06-10 14:40:50,783 [DEBUG] [Placer]:Heap at iteration 10, wirelen solved = 47331, spread = 47331, legal = 47703, best_hpwl = 46899.
+2026-06-17 15:08:04,300 [DEBUG] [Placer]:Heap at iteration 10, wirelen solved = 41136, spread = 41210, legal = 41451, best_hpwl = 40468.
 
-2026-06-10 14:40:50,794 [DEBUG] [Placer]:Heap at iteration 10, wirelen solved = 39954, spread = 44945, legal = 45173, best_hpwl = 46899.
+2026-06-17 15:08:04,311 [DEBUG] [Placer]:Heap at iteration 10, wirelen solved = 34136, spread = 40510, legal = 40556, best_hpwl = 40468.
 
-2026-06-10 14:40:50,823 [DEBUG] [Placer]:Heap at iteration 10, wirelen solved = 11803, spread = 46152, legal = 48938, best_hpwl = 46899.
+2026-06-17 15:08:04,339 [DEBUG] [Placer]:Heap at iteration 10, wirelen solved = 11506, spread = 40784, legal = 42567, best_hpwl = 40468.
 
-2026-06-10 14:40:50,911 [DEBUG] [Placer]:Heap at iteration 11, wirelen solved = 19023, spread = 43706, legal = 44061, best_hpwl = 46899.
+2026-06-17 15:08:04,420 [DEBUG] [Placer]:Heap at iteration 11, wirelen solved = 18474, spread = 40713, legal = 41375, best_hpwl = 40468.
 
-2026-06-10 14:40:50,920 [DEBUG] [Placer]:Heap at iteration 11, wirelen solved = 42823, spread = 42823, legal = 43186, best_hpwl = 46899.
+2026-06-17 15:08:04,428 [DEBUG] [Placer]:Heap at iteration 11, wirelen solved = 40435, spread = 40435, legal = 40810, best_hpwl = 40468.
 
-2026-06-10 14:40:50,930 [DEBUG] [Placer]:Heap at iteration 11, wirelen solved = 36381, spread = 41946, legal = 42139, best_hpwl = 46899.
+2026-06-17 15:08:04,439 [DEBUG] [Placer]:Heap at iteration 11, wirelen solved = 33899, spread = 40577, legal = 40572, best_hpwl = 40468.
 
-2026-06-10 14:40:50,959 [DEBUG] [Placer]:Heap at iteration 11, wirelen solved = 12146, spread = 46199, legal = 48608, best_hpwl = 46899.
+2026-06-17 15:08:04,467 [DEBUG] [Placer]:Heap at iteration 11, wirelen solved = 11618, spread = 36849, legal = 37830, best_hpwl = 40468.
 
-2026-06-10 14:40:51,046 [DEBUG] [Placer]:Heap at iteration 12, wirelen solved = 19060, spread = 44843, legal = 44931, best_hpwl = 46899.
+2026-06-17 15:08:04,548 [DEBUG] [Placer]:Heap at iteration 12, wirelen solved = 19177, spread = 36698, legal = 37758, best_hpwl = 37830.
 
-2026-06-10 14:40:51,055 [DEBUG] [Placer]:Heap at iteration 12, wirelen solved = 43470, spread = 43470, legal = 43731, best_hpwl = 46899.
+2026-06-17 15:08:04,557 [DEBUG] [Placer]:Heap at iteration 12, wirelen solved = 37114, spread = 37135, legal = 37250, best_hpwl = 37830.
 
-2026-06-10 14:40:51,065 [DEBUG] [Placer]:Heap at iteration 12, wirelen solved = 37039, spread = 41681, legal = 42030, best_hpwl = 46899.
+2026-06-17 15:08:04,567 [DEBUG] [Placer]:Heap at iteration 12, wirelen solved = 32947, spread = 40773, legal = 40712, best_hpwl = 37830.
 
-2026-06-10 14:40:51,094 [DEBUG] [Placer]:Heap at iteration 12, wirelen solved = 12673, spread = 42048, legal = 43871, best_hpwl = 46899.
+2026-06-17 15:08:04,594 [DEBUG] [Placer]:Heap at iteration 12, wirelen solved = 11704, spread = 40488, legal = 41877, best_hpwl = 37830.
 
-2026-06-10 14:40:51,178 [DEBUG] [Placer]:Heap at iteration 13, wirelen solved = 18889, spread = 44506, legal = 44858, best_hpwl = 43871.
+2026-06-17 15:08:04,677 [DEBUG] [Placer]:Heap at iteration 13, wirelen solved = 19699, spread = 42024, legal = 43129, best_hpwl = 37830.
 
-2026-06-10 14:40:51,187 [DEBUG] [Placer]:Heap at iteration 13, wirelen solved = 43851, spread = 43851, legal = 44318, best_hpwl = 43871.
+2026-06-17 15:08:04,686 [DEBUG] [Placer]:Heap at iteration 13, wirelen solved = 42105, spread = 42105, legal = 42662, best_hpwl = 37830.
 
-2026-06-10 14:40:51,197 [DEBUG] [Placer]:Heap at iteration 13, wirelen solved = 38988, spread = 44022, legal = 44094, best_hpwl = 43871.
+2026-06-17 15:08:04,696 [DEBUG] [Placer]:Heap at iteration 13, wirelen solved = 34944, spread = 41352, legal = 42103, best_hpwl = 37830.
 
-2026-06-10 14:40:51,226 [DEBUG] [Placer]:Heap at iteration 13, wirelen solved = 12769, spread = 40713, legal = 42947, best_hpwl = 43871.
+2026-06-17 15:08:04,723 [DEBUG] [Placer]:Heap at iteration 13, wirelen solved = 11878, spread = 35698, legal = 36433, best_hpwl = 37830.
 
-2026-06-10 14:40:51,310 [DEBUG] [Placer]:Heap at iteration 14, wirelen solved = 18560, spread = 41913, legal = 42741, best_hpwl = 42947.
+2026-06-17 15:08:04,808 [DEBUG] [Placer]:Heap at iteration 14, wirelen solved = 18324, spread = 40048, legal = 40474, best_hpwl = 36433.
 
-2026-06-10 14:40:51,319 [DEBUG] [Placer]:Heap at iteration 14, wirelen solved = 41098, spread = 41098, legal = 41358, best_hpwl = 42947.
+2026-06-17 15:08:04,816 [DEBUG] [Placer]:Heap at iteration 14, wirelen solved = 39463, spread = 39463, legal = 39855, best_hpwl = 36433.
 
-2026-06-10 14:40:51,330 [DEBUG] [Placer]:Heap at iteration 14, wirelen solved = 35915, spread = 40879, legal = 41285, best_hpwl = 42947.
+2026-06-17 15:08:04,826 [DEBUG] [Placer]:Heap at iteration 14, wirelen solved = 35750, spread = 43739, legal = 43713, best_hpwl = 36433.
 
-2026-06-10 14:40:51,357 [DEBUG] [Placer]:Heap at iteration 14, wirelen solved = 13352, spread = 40954, legal = 43367, best_hpwl = 42947.
+2026-06-17 15:08:04,852 [DEBUG] [Placer]:Heap at iteration 14, wirelen solved = 12264, spread = 36071, legal = 37492, best_hpwl = 36433.
 
-2026-06-10 14:40:51,439 [DEBUG] [Placer]:Heap at iteration 15, wirelen solved = 19868, spread = 40384, legal = 41039, best_hpwl = 42947.
+2026-06-17 15:08:04,935 [DEBUG] [Placer]:Heap at iteration 15, wirelen solved = 19022, spread = 37815, legal = 38986, best_hpwl = 36433.
 
-2026-06-10 14:40:51,449 [DEBUG] [Placer]:Heap at iteration 15, wirelen solved = 40558, spread = 40558, legal = 40934, best_hpwl = 42947.
+2026-06-17 15:08:04,944 [DEBUG] [Placer]:Heap at iteration 15, wirelen solved = 38719, spread = 38719, legal = 38986, best_hpwl = 36433.
 
-2026-06-10 14:40:51,460 [DEBUG] [Placer]:Heap at iteration 15, wirelen solved = 35749, spread = 39775, legal = 40268, best_hpwl = 42947.
+2026-06-17 15:08:04,954 [DEBUG] [Placer]:Heap at iteration 15, wirelen solved = 34823, spread = 38383, legal = 38304, best_hpwl = 36433.
 
-2026-06-10 14:40:51,487 [DEBUG] [Placer]:Heap at iteration 15, wirelen solved = 13882, spread = 38163, legal = 40871, best_hpwl = 42947.
+2026-06-17 15:08:04,986 [DEBUG] [Placer]:Heap at iteration 15, wirelen solved = 12417, spread = 35612, legal = 37600, best_hpwl = 36433.
 
-2026-06-10 14:40:51,572 [DEBUG] [Placer]:Heap at iteration 16, wirelen solved = 20670, spread = 40801, legal = 41224, best_hpwl = 40871.
+2026-06-17 15:08:05,121 [DEBUG] [Placer]:Heap at iteration 16, wirelen solved = 19495, spread = 36016, legal = 36791, best_hpwl = 36433.
 
-2026-06-10 14:40:51,580 [DEBUG] [Placer]:Heap at iteration 16, wirelen solved = 40932, spread = 40932, legal = 41083, best_hpwl = 40871.
+2026-06-17 15:08:05,138 [DEBUG] [Placer]:Heap at iteration 16, wirelen solved = 36644, spread = 36644, legal = 36791, best_hpwl = 36433.
 
-2026-06-10 14:40:51,591 [DEBUG] [Placer]:Heap at iteration 16, wirelen solved = 37154, spread = 41089, legal = 41037, best_hpwl = 40871.
+2026-06-17 15:08:05,161 [DEBUG] [Placer]:Heap at iteration 16, wirelen solved = 32760, spread = 40443, legal = 40681, best_hpwl = 36433.
 
-2026-06-10 14:40:51,618 [DEBUG] [Placer]:Heap at iteration 16, wirelen solved = 13940, spread = 37055, legal = 39218, best_hpwl = 40871.
+2026-06-17 15:08:05,206 [DEBUG] [Placer]:Heap at iteration 16, wirelen solved = 12448, spread = 40708, legal = 42016, best_hpwl = 36433.
 
-2026-06-10 14:40:51,704 [DEBUG] [Placer]:Heap at iteration 17, wirelen solved = 20575, spread = 42255, legal = 42716, best_hpwl = 39218.
+2026-06-17 15:08:05,342 [DEBUG] [Placer]:Heap at iteration 17, wirelen solved = 19785, spread = 42676, legal = 43266, best_hpwl = 36433.
 
-2026-06-10 14:40:51,713 [DEBUG] [Placer]:Heap at iteration 17, wirelen solved = 41451, spread = 41692, legal = 41766, best_hpwl = 39218.
+2026-06-17 15:08:05,360 [DEBUG] [Placer]:Heap at iteration 17, wirelen solved = 42172, spread = 42172, legal = 42476, best_hpwl = 36433.
 
-2026-06-10 14:40:51,724 [DEBUG] [Placer]:Heap at iteration 17, wirelen solved = 37209, spread = 39954, legal = 40788, best_hpwl = 39218.
+2026-06-17 15:08:05,379 [DEBUG] [Placer]:Heap at iteration 17, wirelen solved = 35429, spread = 41554, legal = 41375, best_hpwl = 36433.
 
-2026-06-10 14:40:51,751 [DEBUG] [Placer]:Heap at iteration 17, wirelen solved = 14335, spread = 38203, legal = 40681, best_hpwl = 39218.
+2026-06-17 15:08:05,425 [DEBUG] [Placer]:Heap at iteration 17, wirelen solved = 12735, spread = 39845, legal = 41008, best_hpwl = 36433.
 
-2026-06-10 14:40:51,833 [DEBUG] [Placer]:Heap at iteration 18, wirelen solved = 20721, spread = 40157, legal = 40477, best_hpwl = 39218.
+2026-06-17 15:08:05,556 [DEBUG] [Placer]:Heap at iteration 18, wirelen solved = 20234, spread = 40061, legal = 40920, best_hpwl = 36433.
 
-2026-06-10 14:40:51,842 [DEBUG] [Placer]:Heap at iteration 18, wirelen solved = 39941, spread = 40330, legal = 40499, best_hpwl = 39218.
+2026-06-17 15:08:05,573 [DEBUG] [Placer]:Heap at iteration 18, wirelen solved = 40485, spread = 40485, legal = 40693, best_hpwl = 36433.
 
-2026-06-10 14:40:51,852 [DEBUG] [Placer]:Heap at iteration 18, wirelen solved = 36224, spread = 39229, legal = 39505, best_hpwl = 39218.
+2026-06-17 15:08:05,592 [DEBUG] [Placer]:Heap at iteration 18, wirelen solved = 34906, spread = 40961, legal = 40206, best_hpwl = 36433.
 
-2026-06-10 14:40:51,879 [DEBUG] [Placer]:Heap at iteration 18, wirelen solved = 14500, spread = 36623, legal = 39227, best_hpwl = 39218.
+2026-06-17 15:08:05,639 [DEBUG] [Placer]:Heap at iteration 18, wirelen solved = 12967, spread = 39932, legal = 41035, best_hpwl = 36433.
 
-2026-06-10 14:40:51,961 [DEBUG] [Placer]:Heap at iteration 19, wirelen solved = 20145, spread = 40284, legal = 41118, best_hpwl = 39218.
+2026-06-17 15:08:05,774 [DEBUG] [Placer]:Heap at iteration 19, wirelen solved = 19962, spread = 41375, legal = 42116, best_hpwl = 36433.
 
-2026-06-10 14:40:51,970 [DEBUG] [Placer]:Heap at iteration 19, wirelen solved = 40894, spread = 40894, legal = 40999, best_hpwl = 39218.
+2026-06-17 15:08:05,791 [DEBUG] [Placer]:Heap at iteration 19, wirelen solved = 41349, spread = 41349, legal = 41674, best_hpwl = 36433.
 
-2026-06-10 14:40:51,980 [DEBUG] [Placer]:Heap at iteration 19, wirelen solved = 36602, spread = 39239, legal = 40196, best_hpwl = 39218.
+2026-06-17 15:08:05,810 [DEBUG] [Placer]:Heap at iteration 19, wirelen solved = 35178, spread = 40347, legal = 40422, best_hpwl = 36433.
 
-2026-06-10 14:40:52,007 [DEBUG] [Placer]:Heap at iteration 19, wirelen solved = 14725, spread = 37276, legal = 39678, best_hpwl = 39218.
+2026-06-17 15:08:05,857 [DEBUG] [Placer]:Heap at iteration 19, wirelen solved = 12964, spread = 39185, legal = 41453, best_hpwl = 36433.
 
-2026-06-10 14:40:52,090 [DEBUG] [Placer]:Heap at iteration 20, wirelen solved = 20583, spread = 38363, legal = 39376, best_hpwl = 39218.
+2026-06-17 15:08:05,989 [DEBUG] [Placer]:Heap at iteration 20, wirelen solved = 21143, spread = 41256, legal = 41708, best_hpwl = 36433.
 
-2026-06-10 14:40:52,098 [DEBUG] [Placer]:Heap at iteration 20, wirelen solved = 38902, spread = 38902, legal = 39232, best_hpwl = 39218.
+2026-06-17 15:08:06,005 [DEBUG] [Placer]:Heap at iteration 20, wirelen solved = 40698, spread = 40698, legal = 41011, best_hpwl = 36433.
 
-2026-06-10 14:40:52,109 [DEBUG] [Placer]:Heap at iteration 20, wirelen solved = 35535, spread = 39078, legal = 39094, best_hpwl = 39218.
+2026-06-17 15:08:06,026 [DEBUG] [Placer]:Heap at iteration 20, wirelen solved = 34501, spread = 41142, legal = 41175, best_hpwl = 36433.
 
-2026-06-10 14:40:52,135 [DEBUG] [Placer]:Heap at iteration 20, wirelen solved = 14907, spread = 37222, legal = 40021, best_hpwl = 39218.
+2026-06-17 15:08:06,072 [DEBUG] [Placer]:Heap at iteration 20, wirelen solved = 13112, spread = 39690, legal = 41703, best_hpwl = 36433.
 
-2026-06-10 14:40:52,219 [DEBUG] [Placer]:Heap at iteration 21, wirelen solved = 21161, spread = 39144, legal = 39709, best_hpwl = 39218.
+2026-06-17 15:08:06,207 [DEBUG] [Placer]:Heap at iteration 21, wirelen solved = 20945, spread = 40964, legal = 42138, best_hpwl = 36433.
 
-2026-06-10 14:40:52,227 [DEBUG] [Placer]:Heap at iteration 21, wirelen solved = 39216, spread = 39216, legal = 39565, best_hpwl = 39218.
+2026-06-17 15:08:06,224 [DEBUG] [Placer]:Heap at iteration 21, wirelen solved = 41359, spread = 41359, legal = 41477, best_hpwl = 36433.
 
-2026-06-10 14:40:52,238 [DEBUG] [Placer]:Heap at iteration 21, wirelen solved = 36160, spread = 39103, legal = 39390, best_hpwl = 39218.
+2026-06-17 15:08:06,245 [DEBUG] [Placer]:Heap at iteration 21, wirelen solved = 35434, spread = 41475, legal = 41705, best_hpwl = 36433.
 
-2026-06-10 14:40:52,265 [DEBUG] [Placer]:Heap at iteration 21, wirelen solved = 14948, spread = 38551, legal = 40817, best_hpwl = 39218.
+2026-06-17 15:08:06,291 [DEBUG] [Placer]:Heap at iteration 21, wirelen solved = 13381, spread = 37877, legal = 39357, best_hpwl = 36433.
 
-2026-06-10 14:40:52,348 [DEBUG] [Placer]:Heap at iteration 22, wirelen solved = 21803, spread = 38668, legal = 39436, best_hpwl = 39218.
+2026-06-17 15:08:06,432 [DEBUG] [Placer]:Heap at iteration 22, wirelen solved = 20588, spread = 38270, legal = 38806, best_hpwl = 36433.
 
-2026-06-10 14:40:52,358 [DEBUG] [Placer]:Heap at iteration 22, wirelen solved = 39005, spread = 39005, legal = 39244, best_hpwl = 39218.
+2026-06-17 15:08:06,449 [DEBUG] [Placer]:Heap at iteration 22, wirelen solved = 38213, spread = 38473, legal = 38664, best_hpwl = 36433.
 
-2026-06-10 14:40:52,368 [DEBUG] [Placer]:Heap at iteration 22, wirelen solved = 35751, spread = 38466, legal = 38924, best_hpwl = 39218.
+2026-06-17 15:08:06,468 [DEBUG] [Placer]:Heap at iteration 22, wirelen solved = 32603, spread = 39075, legal = 38909, best_hpwl = 36433.
 
-2026-06-10 14:40:52,395 [DEBUG] [Placer]:Heap at iteration 22, wirelen solved = 15554, spread = 38135, legal = 40282, best_hpwl = 39218.
+2026-06-17 15:08:06,530 [DEBUG] [Placer]:Heap at iteration 22, wirelen solved = 13650, spread = 39338, legal = 40949, best_hpwl = 36433.
 
-2026-06-10 14:40:52,478 [DEBUG] [Placer]:Heap at iteration 23, wirelen solved = 21213, spread = 38947, legal = 39212, best_hpwl = 39218.
+2026-06-17 15:08:06,653 [DEBUG] [Placer]:Heap at iteration 23, wirelen solved = 21474, spread = 42750, legal = 43821, best_hpwl = 36433.
 
-2026-06-10 14:40:52,487 [DEBUG] [Placer]:Heap at iteration 23, wirelen solved = 38526, spread = 38691, legal = 38911, best_hpwl = 39218.
+2026-06-17 15:08:06,673 [DEBUG] [Placer]:Heap at iteration 23, wirelen solved = 42753, spread = 42907, legal = 43123, best_hpwl = 36433.
 
-2026-06-10 14:40:52,497 [DEBUG] [Placer]:Heap at iteration 23, wirelen solved = 35460, spread = 38791, legal = 38775, best_hpwl = 39218.
+2026-06-17 15:08:06,695 [DEBUG] [Placer]:Heap at iteration 23, wirelen solved = 36566, spread = 41410, legal = 40990, best_hpwl = 36433.
 
-2026-06-10 14:40:52,524 [DEBUG] [Placer]:Heap at iteration 23, wirelen solved = 15627, spread = 38349, legal = 40525, best_hpwl = 39218.
+2026-06-17 15:08:06,740 [DEBUG] [Placer]:Heap at iteration 23, wirelen solved = 13444, spread = 39299, legal = 41421, best_hpwl = 36433.
 
-2026-06-10 14:40:52,608 [DEBUG] [Placer]:Heap at iteration 24, wirelen solved = 21388, spread = 37622, legal = 38412, best_hpwl = 39218.
+2026-06-17 15:08:06,879 [DEBUG] [Placer]:Heap at iteration 24, wirelen solved = 21482, spread = 39228, legal = 40799, best_hpwl = 36433.
 
-2026-06-10 14:40:52,617 [DEBUG] [Placer]:Heap at iteration 24, wirelen solved = 37858, spread = 37858, legal = 38591, best_hpwl = 39218.
+2026-06-17 15:08:06,897 [DEBUG] [Placer]:Heap at iteration 24, wirelen solved = 40182, spread = 40182, legal = 40441, best_hpwl = 36433.
 
-2026-06-10 14:40:52,628 [DEBUG] [Placer]:Heap at iteration 24, wirelen solved = 35355, spread = 39114, legal = 39001, best_hpwl = 39218.
+2026-06-17 15:08:06,919 [DEBUG] [Placer]:Heap at iteration 24, wirelen solved = 34009, spread = 40232, legal = 40346, best_hpwl = 36433.
 
-2026-06-10 14:40:52,655 [DEBUG] [Placer]:Heap at iteration 24, wirelen solved = 15671, spread = 37028, legal = 38726, best_hpwl = 39218.
+2026-06-17 15:08:06,969 [DEBUG] [Placer]:Heap at iteration 24, wirelen solved = 13914, spread = 40633, legal = 42267, best_hpwl = 36433.
 
-2026-06-10 14:40:52,737 [DEBUG] [Placer]:Heap at iteration 25, wirelen solved = 21980, spread = 37709, legal = 38673, best_hpwl = 38726.
+2026-06-17 15:08:07,101 [DEBUG] [Placer]:Heap at iteration 25, wirelen solved = 22295, spread = 39552, legal = 39925, best_hpwl = 36433.
 
-2026-06-10 14:40:52,747 [DEBUG] [Placer]:Heap at iteration 25, wirelen solved = 38085, spread = 38085, legal = 38342, best_hpwl = 38726.
+2026-06-17 15:08:07,119 [DEBUG] [Placer]:Heap at iteration 25, wirelen solved = 39516, spread = 39578, legal = 39651, best_hpwl = 36433.
 
-2026-06-10 14:40:52,757 [DEBUG] [Placer]:Heap at iteration 25, wirelen solved = 34672, spread = 37362, legal = 37189, best_hpwl = 38726.
+2026-06-17 15:08:07,139 [DEBUG] [Placer]:Heap at iteration 25, wirelen solved = 33255, spread = 38874, legal = 39420, best_hpwl = 36433.
 
-2026-06-10 14:40:52,784 [DEBUG] [Placer]:Heap at iteration 25, wirelen solved = 15703, spread = 36669, legal = 38998, best_hpwl = 38726.
+2026-06-17 15:08:07,186 [DEBUG] [Placer]:Heap at iteration 25, wirelen solved = 13794, spread = 39931, legal = 42131, best_hpwl = 36433.
 
-2026-06-10 14:40:52,868 [DEBUG] [Placer]:Heap at iteration 26, wirelen solved = 22084, spread = 37288, legal = 37696, best_hpwl = 38726.
+2026-06-17 15:08:07,319 [DEBUG] [Placer]:Heap at iteration 26, wirelen solved = 22035, spread = 39351, legal = 40023, best_hpwl = 36433.
 
-2026-06-10 14:40:52,877 [DEBUG] [Placer]:Heap at iteration 26, wirelen solved = 36999, spread = 36999, legal = 37469, best_hpwl = 38726.
+2026-06-17 15:08:07,336 [DEBUG] [Placer]:Heap at iteration 26, wirelen solved = 39142, spread = 39536, legal = 39901, best_hpwl = 36433.
 
-2026-06-10 14:40:52,887 [DEBUG] [Placer]:Heap at iteration 26, wirelen solved = 34237, spread = 38499, legal = 39172, best_hpwl = 38726.
+2026-06-17 15:08:07,356 [DEBUG] [Placer]:Heap at iteration 26, wirelen solved = 33124, spread = 40811, legal = 40100, best_hpwl = 36433.
 
-2026-06-10 14:40:52,914 [DEBUG] [Placer]:Heap at iteration 26, wirelen solved = 15890, spread = 36259, legal = 38667, best_hpwl = 38726.
+2026-06-17 15:08:07,404 [DEBUG] [Placer]:Heap at iteration 26, wirelen solved = 13816, spread = 39764, legal = 41940, best_hpwl = 36433.
 
-2026-06-10 14:40:52,998 [DEBUG] [Placer]:Heap at iteration 27, wirelen solved = 21673, spread = 36952, legal = 38039, best_hpwl = 38667.
+2026-06-17 15:08:07,530 [DEBUG] [Placer]:Heap at iteration 27, wirelen solved = 22177, spread = 39592, legal = 40178, best_hpwl = 36433.
 
-2026-06-10 14:40:53,006 [DEBUG] [Placer]:Heap at iteration 27, wirelen solved = 37358, spread = 37541, legal = 38129, best_hpwl = 38667.
+2026-06-17 15:08:07,547 [DEBUG] [Placer]:Heap at iteration 27, wirelen solved = 39534, spread = 39596, legal = 39892, best_hpwl = 36433.
 
-2026-06-10 14:40:53,017 [DEBUG] [Placer]:Heap at iteration 27, wirelen solved = 34942, spread = 37912, legal = 38188, best_hpwl = 38667.
+2026-06-17 15:08:07,566 [DEBUG] [Placer]:Heap at iteration 27, wirelen solved = 33357, spread = 37939, legal = 38124, best_hpwl = 36433.
 
-2026-06-10 14:40:53,044 [DEBUG] [Placer]:Heap at iteration 27, wirelen solved = 16053, spread = 35695, legal = 37612, best_hpwl = 38667.
+2026-06-17 15:08:07,614 [DEBUG] [Placer]:Heap at iteration 27, wirelen solved = 14194, spread = 39353, legal = 39610, best_hpwl = 36433.
 
-2026-06-10 14:40:53,126 [DEBUG] [Placer]:Heap at iteration 28, wirelen solved = 22022, spread = 37270, legal = 38104, best_hpwl = 37612.
+2026-06-17 15:08:07,745 [DEBUG] [Placer]:Heap at iteration 28, wirelen solved = 21304, spread = 37737, legal = 38558, best_hpwl = 36433.
 
-2026-06-10 14:40:53,135 [DEBUG] [Placer]:Heap at iteration 28, wirelen solved = 37320, spread = 37456, legal = 37920, best_hpwl = 37612.
+2026-06-17 15:08:07,762 [DEBUG] [Placer]:Heap at iteration 28, wirelen solved = 37695, spread = 38160, legal = 38446, best_hpwl = 36433.
 
-2026-06-10 14:40:53,146 [DEBUG] [Placer]:Heap at iteration 28, wirelen solved = 34932, spread = 37129, legal = 37413, best_hpwl = 37612.
+2026-06-17 15:08:07,783 [DEBUG] [Placer]:Heap at iteration 28, wirelen solved = 32725, spread = 38503, legal = 38162, best_hpwl = 36433.
 
-2026-06-10 14:40:53,171 [DEBUG] [Placer]:Heap at iteration 28, wirelen solved = 15908, spread = 37342, legal = 39470, best_hpwl = 37612.
+2026-06-17 15:08:07,828 [DEBUG] [Placer]:Heap at iteration 28, wirelen solved = 14484, spread = 39935, legal = 40439, best_hpwl = 36433.
 
-2026-06-10 14:40:53,255 [DEBUG] [Placer]:Heap at iteration 29, wirelen solved = 22294, spread = 37924, legal = 39162, best_hpwl = 37612.
+2026-06-17 15:08:07,963 [DEBUG] [Placer]:Heap at iteration 29, wirelen solved = 21097, spread = 37835, legal = 38530, best_hpwl = 36433.
 
-2026-06-10 14:40:53,263 [DEBUG] [Placer]:Heap at iteration 29, wirelen solved = 38099, spread = 38363, legal = 39162, best_hpwl = 37612.
+2026-06-17 15:08:07,980 [DEBUG] [Placer]:Heap at iteration 29, wirelen solved = 37590, spread = 37692, legal = 37963, best_hpwl = 36433.
 
-2026-06-10 14:40:53,274 [DEBUG] [Placer]:Heap at iteration 29, wirelen solved = 34361, spread = 38863, legal = 38314, best_hpwl = 37612.
+2026-06-17 15:08:07,999 [DEBUG] [Placer]:Heap at iteration 29, wirelen solved = 31889, spread = 38652, legal = 38402, best_hpwl = 36433.
 
-2026-06-10 14:40:53,300 [DEBUG] [Placer]:Heap at iteration 29, wirelen solved = 16026, spread = 35964, legal = 38870, best_hpwl = 37612.
+2026-06-17 15:08:08,043 [DEBUG] [Placer]:Heap at iteration 29, wirelen solved = 14885, spread = 38734, legal = 40031, best_hpwl = 36433.
 
-2026-06-10 14:40:53,385 [DEBUG] [Placer]:Heap at iteration 30, wirelen solved = 22133, spread = 37215, legal = 38805, best_hpwl = 37612.
+2026-06-17 15:08:08,172 [DEBUG] [Placer]:Heap at iteration 30, wirelen solved = 20569, spread = 38644, legal = 39211, best_hpwl = 36433.
 
-2026-06-10 14:40:53,394 [DEBUG] [Placer]:Heap at iteration 30, wirelen solved = 38178, spread = 38406, legal = 38762, best_hpwl = 37612.
+2026-06-17 15:08:08,190 [DEBUG] [Placer]:Heap at iteration 30, wirelen solved = 38296, spread = 38401, legal = 38554, best_hpwl = 36433.
 
-2026-06-10 14:40:53,404 [DEBUG] [Placer]:Heap at iteration 30, wirelen solved = 35325, spread = 39186, legal = 39288, best_hpwl = 37612.
+2026-06-17 15:08:08,209 [DEBUG] [Placer]:Heap at iteration 30, wirelen solved = 32856, spread = 39109, legal = 38359, best_hpwl = 36433.
 
-2026-06-10 14:40:53,429 [DEBUG] [Placer]:Heap at iteration 30, wirelen solved = 16548, spread = 38525, legal = 40328, best_hpwl = 37612.
+2026-06-17 15:08:08,252 [DEBUG] [Placer]:Heap at iteration 30, wirelen solved = 14840, spread = 39273, legal = 39888, best_hpwl = 36433.
 
-2026-06-10 14:40:53,510 [DEBUG] [Placer]:Heap at iteration 31, wirelen solved = 23117, spread = 37991, legal = 39174, best_hpwl = 37612.
+2026-06-17 15:08:08,388 [DEBUG] [Placer]:Heap at iteration 31, wirelen solved = 20752, spread = 37936, legal = 38677, best_hpwl = 36433.
 
-2026-06-10 14:40:53,518 [DEBUG] [Placer]:Heap at iteration 31, wirelen solved = 38292, spread = 38445, legal = 39174, best_hpwl = 37612.
+2026-06-17 15:08:08,405 [DEBUG] [Placer]:Heap at iteration 31, wirelen solved = 37581, spread = 37693, legal = 37965, best_hpwl = 36433.
 
-2026-06-10 14:40:53,528 [DEBUG] [Placer]:Heap at iteration 31, wirelen solved = 34035, spread = 38766, legal = 39256, best_hpwl = 37612.
+2026-06-17 15:08:08,424 [DEBUG] [Placer]:Heap at iteration 31, wirelen solved = 32601, spread = 36798, legal = 37050, best_hpwl = 36433.
 
-2026-06-10 14:40:53,554 [DEBUG] [Placer]:Heap at iteration 31, wirelen solved = 16192, spread = 35148, legal = 38392, best_hpwl = 37612.
+2026-06-17 15:08:08,467 [DEBUG] [Placer]:Heap at iteration 31, wirelen solved = 15351, spread = 38581, legal = 39727, best_hpwl = 36433.
 
-2026-06-10 14:40:53,635 [DEBUG] [Placer]:Heap at iteration 32, wirelen solved = 22721, spread = 38915, legal = 39796, best_hpwl = 37612.
+2026-06-17 15:08:08,597 [DEBUG] [Placer]:Heap at iteration 32, wirelen solved = 20575, spread = 39541, legal = 40280, best_hpwl = 36433.
 
-2026-06-10 14:40:53,644 [DEBUG] [Placer]:Heap at iteration 32, wirelen solved = 38693, spread = 38693, legal = 39611, best_hpwl = 37612.
+2026-06-17 15:08:08,617 [DEBUG] [Placer]:Heap at iteration 32, wirelen solved = 39443, spread = 39972, legal = 40158, best_hpwl = 36433.
 
-2026-06-10 14:40:53,654 [DEBUG] [Placer]:Heap at iteration 32, wirelen solved = 36283, spread = 38795, legal = 39152, best_hpwl = 37612.
+2026-06-17 15:08:08,638 [DEBUG] [Placer]:Heap at iteration 32, wirelen solved = 35036, spread = 40770, legal = 40108, best_hpwl = 36433.
 
-2026-06-10 14:40:53,680 [DEBUG] [Placer]:Heap at iteration 32, wirelen solved = 16195, spread = 36095, legal = 38655, best_hpwl = 37612.
+2026-06-17 15:08:08,680 [DEBUG] [Placer]:Heap at iteration 32, wirelen solved = 15000, spread = 38210, legal = 39541, best_hpwl = 36433.
 
-2026-06-10 14:40:53,763 [DEBUG] [Placer]:Heap at iteration 33, wirelen solved = 22702, spread = 36433, legal = 36971, best_hpwl = 37612.
+2026-06-17 15:08:08,812 [DEBUG] [Placer]:Heap at iteration 33, wirelen solved = 20598, spread = 38022, legal = 39047, best_hpwl = 36433.
 
-2026-06-10 14:40:53,772 [DEBUG] [Placer]:Heap at iteration 33, wirelen solved = 36354, spread = 36425, legal = 36971, best_hpwl = 37612.
+2026-06-17 15:08:08,832 [DEBUG] [Placer]:Heap at iteration 33, wirelen solved = 37990, spread = 38043, legal = 38162, best_hpwl = 36433.
 
-2026-06-10 14:40:53,782 [DEBUG] [Placer]:Heap at iteration 33, wirelen solved = 33014, spread = 35358, legal = 35211, best_hpwl = 37612.
+2026-06-17 15:08:08,851 [DEBUG] [Placer]:Heap at iteration 33, wirelen solved = 32577, spread = 38302, legal = 38057, best_hpwl = 36433.
 
-2026-06-10 14:40:53,808 [DEBUG] [Placer]:Heap at iteration 33, wirelen solved = 16572, spread = 36603, legal = 38603, best_hpwl = 37612.
+2026-06-17 15:08:08,895 [DEBUG] [Placer]:Heap at iteration 33, wirelen solved = 15116, spread = 40930, legal = 41266, best_hpwl = 36433.
 
-2026-06-10 14:40:53,890 [DEBUG] [Placer]:Heap at iteration 34, wirelen solved = 22558, spread = 37656, legal = 38845, best_hpwl = 37612.
+2026-06-17 15:08:09,083 [DEBUG] [Placer]:Before place detail, current WNS: -7712.5.
 
-2026-06-10 14:40:53,900 [DEBUG] [Placer]:Heap at iteration 34, wirelen solved = 37785, spread = 38818, legal = 38845, best_hpwl = 37612.
+2026-06-17 15:08:09,321 [DEBUG] [Placer]:ZeroTSwap current WNS: -7267.5.
 
-2026-06-10 14:40:53,910 [DEBUG] [Placer]:Heap at iteration 34, wirelen solved = 35173, spread = 40787, legal = 40470, best_hpwl = 37612.
+2026-06-17 15:08:09,322 [DEBUG] [Placer]: Completed placement consistency check successfully.
 
-2026-06-10 14:40:53,935 [DEBUG] [Placer]:Heap at iteration 34, wirelen solved = 16464, spread = 35218, legal = 38768, best_hpwl = 37612.
+2026-06-17 15:08:09,461 [DEBUG] [Placer]:Shortest path place get better, current WNS: -6767.5.
 
-2026-06-10 14:40:54,018 [DEBUG] [Placer]:Heap at iteration 35, wirelen solved = 22577, spread = 36714, legal = 37409, best_hpwl = 37612.
+2026-06-17 15:08:09,637 [DEBUG] [Placer]:Shortest path place get better, current WNS: -6650.
 
-2026-06-10 14:40:54,027 [DEBUG] [Placer]:Heap at iteration 35, wirelen solved = 36643, spread = 37816, legal = 38279, best_hpwl = 37612.
+2026-06-17 15:08:09,813 [DEBUG] [Placer]:Shortest path place get better, current WNS: -6587.5.
 
-2026-06-10 14:40:54,038 [DEBUG] [Placer]:Heap at iteration 35, wirelen solved = 34776, spread = 39510, legal = 39522, best_hpwl = 37612.
+2026-06-17 15:08:09,963 [DEBUG] [Placer]:Shortest path place get better, current WNS: -6100.
 
-2026-06-10 14:40:54,063 [DEBUG] [Placer]:Heap at iteration 35, wirelen solved = 16770, spread = 35266, legal = 38738, best_hpwl = 37612.
+2026-06-17 15:08:10,114 [DEBUG] [Placer]:Shortest path place get better, current WNS: -5655.
 
-2026-06-10 14:40:54,147 [DEBUG] [Placer]:Heap at iteration 36, wirelen solved = 22582, spread = 37805, legal = 38182, best_hpwl = 37612.
+2026-06-17 15:08:10,452 [DEBUG] [Placer]:Shortest path place RestoreBestPlace.
 
-2026-06-10 14:40:54,156 [DEBUG] [Placer]:Heap at iteration 36, wirelen solved = 37405, spread = 37771, legal = 38061, best_hpwl = 37612.
+2026-06-17 15:08:10,694 [DEBUG] [Placer]:Shortest path place RestoreBestPlace.
 
-2026-06-10 14:40:54,166 [DEBUG] [Placer]:Heap at iteration 36, wirelen solved = 34946, spread = 37875, legal = 37877, best_hpwl = 37612.
+2026-06-17 15:08:10,741 [DEBUG] [Placer]:Shortest path place get better, current WNS: -5572.5.
 
-2026-06-10 14:40:54,192 [DEBUG] [Placer]:Heap at iteration 36, wirelen solved = 16779, spread = 36852, legal = 38908, best_hpwl = 37612.
+2026-06-17 15:08:11,082 [DEBUG] [Placer]:Shortest path place RestoreBestPlace.
 
-2026-06-10 14:40:54,275 [DEBUG] [Placer]:Heap at iteration 37, wirelen solved = 22506, spread = 39190, legal = 39674, best_hpwl = 37612.
+2026-06-17 15:08:11,318 [DEBUG] [Placer]:Shortest path place RestoreBestPlace.
 
-2026-06-10 14:40:54,284 [DEBUG] [Placer]:Heap at iteration 37, wirelen solved = 38582, spread = 38816, legal = 39674, best_hpwl = 37612.
+2026-06-17 15:08:11,548 [DEBUG] [Placer]:Shortest path place RestoreBestPlace.
 
-2026-06-10 14:40:54,294 [DEBUG] [Placer]:Heap at iteration 37, wirelen solved = 36060, spread = 39134, legal = 39059, best_hpwl = 37612.
+2026-06-17 15:08:11,733 [DEBUG] [Placer]:Shortest path place get better, current WNS: -5525.
 
-2026-06-10 14:40:54,320 [DEBUG] [Placer]:Heap at iteration 37, wirelen solved = 16370, spread = 36267, legal = 38695, best_hpwl = 37612.
+2026-06-17 15:08:12,086 [DEBUG] [Placer]:Shortest path place RestoreBestPlace.
 
-2026-06-10 14:40:54,403 [DEBUG] [Placer]:Heap at iteration 38, wirelen solved = 22816, spread = 36263, legal = 37218, best_hpwl = 37612.
+2026-06-17 15:08:12,316 [DEBUG] [Placer]:Shortest path place RestoreBestPlace.
 
-2026-06-10 14:40:54,412 [DEBUG] [Placer]:Heap at iteration 38, wirelen solved = 35971, spread = 36521, legal = 37236, best_hpwl = 37612.
+2026-06-17 15:08:12,559 [DEBUG] [Placer]:Shortest path place RestoreBestPlace.
 
-2026-06-10 14:40:54,423 [DEBUG] [Placer]:Heap at iteration 38, wirelen solved = 33865, spread = 38402, legal = 38535, best_hpwl = 37612.
+2026-06-17 15:08:12,593 [DEBUG] [Placer]:Shortest path place get better, current WNS: -5475.
 
-2026-06-10 14:40:54,448 [DEBUG] [Placer]:Heap at iteration 38, wirelen solved = 16739, spread = 33541, legal = 36757, best_hpwl = 37612.
+2026-06-17 15:08:12,914 [DEBUG] [Placer]:Shortest path place RestoreBestPlace.
 
-2026-06-10 14:40:54,530 [DEBUG] [Placer]:Heap at iteration 39, wirelen solved = 22134, spread = 35514, legal = 35861, best_hpwl = 36757.
+2026-06-17 15:08:12,956 [DEBUG] [Placer]:Shortest path place get better, current WNS: -5392.5.
 
-2026-06-10 14:40:54,539 [DEBUG] [Placer]:Heap at iteration 39, wirelen solved = 34940, spread = 35185, legal = 36281, best_hpwl = 36757.
+2026-06-17 15:08:13,294 [DEBUG] [Placer]:Shortest path place RestoreBestPlace.
 
-2026-06-10 14:40:54,549 [DEBUG] [Placer]:Heap at iteration 39, wirelen solved = 33542, spread = 38680, legal = 38788, best_hpwl = 36757.
+2026-06-17 15:08:13,520 [DEBUG] [Placer]:Shortest path place RestoreBestPlace.
 
-2026-06-10 14:40:54,575 [DEBUG] [Placer]:Heap at iteration 39, wirelen solved = 16874, spread = 33620, legal = 37769, best_hpwl = 36757.
+2026-06-17 15:08:13,558 [DEBUG] [Placer]:Shortest path place get better, current WNS: -5322.5.
 
-2026-06-10 14:40:54,657 [DEBUG] [Placer]:Heap at iteration 40, wirelen solved = 22865, spread = 35197, legal = 35854, best_hpwl = 36757.
+2026-06-17 15:08:13,704 [DEBUG] [Placer]:Crit_path has only one BLK, ignore.
 
-2026-06-10 14:40:54,665 [DEBUG] [Placer]:Heap at iteration 40, wirelen solved = 34913, spread = 35074, legal = 36655, best_hpwl = 36757.
+2026-06-17 15:08:13,893 [DEBUG] [Placer]:Shortest path place RestoreBestPlace.
 
-2026-06-10 14:40:54,676 [DEBUG] [Placer]:Heap at iteration 40, wirelen solved = 34117, spread = 39363, legal = 39457, best_hpwl = 36757.
+2026-06-17 15:08:14,114 [DEBUG] [Placer]:Shortest path place RestoreBestPlace.
 
-2026-06-10 14:40:54,702 [DEBUG] [Placer]:Heap at iteration 40, wirelen solved = 16815, spread = 34662, legal = 37341, best_hpwl = 36757.
+2026-06-17 15:08:14,349 [DEBUG] [Placer]:Shortest path place RestoreBestPlace.
 
-2026-06-10 14:40:54,784 [DEBUG] [Placer]:Heap at iteration 41, wirelen solved = 22716, spread = 35320, legal = 35746, best_hpwl = 36757.
+2026-06-17 15:08:14,567 [DEBUG] [Placer]:Shortest path place RestoreBestPlace.
 
-2026-06-10 14:40:54,793 [DEBUG] [Placer]:Heap at iteration 41, wirelen solved = 34754, spread = 35787, legal = 36634, best_hpwl = 36757.
+2026-06-17 15:08:14,567 [DEBUG] [Placer]:Shortest path place with max_level, adjust_count: 317 finished.
 
-2026-06-10 14:40:54,803 [DEBUG] [Placer]:Heap at iteration 41, wirelen solved = 33991, spread = 40830, legal = 41058, best_hpwl = 36757.
+2026-06-17 15:08:14,567 [DEBUG] [Placer]: Completed placement consistency check successfully.
 
-2026-06-10 14:40:54,827 [DEBUG] [Placer]:Heap at iteration 41, wirelen solved = 17211, spread = 37251, legal = 39110, best_hpwl = 36757.
+2026-06-17 15:08:14,568 [DEBUG] [Placer]:Place run-time is 11.838 seconds
 
-2026-06-10 14:40:54,908 [DEBUG] [Placer]:Heap at iteration 42, wirelen solved = 23995, spread = 37745, legal = 38342, best_hpwl = 36757.
+2026-06-17 15:08:14,573 [DEBUG] [Placer]:WriteUDM run-time is 0.005 seconds
 
-2026-06-10 14:40:54,917 [DEBUG] [Placer]:Heap at iteration 42, wirelen solved = 37370, spread = 37496, legal = 38342, best_hpwl = 36757.
+2026-06-17 15:08:14,573 [INFO] [Placer]:Placer time consumed 11.895 second<s>.
+2026-06-17 15:08:14,573 [INFO] [Placer]:Placer process is complete.
+2026-06-17 15:08:14,573 [INFO] [Placer]:Start clear place data...
 
-2026-06-10 14:40:54,927 [DEBUG] [Placer]:Heap at iteration 42, wirelen solved = 34147, spread = 37776, legal = 37771, best_hpwl = 36757.
+2026-06-17 15:08:14,573 [INFO] [Placer]:Complete clear place successfully...
 
-2026-06-10 14:40:54,952 [DEBUG] [Placer]:Heap at iteration 42, wirelen solved = 17344, spread = 34479, legal = 37195, best_hpwl = 36757.
-
-2026-06-10 14:40:55,033 [DEBUG] [Placer]:Heap at iteration 43, wirelen solved = 23036, spread = 35413, legal = 36094, best_hpwl = 36757.
-
-2026-06-10 14:40:55,042 [DEBUG] [Placer]:Heap at iteration 43, wirelen solved = 35154, spread = 35554, legal = 36094, best_hpwl = 36757.
-
-2026-06-10 14:40:55,052 [DEBUG] [Placer]:Heap at iteration 43, wirelen solved = 32933, spread = 38957, legal = 38544, best_hpwl = 36757.
-
-2026-06-10 14:40:55,077 [DEBUG] [Placer]:Heap at iteration 43, wirelen solved = 16921, spread = 36086, legal = 39220, best_hpwl = 36757.
-
-2026-06-10 14:40:55,156 [DEBUG] [Placer]:Heap at iteration 44, wirelen solved = 23834, spread = 36657, legal = 37764, best_hpwl = 36757.
-
-2026-06-10 14:40:55,165 [DEBUG] [Placer]:Heap at iteration 44, wirelen solved = 36712, spread = 37086, legal = 37764, best_hpwl = 36757.
-
-2026-06-10 14:40:55,175 [DEBUG] [Placer]:Heap at iteration 44, wirelen solved = 33860, spread = 37556, legal = 37412, best_hpwl = 36757.
-
-2026-06-10 14:40:55,200 [DEBUG] [Placer]:Heap at iteration 44, wirelen solved = 17250, spread = 36662, legal = 38834, best_hpwl = 36757.
-
-2026-06-10 14:40:55,280 [DEBUG] [Placer]:Heap at iteration 45, wirelen solved = 23046, spread = 35650, legal = 36815, best_hpwl = 36757.
-
-2026-06-10 14:40:55,289 [DEBUG] [Placer]:Heap at iteration 45, wirelen solved = 35839, spread = 36150, legal = 36815, best_hpwl = 36757.
-
-2026-06-10 14:40:55,299 [DEBUG] [Placer]:Heap at iteration 45, wirelen solved = 32824, spread = 36540, legal = 36779, best_hpwl = 36757.
-
-2026-06-10 14:40:55,323 [DEBUG] [Placer]:Heap at iteration 45, wirelen solved = 17306, spread = 34023, legal = 37329, best_hpwl = 36757.
-
-2026-06-10 14:40:55,403 [DEBUG] [Placer]:Heap at iteration 46, wirelen solved = 23189, spread = 34907, legal = 35861, best_hpwl = 36757.
-
-2026-06-10 14:40:55,413 [DEBUG] [Placer]:Heap at iteration 46, wirelen solved = 34925, spread = 36547, legal = 37206, best_hpwl = 36757.
-
-2026-06-10 14:40:55,423 [DEBUG] [Placer]:Heap at iteration 46, wirelen solved = 33798, spread = 37140, legal = 36944, best_hpwl = 36757.
-
-2026-06-10 14:40:55,448 [DEBUG] [Placer]:Heap at iteration 46, wirelen solved = 17369, spread = 34976, legal = 38904, best_hpwl = 36757.
-
-2026-06-10 14:40:55,530 [DEBUG] [Placer]:Heap at iteration 47, wirelen solved = 24395, spread = 36274, legal = 37246, best_hpwl = 36757.
-
-2026-06-10 14:40:55,539 [DEBUG] [Placer]:Heap at iteration 47, wirelen solved = 36091, spread = 36574, legal = 37246, best_hpwl = 36757.
-
-2026-06-10 14:40:55,550 [DEBUG] [Placer]:Heap at iteration 47, wirelen solved = 32919, spread = 36531, legal = 36728, best_hpwl = 36757.
-
-2026-06-10 14:40:55,574 [DEBUG] [Placer]:Heap at iteration 47, wirelen solved = 17628, spread = 32865, legal = 36909, best_hpwl = 36757.
-
-2026-06-10 14:40:55,655 [DEBUG] [Placer]:Heap at iteration 48, wirelen solved = 23511, spread = 35398, legal = 35841, best_hpwl = 36757.
-
-2026-06-10 14:40:55,664 [DEBUG] [Placer]:Heap at iteration 48, wirelen solved = 34773, spread = 35250, legal = 35841, best_hpwl = 36757.
-
-2026-06-10 14:40:55,674 [DEBUG] [Placer]:Heap at iteration 48, wirelen solved = 32698, spread = 35599, legal = 35661, best_hpwl = 36757.
-
-2026-06-10 14:40:55,698 [DEBUG] [Placer]:Heap at iteration 48, wirelen solved = 17854, spread = 32849, legal = 37126, best_hpwl = 36757.
-
-2026-06-10 14:40:55,778 [DEBUG] [Placer]:Heap at iteration 49, wirelen solved = 22934, spread = 35670, legal = 36244, best_hpwl = 36757.
-
-2026-06-10 14:40:55,787 [DEBUG] [Placer]:Heap at iteration 49, wirelen solved = 35155, spread = 36399, legal = 37157, best_hpwl = 36757.
-
-2026-06-10 14:40:55,797 [DEBUG] [Placer]:Heap at iteration 49, wirelen solved = 34227, spread = 39613, legal = 39194, best_hpwl = 36757.
-
-2026-06-10 14:40:55,821 [DEBUG] [Placer]:Heap at iteration 49, wirelen solved = 17551, spread = 32653, legal = 36268, best_hpwl = 36757.
-
-2026-06-10 14:40:55,903 [DEBUG] [Placer]:Heap at iteration 50, wirelen solved = 22964, spread = 34306, legal = 35128, best_hpwl = 36268.
-
-2026-06-10 14:40:55,911 [DEBUG] [Placer]:Heap at iteration 50, wirelen solved = 34030, spread = 35381, legal = 36259, best_hpwl = 36268.
-
-2026-06-10 14:40:55,922 [DEBUG] [Placer]:Heap at iteration 50, wirelen solved = 33740, spread = 36330, legal = 36895, best_hpwl = 36268.
-
-2026-06-10 14:40:55,946 [DEBUG] [Placer]:Heap at iteration 50, wirelen solved = 17816, spread = 33467, legal = 37122, best_hpwl = 36268.
-
-2026-06-10 14:40:56,026 [DEBUG] [Placer]:Heap at iteration 51, wirelen solved = 23304, spread = 34794, legal = 35584, best_hpwl = 36268.
-
-2026-06-10 14:40:56,034 [DEBUG] [Placer]:Heap at iteration 51, wirelen solved = 34524, spread = 34712, legal = 35584, best_hpwl = 36268.
-
-2026-06-10 14:40:56,044 [DEBUG] [Placer]:Heap at iteration 51, wirelen solved = 32583, spread = 34542, legal = 35213, best_hpwl = 36268.
-
-2026-06-10 14:40:56,069 [DEBUG] [Placer]:Heap at iteration 51, wirelen solved = 17775, spread = 33015, legal = 36439, best_hpwl = 36268.
-
-2026-06-10 14:40:56,148 [DEBUG] [Placer]:Heap at iteration 52, wirelen solved = 23043, spread = 35166, legal = 35660, best_hpwl = 36268.
-
-2026-06-10 14:40:56,157 [DEBUG] [Placer]:Heap at iteration 52, wirelen solved = 34500, spread = 34785, legal = 35660, best_hpwl = 36268.
-
-2026-06-10 14:40:56,168 [DEBUG] [Placer]:Heap at iteration 52, wirelen solved = 32846, spread = 37864, legal = 37875, best_hpwl = 36268.
-
-2026-06-10 14:40:56,191 [DEBUG] [Placer]:Heap at iteration 52, wirelen solved = 17937, spread = 33483, legal = 36647, best_hpwl = 36268.
-
-2026-06-10 14:40:56,272 [DEBUG] [Placer]:Heap at iteration 53, wirelen solved = 24058, spread = 35328, legal = 36234, best_hpwl = 36268.
-
-2026-06-10 14:40:56,281 [DEBUG] [Placer]:Heap at iteration 53, wirelen solved = 35055, spread = 35500, legal = 36238, best_hpwl = 36268.
-
-2026-06-10 14:40:56,291 [DEBUG] [Placer]:Heap at iteration 53, wirelen solved = 32885, spread = 38748, legal = 38204, best_hpwl = 36268.
-
-2026-06-10 14:40:56,316 [DEBUG] [Placer]:Heap at iteration 53, wirelen solved = 17968, spread = 32685, legal = 36343, best_hpwl = 36268.
-
-2026-06-10 14:40:56,396 [DEBUG] [Placer]:Heap at iteration 54, wirelen solved = 23670, spread = 34456, legal = 35153, best_hpwl = 36268.
-
-2026-06-10 14:40:56,404 [DEBUG] [Placer]:Heap at iteration 54, wirelen solved = 33842, spread = 34529, legal = 36108, best_hpwl = 36268.
-
-2026-06-10 14:40:56,414 [DEBUG] [Placer]:Heap at iteration 54, wirelen solved = 33247, spread = 38768, legal = 38696, best_hpwl = 36268.
-
-2026-06-10 14:40:56,439 [DEBUG] [Placer]:Heap at iteration 54, wirelen solved = 18026, spread = 32590, legal = 36764, best_hpwl = 36268.
-
-2026-06-10 14:40:56,519 [DEBUG] [Placer]:Heap at iteration 55, wirelen solved = 24013, spread = 35008, legal = 35438, best_hpwl = 36268.
-
-2026-06-10 14:40:56,528 [DEBUG] [Placer]:Heap at iteration 55, wirelen solved = 34043, spread = 34773, legal = 36336, best_hpwl = 36268.
-
-2026-06-10 14:40:56,538 [DEBUG] [Placer]:Heap at iteration 55, wirelen solved = 33377, spread = 38557, legal = 38575, best_hpwl = 36268.
-
-2026-06-10 14:40:56,562 [DEBUG] [Placer]:Heap at iteration 55, wirelen solved = 18125, spread = 33784, legal = 38017, best_hpwl = 36268.
-
-2026-06-10 14:40:56,642 [DEBUG] [Placer]:Heap at iteration 56, wirelen solved = 25004, spread = 37029, legal = 37658, best_hpwl = 36268.
-
-2026-06-10 14:40:56,651 [DEBUG] [Placer]:Heap at iteration 56, wirelen solved = 36187, spread = 36807, legal = 37658, best_hpwl = 36268.
-
-2026-06-10 14:40:56,662 [DEBUG] [Placer]:Heap at iteration 56, wirelen solved = 34044, spread = 36993, legal = 36764, best_hpwl = 36268.
-
-2026-06-10 14:40:56,686 [DEBUG] [Placer]:Heap at iteration 56, wirelen solved = 18241, spread = 33005, legal = 36458, best_hpwl = 36268.
-
-2026-06-10 14:40:56,766 [DEBUG] [Placer]:Heap at iteration 57, wirelen solved = 24176, spread = 36256, legal = 36903, best_hpwl = 36268.
-
-2026-06-10 14:40:56,775 [DEBUG] [Placer]:Heap at iteration 57, wirelen solved = 35775, spread = 36207, legal = 36903, best_hpwl = 36268.
-
-2026-06-10 14:40:56,785 [DEBUG] [Placer]:Heap at iteration 57, wirelen solved = 33557, spread = 36697, legal = 36998, best_hpwl = 36268.
-
-2026-06-10 14:40:56,809 [DEBUG] [Placer]:Heap at iteration 57, wirelen solved = 18305, spread = 33809, legal = 37305, best_hpwl = 36268.
-
-2026-06-10 14:40:56,889 [DEBUG] [Placer]:Heap at iteration 58, wirelen solved = 24642, spread = 35933, legal = 36502, best_hpwl = 36268.
-
-2026-06-10 14:40:56,898 [DEBUG] [Placer]:Heap at iteration 58, wirelen solved = 34989, spread = 35464, legal = 36502, best_hpwl = 36268.
-
-2026-06-10 14:40:56,908 [DEBUG] [Placer]:Heap at iteration 58, wirelen solved = 33289, spread = 37978, legal = 37994, best_hpwl = 36268.
-
-2026-06-10 14:40:56,932 [DEBUG] [Placer]:Heap at iteration 58, wirelen solved = 18186, spread = 33282, legal = 36701, best_hpwl = 36268.
-
-2026-06-10 14:40:57,012 [DEBUG] [Placer]:Heap at iteration 59, wirelen solved = 24590, spread = 34612, legal = 35520, best_hpwl = 36268.
-
-2026-06-10 14:40:57,021 [DEBUG] [Placer]:Heap at iteration 59, wirelen solved = 33861, spread = 35159, legal = 36711, best_hpwl = 36268.
-
-2026-06-10 14:40:57,031 [DEBUG] [Placer]:Heap at iteration 59, wirelen solved = 33480, spread = 35505, legal = 36435, best_hpwl = 36268.
-
-2026-06-10 14:40:57,056 [DEBUG] [Placer]:Heap at iteration 59, wirelen solved = 18521, spread = 32710, legal = 36444, best_hpwl = 36268.
-
-2026-06-10 14:40:57,138 [DEBUG] [Placer]:Heap at iteration 60, wirelen solved = 24516, spread = 35539, legal = 36260, best_hpwl = 36268.
-
-2026-06-10 14:40:57,148 [DEBUG] [Placer]:Heap at iteration 60, wirelen solved = 34731, spread = 35342, legal = 36260, best_hpwl = 36268.
-
-2026-06-10 14:40:57,158 [DEBUG] [Placer]:Heap at iteration 60, wirelen solved = 33333, spread = 36013, legal = 36641, best_hpwl = 36268.
-
-2026-06-10 14:40:57,182 [DEBUG] [Placer]:Heap at iteration 60, wirelen solved = 19000, spread = 32975, legal = 36222, best_hpwl = 36268.
-
-2026-06-10 14:40:57,262 [DEBUG] [Placer]:Heap at iteration 61, wirelen solved = 24019, spread = 36840, legal = 37250, best_hpwl = 36222.
-
-2026-06-10 14:40:57,272 [DEBUG] [Placer]:Heap at iteration 61, wirelen solved = 35879, spread = 36415, legal = 37250, best_hpwl = 36222.
-
-2026-06-10 14:40:57,283 [DEBUG] [Placer]:Heap at iteration 61, wirelen solved = 34373, spread = 35835, legal = 36739, best_hpwl = 36222.
-
-2026-06-10 14:40:57,306 [DEBUG] [Placer]:Heap at iteration 61, wirelen solved = 18522, spread = 34667, legal = 37957, best_hpwl = 36222.
-
-2026-06-10 14:40:57,386 [DEBUG] [Placer]:Heap at iteration 62, wirelen solved = 24240, spread = 36434, legal = 37094, best_hpwl = 36222.
-
-2026-06-10 14:40:57,395 [DEBUG] [Placer]:Heap at iteration 62, wirelen solved = 35817, spread = 36241, legal = 37052, best_hpwl = 36222.
-
-2026-06-10 14:40:57,405 [DEBUG] [Placer]:Heap at iteration 62, wirelen solved = 33728, spread = 36407, legal = 37507, best_hpwl = 36222.
-
-2026-06-10 14:40:57,429 [DEBUG] [Placer]:Heap at iteration 62, wirelen solved = 19100, spread = 32936, legal = 36493, best_hpwl = 36222.
-
-2026-06-10 14:40:57,510 [DEBUG] [Placer]:Heap at iteration 63, wirelen solved = 23883, spread = 35477, legal = 36077, best_hpwl = 36222.
-
-2026-06-10 14:40:57,519 [DEBUG] [Placer]:Heap at iteration 63, wirelen solved = 34746, spread = 35177, legal = 36077, best_hpwl = 36222.
-
-2026-06-10 14:40:57,529 [DEBUG] [Placer]:Heap at iteration 63, wirelen solved = 33326, spread = 36610, legal = 37033, best_hpwl = 36222.
-
-2026-06-10 14:40:57,553 [DEBUG] [Placer]:Heap at iteration 63, wirelen solved = 18441, spread = 33404, legal = 36651, best_hpwl = 36222.
-
-2026-06-10 14:40:57,633 [DEBUG] [Placer]:Heap at iteration 64, wirelen solved = 24457, spread = 35104, legal = 35551, best_hpwl = 36222.
-
-2026-06-10 14:40:57,641 [DEBUG] [Placer]:Heap at iteration 64, wirelen solved = 34294, spread = 34563, legal = 35622, best_hpwl = 36222.
-
-2026-06-10 14:40:57,652 [DEBUG] [Placer]:Heap at iteration 64, wirelen solved = 32908, spread = 35928, legal = 36503, best_hpwl = 36222.
-
-2026-06-10 14:40:57,676 [DEBUG] [Placer]:Heap at iteration 64, wirelen solved = 18928, spread = 33129, legal = 37158, best_hpwl = 36222.
-
-2026-06-10 14:40:57,759 [DEBUG] [Placer]:Heap at iteration 65, wirelen solved = 24988, spread = 36088, legal = 36907, best_hpwl = 36222.
-
-2026-06-10 14:40:57,768 [DEBUG] [Placer]:Heap at iteration 65, wirelen solved = 35590, spread = 36324, legal = 36937, best_hpwl = 36222.
-
-2026-06-10 14:40:57,778 [DEBUG] [Placer]:Heap at iteration 65, wirelen solved = 33319, spread = 36241, legal = 36803, best_hpwl = 36222.
-
-2026-06-10 14:40:57,801 [DEBUG] [Placer]:Heap at iteration 65, wirelen solved = 18703, spread = 33059, legal = 36621, best_hpwl = 36222.
-
-2026-06-10 14:40:57,882 [DEBUG] [Placer]:Heap at iteration 66, wirelen solved = 24269, spread = 35164, legal = 36168, best_hpwl = 36222.
-
-2026-06-10 14:40:57,890 [DEBUG] [Placer]:Heap at iteration 66, wirelen solved = 34655, spread = 35244, legal = 36168, best_hpwl = 36222.
-
-2026-06-10 14:40:57,901 [DEBUG] [Placer]:Heap at iteration 66, wirelen solved = 33430, spread = 35246, legal = 36174, best_hpwl = 36222.
-
-2026-06-10 14:40:57,925 [DEBUG] [Placer]:Heap at iteration 66, wirelen solved = 19209, spread = 33807, legal = 37433, best_hpwl = 36222.
-
-2026-06-10 14:40:58,006 [DEBUG] [Placer]:Heap at iteration 67, wirelen solved = 24948, spread = 36767, legal = 36939, best_hpwl = 36222.
-
-2026-06-10 14:40:58,015 [DEBUG] [Placer]:Heap at iteration 67, wirelen solved = 35795, spread = 36266, legal = 36815, best_hpwl = 36222.
-
-2026-06-10 14:40:58,026 [DEBUG] [Placer]:Heap at iteration 67, wirelen solved = 33589, spread = 35314, legal = 36586, best_hpwl = 36222.
-
-2026-06-10 14:40:58,050 [DEBUG] [Placer]:Heap at iteration 67, wirelen solved = 19482, spread = 34451, legal = 38249, best_hpwl = 36222.
-
-2026-06-10 14:40:58,130 [DEBUG] [Placer]:Heap at iteration 68, wirelen solved = 24985, spread = 35568, legal = 36374, best_hpwl = 36222.
-
-2026-06-10 14:40:58,138 [DEBUG] [Placer]:Heap at iteration 68, wirelen solved = 35364, spread = 35706, legal = 36374, best_hpwl = 36222.
-
-2026-06-10 14:40:58,149 [DEBUG] [Placer]:Heap at iteration 68, wirelen solved = 33152, spread = 36010, legal = 36466, best_hpwl = 36222.
-
-2026-06-10 14:40:58,173 [DEBUG] [Placer]:Heap at iteration 68, wirelen solved = 19355, spread = 34235, legal = 38642, best_hpwl = 36222.
-
-2026-06-10 14:40:58,253 [DEBUG] [Placer]:Heap at iteration 69, wirelen solved = 25655, spread = 37130, legal = 38692, best_hpwl = 36222.
-
-2026-06-10 14:40:58,261 [DEBUG] [Placer]:Heap at iteration 69, wirelen solved = 37108, spread = 37789, legal = 38333, best_hpwl = 36222.
-
-2026-06-10 14:40:58,272 [DEBUG] [Placer]:Heap at iteration 69, wirelen solved = 34964, spread = 39527, legal = 39728, best_hpwl = 36222.
-
-2026-06-10 14:40:58,296 [DEBUG] [Placer]:Heap at iteration 69, wirelen solved = 19520, spread = 34291, legal = 37906, best_hpwl = 36222.
-
-2026-06-10 14:40:58,376 [DEBUG] [Placer]:Heap at iteration 70, wirelen solved = 25433, spread = 35727, legal = 36695, best_hpwl = 36222.
-
-2026-06-10 14:40:58,385 [DEBUG] [Placer]:Heap at iteration 70, wirelen solved = 35470, spread = 35960, legal = 36695, best_hpwl = 36222.
-
-2026-06-10 14:40:58,395 [DEBUG] [Placer]:Heap at iteration 70, wirelen solved = 33235, spread = 36574, legal = 37415, best_hpwl = 36222.
-
-2026-06-10 14:40:58,420 [DEBUG] [Placer]:Heap at iteration 70, wirelen solved = 19517, spread = 34327, legal = 37376, best_hpwl = 36222.
-
-2026-06-10 14:40:58,500 [DEBUG] [Placer]:Heap at iteration 71, wirelen solved = 24752, spread = 35741, legal = 36249, best_hpwl = 36222.
-
-2026-06-10 14:40:58,508 [DEBUG] [Placer]:Heap at iteration 71, wirelen solved = 34843, spread = 36305, legal = 37099, best_hpwl = 36222.
-
-2026-06-10 14:40:58,519 [DEBUG] [Placer]:Heap at iteration 71, wirelen solved = 33901, spread = 37343, legal = 37308, best_hpwl = 36222.
-
-2026-06-10 14:40:58,543 [DEBUG] [Placer]:Heap at iteration 71, wirelen solved = 19358, spread = 35940, legal = 37423, best_hpwl = 36222.
-
-2026-06-10 14:40:58,622 [DEBUG] [Placer]:Heap at iteration 72, wirelen solved = 24507, spread = 36272, legal = 36864, best_hpwl = 36222.
-
-2026-06-10 14:40:58,630 [DEBUG] [Placer]:Heap at iteration 72, wirelen solved = 35152, spread = 35841, legal = 36864, best_hpwl = 36222.
-
-2026-06-10 14:40:58,641 [DEBUG] [Placer]:Heap at iteration 72, wirelen solved = 34115, spread = 37280, legal = 36875, best_hpwl = 36222.
-
-2026-06-10 14:40:58,665 [DEBUG] [Placer]:Heap at iteration 72, wirelen solved = 19547, spread = 34160, legal = 36240, best_hpwl = 36222.
-
-2026-06-10 14:40:58,745 [DEBUG] [Placer]:Heap at iteration 73, wirelen solved = 24595, spread = 34956, legal = 35924, best_hpwl = 36222.
-
-2026-06-10 14:40:58,753 [DEBUG] [Placer]:Heap at iteration 73, wirelen solved = 34548, spread = 35018, legal = 36044, best_hpwl = 36222.
-
-2026-06-10 14:40:58,764 [DEBUG] [Placer]:Heap at iteration 73, wirelen solved = 33397, spread = 36242, legal = 36618, best_hpwl = 36222.
-
-2026-06-10 14:40:58,788 [DEBUG] [Placer]:Heap at iteration 73, wirelen solved = 19622, spread = 35727, legal = 38191, best_hpwl = 36222.
-
-2026-06-10 14:40:58,866 [DEBUG] [Placer]:Heap at iteration 74, wirelen solved = 25208, spread = 36152, legal = 37272, best_hpwl = 36222.
-
-2026-06-10 14:40:58,875 [DEBUG] [Placer]:Heap at iteration 74, wirelen solved = 36246, spread = 36570, legal = 37272, best_hpwl = 36222.
-
-2026-06-10 14:40:58,885 [DEBUG] [Placer]:Heap at iteration 74, wirelen solved = 34064, spread = 37398, legal = 37588, best_hpwl = 36222.
-
-2026-06-10 14:40:58,909 [DEBUG] [Placer]:Heap at iteration 74, wirelen solved = 19737, spread = 35162, legal = 37922, best_hpwl = 36222.
-
-2026-06-10 14:40:58,989 [DEBUG] [Placer]:Heap at iteration 75, wirelen solved = 25278, spread = 36196, legal = 37112, best_hpwl = 36222.
-
-2026-06-10 14:40:58,997 [DEBUG] [Placer]:Heap at iteration 75, wirelen solved = 35818, spread = 36478, legal = 37259, best_hpwl = 36222.
-
-2026-06-10 14:40:59,009 [DEBUG] [Placer]:Heap at iteration 75, wirelen solved = 33733, spread = 37220, legal = 37232, best_hpwl = 36222.
-
-2026-06-10 14:40:59,032 [DEBUG] [Placer]:Heap at iteration 75, wirelen solved = 19571, spread = 35070, legal = 37331, best_hpwl = 36222.
-
-2026-06-10 14:40:59,112 [DEBUG] [Placer]:Heap at iteration 76, wirelen solved = 25099, spread = 36688, legal = 37145, best_hpwl = 36222.
-
-2026-06-10 14:40:59,121 [DEBUG] [Placer]:Heap at iteration 76, wirelen solved = 36004, spread = 37067, legal = 37289, best_hpwl = 36222.
-
-2026-06-10 14:40:59,131 [DEBUG] [Placer]:Heap at iteration 76, wirelen solved = 33814, spread = 36355, legal = 36934, best_hpwl = 36222.
-
-2026-06-10 14:40:59,155 [DEBUG] [Placer]:Heap at iteration 76, wirelen solved = 19641, spread = 34829, legal = 37856, best_hpwl = 36222.
-
-2026-06-10 14:40:59,236 [DEBUG] [Placer]:Heap at iteration 77, wirelen solved = 25490, spread = 36225, legal = 37331, best_hpwl = 36222.
-
-2026-06-10 14:40:59,245 [DEBUG] [Placer]:Heap at iteration 77, wirelen solved = 35901, spread = 36624, legal = 37437, best_hpwl = 36222.
-
-2026-06-10 14:40:59,255 [DEBUG] [Placer]:Heap at iteration 77, wirelen solved = 33981, spread = 37423, legal = 37415, best_hpwl = 36222.
-
-2026-06-10 14:40:59,278 [DEBUG] [Placer]:Heap at iteration 77, wirelen solved = 19683, spread = 34282, legal = 37072, best_hpwl = 36222.
-
-2026-06-10 14:40:59,358 [DEBUG] [Placer]:Heap at iteration 78, wirelen solved = 24979, spread = 37115, legal = 37831, best_hpwl = 36222.
-
-2026-06-10 14:40:59,367 [DEBUG] [Placer]:Heap at iteration 78, wirelen solved = 36537, spread = 37077, legal = 37833, best_hpwl = 36222.
-
-2026-06-10 14:40:59,377 [DEBUG] [Placer]:Heap at iteration 78, wirelen solved = 34636, spread = 38274, legal = 38207, best_hpwl = 36222.
-
-2026-06-10 14:40:59,401 [DEBUG] [Placer]:Heap at iteration 78, wirelen solved = 19675, spread = 35530, legal = 37193, best_hpwl = 36222.
-
-2026-06-10 14:40:59,482 [DEBUG] [Placer]:Heap at iteration 79, wirelen solved = 24867, spread = 37047, legal = 38181, best_hpwl = 36222.
-
-2026-06-10 14:40:59,491 [DEBUG] [Placer]:Heap at iteration 79, wirelen solved = 36815, spread = 37327, legal = 38037, best_hpwl = 36222.
-
-2026-06-10 14:40:59,501 [DEBUG] [Placer]:Heap at iteration 79, wirelen solved = 34967, spread = 38916, legal = 38701, best_hpwl = 36222.
-
-2026-06-10 14:40:59,525 [DEBUG] [Placer]:Heap at iteration 79, wirelen solved = 19878, spread = 35596, legal = 38121, best_hpwl = 36222.
-
-2026-06-10 14:40:59,604 [DEBUG] [Placer]:Heap at iteration 80, wirelen solved = 25236, spread = 36098, legal = 37147, best_hpwl = 36222.
-
-2026-06-10 14:40:59,613 [DEBUG] [Placer]:Heap at iteration 80, wirelen solved = 35611, spread = 36396, legal = 37327, best_hpwl = 36222.
-
-2026-06-10 14:40:59,623 [DEBUG] [Placer]:Heap at iteration 80, wirelen solved = 34319, spread = 38956, legal = 39073, best_hpwl = 36222.
-
-2026-06-10 14:40:59,647 [DEBUG] [Placer]:Heap at iteration 80, wirelen solved = 20077, spread = 36863, legal = 38375, best_hpwl = 36222.
-
-2026-06-10 14:40:59,767 [DEBUG] [Placer]:Before place detail, current WNS: -5712.
-
-2026-06-10 14:40:59,917 [DEBUG] [Placer]:ZeroTSwap current WNS: -6173.
-
-2026-06-10 14:40:59,917 [DEBUG] [Placer]: Completed placement consistency check successfully.
-
-2026-06-10 14:41:00,008 [DEBUG] [Placer]:Shortest path place get better, current WNS: -5798.
-
-2026-06-10 14:41:00,094 [DEBUG] [Placer]:Shortest path place get better, current WNS: -4837.
-
-2026-06-10 14:41:00,234 [DEBUG] [Placer]:Shortest path place get better, current WNS: -4770.5.
-
-2026-06-10 14:41:00,454 [DEBUG] [Placer]:Shortest path place get better, current WNS: -4645.
-
-2026-06-10 14:41:00,682 [DEBUG] [Placer]:Shortest path place RestoreBestPlace.
-
-2026-06-10 14:41:00,837 [DEBUG] [Placer]:Shortest path place RestoreBestPlace.
-
-2026-06-10 14:41:00,989 [DEBUG] [Placer]:Shortest path place RestoreBestPlace.
-
-2026-06-10 14:41:01,134 [DEBUG] [Placer]:Shortest path place RestoreBestPlace.
-
-2026-06-10 14:41:01,135 [DEBUG] [Placer]:Shortest path place with max_level, adjust_count: 104 finished.
-
-2026-06-10 14:41:01,135 [DEBUG] [Placer]: Completed placement consistency check successfully.
-
-2026-06-10 14:41:01,135 [DEBUG] [Placer]:Place run-time is 11.988 seconds
-
-2026-06-10 14:41:01,137 [DEBUG] [Placer]:WriteUDM run-time is 0.002 seconds
-
-2026-06-10 14:41:01,137 [INFO] [Placer]:Placer time consumed 12.041 second<s>.
-2026-06-10 14:41:01,137 [INFO] [Placer]:Placer process is complete.
-2026-06-10 14:41:01,137 [INFO] [Placer]:Start clear place data...
-
-2026-06-10 14:41:01,137 [INFO] [Placer]:Complete clear place successfully...
-
-2026-06-10 14:41:01,189 [INFO] [Router_G_0]:Initializing Arc is completed
-2026-06-10 14:41:01,189 [INFO] [Router_Proc_0]:Launched Router...
-2026-06-10 14:41:01,189 [INFO] [Router_Proc_0]:Processing ucm is completed
-2026-06-10 14:41:01,284 [INFO] [Router_Proc_0]:Processing udm is completed
-2026-06-10 14:41:01,285 [INFO] [Router_C_2]:Initializing ThreadPool is completed
-2026-06-10 14:41:01,350 [INFO] [Router_C_9]:Start try routing vcc and gnd nets.
-2026-06-10 14:41:01,448 [INFO] [Router_C_9]:Start try routing clk nets.
-2026-06-10 14:41:02,171 [INFO] [Router_C_10]:Try routing clk nets is successful.
-2026-06-10 14:41:04,064 [INFO] [Router_C_0]:  routed itry: 1
-2026-06-10 14:41:05,360 [INFO] [Router_C_0]:  routed itry: 2
-2026-06-10 14:41:06,700 [INFO] [Router_C_0]:  routed itry: 3
-2026-06-10 14:41:07,046 [INFO] [Router_C_0]:  routed itry: 4
-2026-06-10 14:41:08,312 [INFO] [Router_C_0]:  routed itry: 5
-2026-06-10 14:41:09,647 [INFO] [Router_C_0]:  routed itry: 6
-2026-06-10 14:41:10,986 [INFO] [Router_C_0]:  routed itry: 7
-2026-06-10 14:41:12,260 [INFO] [Router_C_0]:  routed itry: 8
-2026-06-10 14:41:12,461 [INFO] [Router_C_0]:  routed itry: 9
-2026-06-10 14:41:12,598 [INFO] [Router_C_0]:  routed itry: 10
-2026-06-10 14:41:12,727 [INFO] [Router_C_0]:  routed itry: 11
-2026-06-10 14:41:12,825 [INFO] [Router_C_0]:  routed itry: 12
-2026-06-10 14:41:12,835 [INFO] [Router_C_5]:Start fixing setup violation connections.
-2026-06-10 14:41:12,921 [INFO] [Router_C_5]:Incrementally routing for all setup violation connections.
-2026-06-10 14:41:12,925 [INFO] [Router_C_5]:start Incrementally routing for one setup violation connection inet:4685 isink:14.
-2026-06-10 14:41:15,410 [INFO] [Router_C_5]:Incrementally routing for one setup violation connection inet:4685 isink:14 is successful.
-2026-06-10 14:41:15,483 [INFO] [Router_C_5]:start Incrementally routing for one setup violation connection inet:4237 isink:0.
-2026-06-10 14:41:15,489 [INFO] [Router_C_5]:start Incrementally routing for one setup violation connection inet:4241 isink:0.
-2026-06-10 14:41:15,495 [INFO] [Router_C_5]:Incrementally routing for one setup violation connection inet:4241 isink:0 is successful.
-2026-06-10 14:41:15,566 [INFO] [Router_C_5]:start Incrementally routing for one setup violation connection inet:4237 isink:0.
-2026-06-10 14:41:15,572 [INFO] [Router_C_5]:start Incrementally routing for one setup violation connection inet:4241 isink:0.
-2026-06-10 14:41:15,578 [INFO] [Router_C_5]:start Incrementally routing for one setup violation connection inet:5531 isink:0.
-2026-06-10 14:41:15,579 [INFO] [Router_C_5]:start Incrementally routing for one setup violation connection inet:4239 isink:0.
-2026-06-10 14:41:15,597 [INFO] [Router_C_5]:Incrementally routing for one setup violation connection inet:4239 isink:0 is successful.
-2026-06-10 14:41:15,669 [INFO] [Router_C_5]:start Incrementally routing for one setup violation connection inet:4237 isink:0.
-2026-06-10 14:41:15,675 [INFO] [Router_C_5]:start Incrementally routing for one setup violation connection inet:4241 isink:0.
-2026-06-10 14:41:15,680 [INFO] [Router_C_5]:start Incrementally routing for one setup violation connection inet:5531 isink:0.
-2026-06-10 14:41:15,682 [INFO] [Router_C_5]:start Incrementally routing for one setup violation connection inet:4239 isink:0.
-2026-06-10 14:41:15,703 [INFO] [Router_C_5]:start Incrementally routing for one setup violation connection inet:4259 isink:0.
-2026-06-10 14:41:15,704 [INFO] [Router_C_5]:start Incrementally routing for one setup violation connection inet:4607 isink:140.
-2026-06-10 14:41:15,704 [INFO] [Router_C_5]:Incrementally routing for one setup violation connection inet:4607 isink:140 is successful.
-2026-06-10 14:41:15,776 [INFO] [Router_C_5]:start Incrementally routing for one setup violation connection inet:4237 isink:0.
-2026-06-10 14:41:15,781 [INFO] [Router_C_5]:start Incrementally routing for one setup violation connection inet:4241 isink:0.
-2026-06-10 14:41:15,787 [INFO] [Router_C_5]:start Incrementally routing for one setup violation connection inet:5531 isink:0.
-2026-06-10 14:41:15,788 [INFO] [Router_C_5]:start Incrementally routing for one setup violation connection inet:5838 isink:15.
-2026-06-10 14:41:15,789 [INFO] [Router_C_5]:Incrementally routing for one setup violation connection inet:5838 isink:15 is successful.
-2026-06-10 14:41:15,858 [INFO] [Router_C_5]:start Incrementally routing for one setup violation connection inet:4237 isink:0.
-2026-06-10 14:41:15,863 [INFO] [Router_C_5]:start Incrementally routing for one setup violation connection inet:4241 isink:0.
-2026-06-10 14:41:15,869 [INFO] [Router_C_5]:start Incrementally routing for one setup violation connection inet:5531 isink:0.
-2026-06-10 14:41:15,870 [INFO] [Router_C_5]:start Incrementally routing for one setup violation connection inet:4239 isink:0.
-2026-06-10 14:41:15,888 [INFO] [Router_C_5]:start Incrementally routing for one setup violation connection inet:4259 isink:0.
-2026-06-10 14:41:15,888 [INFO] [Router_C_5]:start Incrementally routing for one setup violation connection inet:4607 isink:140.
-2026-06-10 14:41:15,889 [INFO] [Router_C_5]:start Incrementally routing for one setup violation connection inet:4607 isink:141.
-2026-06-10 14:41:15,889 [INFO] [Router_C_5]:start Incrementally routing for one setup violation connection inet:4607 isink:142.
-2026-06-10 14:41:15,889 [INFO] [Router_C_5]:start Incrementally routing for one setup violation connection inet:5789 isink:0.
-2026-06-10 14:41:15,890 [INFO] [Router_C_5]:start Incrementally routing for one setup violation connection inet:5866 isink:0.
-2026-06-10 14:41:15,892 [INFO] [Router_C_5]:Incrementally routing for one setup violation connection inet:5866 isink:0 is successful.
-2026-06-10 14:41:15,961 [INFO] [Router_C_5]:start Incrementally routing for one setup violation connection inet:4237 isink:0.
-2026-06-10 14:41:15,967 [INFO] [Router_C_5]:start Incrementally routing for one setup violation connection inet:4241 isink:0.
-2026-06-10 14:41:15,972 [INFO] [Router_C_5]:start Incrementally routing for one setup violation connection inet:5531 isink:0.
-2026-06-10 14:41:15,974 [INFO] [Router_C_5]:start Incrementally routing for one setup violation connection inet:4239 isink:0.
-2026-06-10 14:41:15,992 [INFO] [Router_C_5]:start Incrementally routing for one setup violation connection inet:4259 isink:0.
-2026-06-10 14:41:15,992 [INFO] [Router_C_5]:start Incrementally routing for one setup violation connection inet:4607 isink:140.
-2026-06-10 14:41:15,992 [INFO] [Router_C_5]:start Incrementally routing for one setup violation connection inet:4607 isink:141.
-2026-06-10 14:41:15,993 [INFO] [Router_C_5]:start Incrementally routing for one setup violation connection inet:4607 isink:142.
-2026-06-10 14:41:15,993 [INFO] [Router_C_5]:start Incrementally routing for one setup violation connection inet:5789 isink:0.
-2026-06-10 14:41:15,994 [INFO] [Router_C_5]:start Incrementally routing for one setup violation connection inet:5866 isink:0.
-2026-06-10 14:41:15,996 [INFO] [Router_C_5]:start Incrementally routing for one setup violation connection inet:5866 isink:1.
-2026-06-10 14:41:15,997 [INFO] [Router_C_5]:start Incrementally routing for one setup violation connection inet:4609 isink:141.
-2026-06-10 14:41:15,997 [INFO] [Router_C_5]:start Incrementally routing for one setup violation connection inet:4609 isink:142.
-2026-06-10 14:41:15,998 [INFO] [Router_C_5]:start Incrementally routing for one setup violation connection inet:4361 isink:15.
-2026-06-10 14:41:15,998 [INFO] [Router_C_5]:Incrementally routing for one setup violation connection inet:4361 isink:15 is successful.
-2026-06-10 14:41:16,068 [INFO] [Router_C_5]:start Incrementally routing for one setup violation connection inet:4237 isink:0.
-2026-06-10 14:41:16,073 [INFO] [Router_C_5]:start Incrementally routing for one setup violation connection inet:4241 isink:0.
-2026-06-10 14:41:16,079 [INFO] [Router_C_5]:start Incrementally routing for one setup violation connection inet:5531 isink:0.
-2026-06-10 14:41:16,080 [INFO] [Router_C_5]:start Incrementally routing for one setup violation connection inet:4239 isink:0.
-2026-06-10 14:41:16,098 [INFO] [Router_C_5]:start Incrementally routing for one setup violation connection inet:4259 isink:0.
-2026-06-10 14:41:16,099 [INFO] [Router_C_5]:start Incrementally routing for one setup violation connection inet:4607 isink:140.
-2026-06-10 14:41:16,099 [INFO] [Router_C_5]:start Incrementally routing for one setup violation connection inet:4607 isink:141.
-2026-06-10 14:41:16,099 [INFO] [Router_C_5]:start Incrementally routing for one setup violation connection inet:4607 isink:142.
-2026-06-10 14:41:16,099 [INFO] [Router_C_5]:start Incrementally routing for one setup violation connection inet:5789 isink:0.
-2026-06-10 14:41:16,101 [INFO] [Router_C_5]:start Incrementally routing for one setup violation connection inet:5866 isink:0.
-2026-06-10 14:41:16,102 [INFO] [Router_C_5]:start Incrementally routing for one setup violation connection inet:5866 isink:1.
-2026-06-10 14:41:16,104 [INFO] [Router_C_5]:start Incrementally routing for one setup violation connection inet:4609 isink:141.
-2026-06-10 14:41:16,104 [INFO] [Router_C_5]:start Incrementally routing for one setup violation connection inet:4609 isink:142.
-2026-06-10 14:41:16,104 [INFO] [Router_C_5]:start Incrementally routing for one setup violation connection inet:4622 isink:28.
-2026-06-10 14:41:16,104 [INFO] [Router_C_5]:start Incrementally routing for one setup violation connection inet:4622 isink:29.
-2026-06-10 14:41:16,104 [INFO] [Router_C_5]:start Incrementally routing for one setup violation connection inet:5838 isink:15.
-2026-06-10 14:41:16,105 [INFO] [Router_C_5]:start Incrementally routing for one setup violation connection inet:5838 isink:16.
-2026-06-10 14:41:16,106 [INFO] [Router_C_5]:start Incrementally routing for one setup violation connection inet:4621 isink:29.
-2026-06-10 14:41:16,106 [INFO] [Router_C_5]:start Incrementally routing for one setup violation connection inet:166 isink:0.
-2026-06-10 14:41:16,107 [INFO] [Router_C_5]:Incrementally routing for one setup violation connection inet:166 isink:0 is successful.
-2026-06-10 14:41:16,175 [INFO] [Router_C_5]:start Incrementally routing for one setup violation connection inet:4237 isink:0.
-2026-06-10 14:41:16,180 [INFO] [Router_C_5]:start Incrementally routing for one setup violation connection inet:4241 isink:0.
-2026-06-10 14:41:16,186 [INFO] [Router_C_5]:start Incrementally routing for one setup violation connection inet:5531 isink:0.
-2026-06-10 14:41:16,187 [INFO] [Router_C_5]:start Incrementally routing for one setup violation connection inet:4239 isink:0.
-2026-06-10 14:41:16,205 [INFO] [Router_C_5]:start Incrementally routing for one setup violation connection inet:4259 isink:0.
-2026-06-10 14:41:16,205 [INFO] [Router_C_5]:start Incrementally routing for one setup violation connection inet:4607 isink:140.
-2026-06-10 14:41:16,206 [INFO] [Router_C_5]:start Incrementally routing for one setup violation connection inet:4607 isink:141.
-2026-06-10 14:41:16,206 [INFO] [Router_C_5]:start Incrementally routing for one setup violation connection inet:4607 isink:142.
-2026-06-10 14:41:16,206 [INFO] [Router_C_5]:start Incrementally routing for one setup violation connection inet:5789 isink:0.
-2026-06-10 14:41:16,207 [INFO] [Router_C_5]:start Incrementally routing for one setup violation connection inet:5866 isink:0.
-2026-06-10 14:41:16,209 [INFO] [Router_C_5]:start Incrementally routing for one setup violation connection inet:5866 isink:1.
-2026-06-10 14:41:16,210 [INFO] [Router_C_5]:start Incrementally routing for one setup violation connection inet:4609 isink:141.
-2026-06-10 14:41:16,211 [INFO] [Router_C_5]:start Incrementally routing for one setup violation connection inet:4609 isink:142.
-2026-06-10 14:41:16,211 [INFO] [Router_C_5]:start Incrementally routing for one setup violation connection inet:4622 isink:28.
-2026-06-10 14:41:16,211 [INFO] [Router_C_5]:start Incrementally routing for one setup violation connection inet:4622 isink:29.
-2026-06-10 14:41:16,211 [INFO] [Router_C_5]:start Incrementally routing for one setup violation connection inet:5838 isink:15.
-2026-06-10 14:41:16,212 [INFO] [Router_C_5]:start Incrementally routing for one setup violation connection inet:5838 isink:16.
-2026-06-10 14:41:16,213 [INFO] [Router_C_5]:start Incrementally routing for one setup violation connection inet:4621 isink:29.
-2026-06-10 14:41:16,213 [INFO] [Router_C_5]:start Incrementally routing for one setup violation connection inet:4613 isink:40.
-2026-06-10 14:41:16,217 [INFO] [Router_C_5]:Incrementally routing for one setup violation connection inet:4613 isink:40 is successful.
-2026-06-10 14:41:16,286 [INFO] [Router_C_5]:start Incrementally routing for one setup violation connection inet:4237 isink:0.
-2026-06-10 14:41:16,292 [INFO] [Router_C_5]:start Incrementally routing for one setup violation connection inet:4241 isink:0.
-2026-06-10 14:41:16,298 [INFO] [Router_C_5]:start Incrementally routing for one setup violation connection inet:5531 isink:0.
-2026-06-10 14:41:16,299 [INFO] [Router_C_5]:start Incrementally routing for one setup violation connection inet:4239 isink:0.
-2026-06-10 14:41:16,316 [INFO] [Router_C_5]:start Incrementally routing for one setup violation connection inet:4259 isink:0.
-2026-06-10 14:41:16,316 [INFO] [Router_C_5]:start Incrementally routing for one setup violation connection inet:4607 isink:140.
-2026-06-10 14:41:16,316 [INFO] [Router_C_5]:start Incrementally routing for one setup violation connection inet:4607 isink:141.
-2026-06-10 14:41:16,317 [INFO] [Router_C_5]:start Incrementally routing for one setup violation connection inet:4607 isink:142.
-2026-06-10 14:41:16,317 [INFO] [Router_C_5]:start Incrementally routing for one setup violation connection inet:5789 isink:0.
-2026-06-10 14:41:16,318 [INFO] [Router_C_5]:start Incrementally routing for one setup violation connection inet:5866 isink:0.
-2026-06-10 14:41:16,320 [INFO] [Router_C_5]:start Incrementally routing for one setup violation connection inet:5866 isink:1.
-2026-06-10 14:41:16,322 [INFO] [Router_C_5]:start Incrementally routing for one setup violation connection inet:4609 isink:141.
-2026-06-10 14:41:16,322 [INFO] [Router_C_5]:start Incrementally routing for one setup violation connection inet:4609 isink:142.
-2026-06-10 14:41:16,322 [INFO] [Router_C_5]:start Incrementally routing for one setup violation connection inet:4622 isink:28.
-2026-06-10 14:41:16,322 [INFO] [Router_C_5]:start Incrementally routing for one setup violation connection inet:4622 isink:29.
-2026-06-10 14:41:16,322 [INFO] [Router_C_5]:start Incrementally routing for one setup violation connection inet:5838 isink:15.
-2026-06-10 14:41:16,323 [INFO] [Router_C_5]:start Incrementally routing for one setup violation connection inet:5838 isink:16.
-2026-06-10 14:41:16,324 [INFO] [Router_C_5]:start Incrementally routing for one setup violation connection inet:4621 isink:29.
-2026-06-10 14:41:16,324 [INFO] [Router_C_5]:start Incrementally routing for one setup violation connection inet:5761 isink:0.
-2026-06-10 14:41:16,330 [INFO] [Router_C_5]:Incrementally routing for one setup violation connection inet:5761 isink:0 is successful.
-2026-06-10 14:41:16,402 [INFO] [Router_C_5]:start Incrementally routing for one setup violation connection inet:4237 isink:0.
-2026-06-10 14:41:16,409 [INFO] [Router_C_5]:start Incrementally routing for one setup violation connection inet:4241 isink:0.
-2026-06-10 14:41:16,415 [INFO] [Router_C_5]:Incrementally negotiation routing for setup violation connections.
-2026-06-10 14:41:16,415 [INFO] [Router_C_5]:SortLeastSetupViolations inet:4237 isink:0 source-clk:2 sink-clk:2 slack:-1136.000122 crit:1.000000.
-2026-06-10 14:41:16,415 [INFO] [Router_C_5]:SortLeastSetupViolations inet:4241 isink:0 source-clk:2 sink-clk:2 slack:-1136.000122 crit:1.000000.
-2026-06-10 14:41:16,415 [INFO] [Router_C_5]:SortLeastSetupViolations inet:5531 isink:0 source-clk:2 sink-clk:2 slack:-1136.000122 crit:1.000000.
-2026-06-10 14:41:16,415 [INFO] [Router_C_5]:SortLeastSetupViolations inet:4239 isink:0 source-clk:2 sink-clk:2 slack:-1136.000000 crit:1.000000.
-2026-06-10 14:41:16,415 [INFO] [Router_C_5]:SortLeastSetupViolations inet:4259 isink:0 source-clk:2 sink-clk:2 slack:-1136.000000 crit:1.000000.
-2026-06-10 14:41:16,415 [INFO] [Router_C_5]:SortLeastSetupViolations inet:4607 isink:140 source-clk:2 sink-clk:2 slack:-1136.000000 crit:1.000000.
-2026-06-10 14:41:16,415 [INFO] [Router_C_5]:SortLeastSetupViolations inet:4607 isink:141 source-clk:2 sink-clk:2 slack:-1136.000000 crit:1.000000.
-2026-06-10 14:41:16,415 [INFO] [Router_C_5]:SortLeastSetupViolations inet:4607 isink:142 source-clk:2 sink-clk:2 slack:-1136.000000 crit:1.000000.
-2026-06-10 14:41:16,415 [INFO] [Router_C_5]:SortLeastSetupViolations inet:5789 isink:0 source-clk:2 sink-clk:2 slack:-1136.000000 crit:1.000000.
-2026-06-10 14:41:16,415 [INFO] [Router_C_5]:SortLeastSetupViolations inet:5866 isink:0 source-clk:2 sink-clk:2 slack:-1136.000000 crit:1.000000.
-2026-06-10 14:41:16,415 [INFO] [Router_C_5]:SortLeastSetupViolations inet:5866 isink:1 source-clk:2 sink-clk:2 slack:-1136.000000 crit:1.000000.
-2026-06-10 14:41:16,507 [INFO] [Router_C_5]:start Incrementally fix one setup violation connection inet:5789 isink:0 slack:-1136.000000 crit:1.000000.
-2026-06-10 14:41:16,510 [INFO] [Router_C_2]:Try Route Incremental Influenced Conns, inets: 4222 4354 5475 
-2026-06-10 14:41:16,627 [INFO] [Router_C_0]:  routed itry: 1
-2026-06-10 14:41:16,696 [INFO] [Router_C_0]:  routed itry: 2
-2026-06-10 14:41:16,768 [INFO] [Router_C_5]:Incrementally fix one setup violation connection inet:5789 isink:0 source-clk:2sink-clk:2 ori_slack:-1136.000000 new_slack:-866.000122 succeed.
-2026-06-10 14:41:16,768 [INFO] [Router_C_5]:Incrementally fix one setup violation connection inet:5789 isink:0 is successful.
-2026-06-10 14:41:16,768 [INFO] [Router_C_5]:SortLeastSetupViolations inet:4237 isink:0 source-clk:2 sink-clk:2 slack:-866.000122 crit:1.000000.
-2026-06-10 14:41:16,768 [INFO] [Router_C_5]:SortLeastSetupViolations inet:4241 isink:0 source-clk:2 sink-clk:2 slack:-866.000122 crit:1.000000.
-2026-06-10 14:41:16,768 [INFO] [Router_C_5]:SortLeastSetupViolations inet:5531 isink:0 source-clk:2 sink-clk:2 slack:-866.000122 crit:1.000000.
-2026-06-10 14:41:16,768 [INFO] [Router_C_5]:SortLeastSetupViolations inet:4239 isink:0 source-clk:2 sink-clk:2 slack:-866.000000 crit:1.000000.
-2026-06-10 14:41:16,768 [INFO] [Router_C_5]:SortLeastSetupViolations inet:4259 isink:0 source-clk:2 sink-clk:2 slack:-866.000000 crit:1.000000.
-2026-06-10 14:41:16,768 [INFO] [Router_C_5]:SortLeastSetupViolations inet:4607 isink:140 source-clk:2 sink-clk:2 slack:-866.000000 crit:1.000000.
-2026-06-10 14:41:16,768 [INFO] [Router_C_5]:SortLeastSetupViolations inet:4607 isink:141 source-clk:2 sink-clk:2 slack:-866.000000 crit:1.000000.
-2026-06-10 14:41:16,768 [INFO] [Router_C_5]:SortLeastSetupViolations inet:4607 isink:142 source-clk:2 sink-clk:2 slack:-866.000000 crit:1.000000.
-2026-06-10 14:41:16,768 [INFO] [Router_C_5]:SortLeastSetupViolations inet:5789 isink:0 source-clk:2 sink-clk:2 slack:-866.000000 crit:1.000000.
-2026-06-10 14:41:16,768 [INFO] [Router_C_5]:SortLeastSetupViolations inet:5866 isink:0 source-clk:2 sink-clk:2 slack:-866.000000 crit:1.000000.
-2026-06-10 14:41:16,768 [INFO] [Router_C_5]:SortLeastSetupViolations inet:5866 isink:1 source-clk:2 sink-clk:2 slack:-866.000000 crit:1.000000.
-2026-06-10 14:41:16,773 [INFO] [Router_C_5]:start Incrementally fix one setup violation connection inet:4259 isink:0 slack:-866.000000 crit:1.000000.
-2026-06-10 14:41:16,776 [INFO] [Router_C_2]:Try Route Incremental Influenced Conns, inets: 4216 5774 
-2026-06-10 14:41:16,889 [INFO] [Router_C_5]:Incrementally fix one setup violation connection inet:4259 isink:0 source-clk:2sink-clk:2 ori_slack:-866.000000 new_slack:-1307.000122 failed.
-2026-06-10 14:41:16,892 [INFO] [Router_C_5]:start Incrementally fix one setup violation connection inet:4241 isink:0 slack:-866.000122 crit:1.000000.
-2026-06-10 14:41:16,901 [INFO] [Router_C_2]:Try Route Incremental Influenced Conns, inets: 4611 
-2026-06-10 14:41:17,022 [INFO] [Router_C_5]:Incrementally fix one setup violation connection inet:4241 isink:0 source-clk:2sink-clk:2 ori_slack:-866.000122 new_slack:-1084.000122 failed.
-2026-06-10 14:41:17,025 [INFO] [Router_C_5]:start Incrementally fix one setup violation connection inet:5531 isink:0 slack:-866.000122 crit:1.000000.
-2026-06-10 14:41:17,036 [INFO] [Router_C_2]:Try Route Incremental Influenced Conns, inets: 5527 5551 
-2026-06-10 14:41:17,154 [INFO] [Router_C_5]:Incrementally fix one setup violation connection inet:5531 isink:0 source-clk:2sink-clk:2 ori_slack:-866.000122 new_slack:-783.000000 succeed.
-2026-06-10 14:41:17,154 [INFO] [Router_C_5]:Incrementally fix one setup violation connection inet:5531 isink:0 is successful.
-2026-06-10 14:41:17,154 [INFO] [Router_C_5]:SortLeastSetupViolations inet:4361 isink:15 source-clk:2 sink-clk:2 slack:-783.000000 crit:1.000000.
-2026-06-10 14:41:17,154 [INFO] [Router_C_5]:SortLeastSetupViolations inet:4557 isink:0 source-clk:2 sink-clk:2 slack:-783.000000 crit:1.000000.
-2026-06-10 14:41:17,154 [INFO] [Router_C_5]:SortLeastSetupViolations inet:4562 isink:0 source-clk:2 sink-clk:2 slack:-783.000000 crit:1.000000.
-2026-06-10 14:41:17,154 [INFO] [Router_C_5]:SortLeastSetupViolations inet:4563 isink:1 source-clk:2 sink-clk:2 slack:-783.000000 crit:1.000000.
-2026-06-10 14:41:17,154 [INFO] [Router_C_5]:SortLeastSetupViolations inet:4685 isink:14 source-clk:2 sink-clk:2 slack:-782.999512 crit:1.000000.
-2026-06-10 14:41:19,798 [INFO] [Router_C_5]:start Incrementally fix one setup violation connection inet:4562 isink:0 slack:-783.000000 crit:1.000000.
-2026-06-10 14:41:19,807 [INFO] [Router_C_2]:Try Route Incremental Influenced Conns, inets: 4435 4440 
-2026-06-10 14:41:19,922 [INFO] [Router_C_5]:Incrementally fix one setup violation connection inet:4562 isink:0 source-clk:2sink-clk:2 ori_slack:-783.000000 new_slack:-781.000122 succeed.
-2026-06-10 14:41:19,922 [INFO] [Router_C_5]:Incrementally fix one setup violation connection inet:4562 isink:0 is successful.
-2026-06-10 14:41:19,922 [INFO] [Router_C_5]:SortLeastSetupViolations inet:5754 isink:0 source-clk:2 sink-clk:2 slack:-781.000122 crit:1.000000.
-2026-06-10 14:41:19,922 [INFO] [Router_C_5]:SortLeastSetupViolations inet:4243 isink:1 source-clk:2 sink-clk:2 slack:-781.000000 crit:1.000000.
-2026-06-10 14:41:19,922 [INFO] [Router_C_5]:SortLeastSetupViolations inet:4615 isink:52 source-clk:2 sink-clk:2 slack:-781.000000 crit:1.000000.
-2026-06-10 14:41:19,922 [INFO] [Router_C_5]:SortLeastSetupViolations inet:4615 isink:53 source-clk:2 sink-clk:2 slack:-781.000000 crit:1.000000.
-2026-06-10 14:41:19,922 [INFO] [Router_C_5]:SortLeastSetupViolations inet:4615 isink:54 source-clk:2 sink-clk:2 slack:-781.000000 crit:1.000000.
-2026-06-10 14:41:19,922 [INFO] [Router_C_5]:SortLeastSetupViolations inet:5767 isink:0 source-clk:2 sink-clk:2 slack:-781.000000 crit:1.000000.
-2026-06-10 14:41:19,922 [INFO] [Router_C_5]:SortLeastSetupViolations inet:5781 isink:0 source-clk:2 sink-clk:2 slack:-781.000000 crit:1.000000.
-2026-06-10 14:41:19,923 [INFO] [Router_C_5]:SortLeastSetupViolations inet:5788 isink:0 source-clk:2 sink-clk:2 slack:-781.000000 crit:1.000000.
-2026-06-10 14:41:20,149 [INFO] [Router_C_5]:start Incrementally fix one setup violation connection inet:4615 isink:52 slack:-781.000000 crit:1.000000.
-2026-06-10 14:41:20,175 [INFO] [Router_C_2]:Try Route Incremental Influenced Conns, inets: 4611 
-2026-06-10 14:41:20,287 [INFO] [Router_C_0]:  routed itry: 1
-2026-06-10 14:41:20,356 [INFO] [Router_C_0]:  routed itry: 2
-2026-06-10 14:41:20,426 [INFO] [Router_C_0]:  routed itry: 3
-2026-06-10 14:41:20,494 [INFO] [Router_C_0]:  routed itry: 4
-2026-06-10 14:41:20,563 [INFO] [Router_C_0]:  routed itry: 5
-2026-06-10 14:41:20,633 [INFO] [Router_C_0]:  routed itry: 6
-2026-06-10 14:41:20,705 [INFO] [Router_C_5]:Incrementally fix one setup violation connection inet:4615 isink:52 source-clk:2sink-clk:2 ori_slack:-781.000000 new_slack:-931.000122 failed.
-2026-06-10 14:41:20,708 [INFO] [Router_C_5]:start Incrementally fix one setup violation connection inet:4615 isink:53 slack:-781.000000 crit:1.000000.
-2026-06-10 14:41:20,735 [INFO] [Router_C_2]:Try Route Incremental Influenced Conns, inets: 3718 3979 4611 
-2026-06-10 14:41:21,027 [INFO] [Router_C_0]:  routed itry: 1
-2026-06-10 14:41:21,096 [INFO] [Router_C_0]:  routed itry: 2
-2026-06-10 14:41:21,166 [INFO] [Router_C_0]:  routed itry: 3
-2026-06-10 14:41:21,235 [INFO] [Router_C_0]:  routed itry: 4
-2026-06-10 14:41:21,305 [INFO] [Router_C_0]:  routed itry: 5
-2026-06-10 14:41:21,373 [INFO] [Router_C_0]:  routed itry: 6
-2026-06-10 14:41:21,442 [INFO] [Router_C_0]:  routed itry: 7
-2026-06-10 14:41:21,512 [INFO] [Router_C_0]:  routed itry: 8
-2026-06-10 14:41:21,582 [INFO] [Router_C_0]:  routed itry: 9
-2026-06-10 14:41:21,654 [INFO] [Router_C_5]:Incrementally fix one setup violation connection inet:4615 isink:53 source-clk:2sink-clk:2 ori_slack:-781.000000 new_slack:-884.000122 failed.
-2026-06-10 14:41:21,658 [INFO] [Router_C_5]:start Incrementally fix one setup violation connection inet:4615 isink:54 slack:-781.000000 crit:1.000000.
-2026-06-10 14:41:21,756 [INFO] [Router_C_5]:Incrementally fix one setup violation connection inet:4615 isink:54 source-clk:2sink-clk:2 ori_slack:-781.000000 new_slack:-780.000122 succeed.
-2026-06-10 14:41:21,756 [INFO] [Router_C_5]:Incrementally fix one setup violation connection inet:4615 isink:54 is successful.
-2026-06-10 14:41:21,757 [INFO] [Router_C_5]:SortLeastSetupViolations inet:5761 isink:0 source-clk:2 sink-clk:2 slack:-780.000122 crit:1.000000.
-2026-06-10 14:41:21,757 [INFO] [Router_C_5]:SortLeastSetupViolations inet:5784 isink:0 source-clk:2 sink-clk:2 slack:-780.000122 crit:1.000000.
-2026-06-10 14:41:21,757 [INFO] [Router_C_5]:SortLeastSetupViolations inet:4331 isink:1 source-clk:2 sink-clk:2 slack:-780.000000 crit:1.000000.
-2026-06-10 14:41:21,757 [INFO] [Router_C_5]:SortLeastSetupViolations inet:4617 isink:38 source-clk:2 sink-clk:2 slack:-780.000000 crit:1.000000.
-2026-06-10 14:41:21,757 [INFO] [Router_C_5]:SortLeastSetupViolations inet:5760 isink:0 source-clk:2 sink-clk:2 slack:-780.000000 crit:1.000000.
-2026-06-10 14:41:21,757 [INFO] [Router_C_5]:SortLeastSetupViolations inet:5777 isink:0 source-clk:2 sink-clk:2 slack:-780.000000 crit:1.000000.
-2026-06-10 14:41:21,757 [INFO] [Router_C_5]:SortLeastSetupViolations inet:5815 isink:0 source-clk:2 sink-clk:2 slack:-780.000000 crit:1.000000.
-2026-06-10 14:41:21,757 [INFO] [Router_C_5]:SortLeastSetupViolations inet:5816 isink:0 source-clk:2 sink-clk:2 slack:-780.000000 crit:1.000000.
-2026-06-10 14:41:21,808 [INFO] [Router_C_5]:start Incrementally fix one setup violation connection inet:4617 isink:38 slack:-780.000000 crit:1.000000.
-2026-06-10 14:41:21,833 [INFO] [Router_C_2]:Try Route Incremental Influenced Conns, inets: 4613 5525 
-2026-06-10 14:41:21,953 [INFO] [Router_C_0]:  routed itry: 1
-2026-06-10 14:41:22,028 [INFO] [Router_C_0]:  routed itry: 2
-2026-06-10 14:41:22,104 [INFO] [Router_C_0]:  routed itry: 3
-2026-06-10 14:41:22,177 [INFO] [Router_C_0]:  routed itry: 4
-2026-06-10 14:41:22,251 [INFO] [Router_C_0]:  routed itry: 5
-2026-06-10 14:41:22,325 [INFO] [Router_C_0]:  routed itry: 6
-2026-06-10 14:41:22,401 [INFO] [Router_C_5]:Incrementally fix one setup violation connection inet:4617 isink:38 source-clk:2sink-clk:2 ori_slack:-780.000000 new_slack:-1050.000122 failed.
-2026-06-10 14:41:22,404 [INFO] [Router_C_5]:start Incrementally fix one setup violation connection inet:5761 isink:0 slack:-780.000122 crit:1.000000.
-2026-06-10 14:41:22,414 [INFO] [Router_C_2]:Try Route Incremental Influenced Conns, inets: 5495 5824 
-2026-06-10 14:41:22,525 [INFO] [Router_C_0]:  routed itry: 1
-2026-06-10 14:41:22,596 [INFO] [Router_C_0]:  routed itry: 2
-2026-06-10 14:41:22,666 [INFO] [Router_C_0]:  routed itry: 3
-2026-06-10 14:41:22,735 [INFO] [Router_C_0]:  routed itry: 4
-2026-06-10 14:41:22,805 [INFO] [Router_C_0]:  routed itry: 5
-2026-06-10 14:41:22,877 [INFO] [Router_C_5]:Incrementally fix one setup violation connection inet:5761 isink:0 source-clk:2sink-clk:2 ori_slack:-780.000122 new_slack:-769.000122 succeed.
-2026-06-10 14:41:22,877 [INFO] [Router_C_5]:Incrementally fix one setup violation connection inet:5761 isink:0 is successful.
-2026-06-10 14:41:22,877 [INFO] [Router_C_5]:SortLeastSetupViolations inet:4237 isink:0 source-clk:2 sink-clk:2 slack:-769.000122 crit:1.000000.
-2026-06-10 14:41:22,877 [INFO] [Router_C_5]:SortLeastSetupViolations inet:4241 isink:0 source-clk:2 sink-clk:2 slack:-769.000122 crit:1.000000.
-2026-06-10 14:41:22,877 [INFO] [Router_C_5]:SortLeastSetupViolations inet:5531 isink:0 source-clk:2 sink-clk:2 slack:-769.000061 crit:1.000000.
-2026-06-10 14:41:22,877 [INFO] [Router_C_5]:SortLeastSetupViolations inet:4239 isink:0 source-clk:2 sink-clk:2 slack:-769.000000 crit:1.000000.
-2026-06-10 14:41:22,877 [INFO] [Router_C_5]:SortLeastSetupViolations inet:4259 isink:0 source-clk:2 sink-clk:2 slack:-769.000000 crit:1.000000.
-2026-06-10 14:41:22,877 [INFO] [Router_C_5]:SortLeastSetupViolations inet:4607 isink:140 source-clk:2 sink-clk:2 slack:-769.000000 crit:1.000000.
-2026-06-10 14:41:22,877 [INFO] [Router_C_5]:SortLeastSetupViolations inet:4607 isink:141 source-clk:2 sink-clk:2 slack:-769.000000 crit:1.000000.
-2026-06-10 14:41:22,877 [INFO] [Router_C_5]:SortLeastSetupViolations inet:4607 isink:142 source-clk:2 sink-clk:2 slack:-769.000000 crit:1.000000.
-2026-06-10 14:41:22,877 [INFO] [Router_C_5]:SortLeastSetupViolations inet:5789 isink:0 source-clk:2 sink-clk:2 slack:-769.000000 crit:1.000000.
-2026-06-10 14:41:22,877 [INFO] [Router_C_5]:SortLeastSetupViolations inet:5866 isink:0 source-clk:2 sink-clk:2 slack:-769.000000 crit:1.000000.
-2026-06-10 14:41:22,877 [INFO] [Router_C_5]:SortLeastSetupViolations inet:5866 isink:1 source-clk:2 sink-clk:2 slack:-769.000000 crit:1.000000.
-2026-06-10 14:41:22,882 [INFO] [Router_C_5]:start Incrementally fix one setup violation connection inet:4259 isink:0 slack:-769.000000 crit:1.000000.
-2026-06-10 14:41:22,885 [INFO] [Router_C_2]:Try Route Incremental Influenced Conns, inets: 4216 5774 
-2026-06-10 14:41:22,997 [INFO] [Router_C_0]:  routed itry: 1
-2026-06-10 14:41:23,065 [INFO] [Router_C_0]:  routed itry: 2
-2026-06-10 14:41:23,134 [INFO] [Router_C_0]:  routed itry: 3
-2026-06-10 14:41:23,204 [INFO] [Router_C_0]:  routed itry: 4
-2026-06-10 14:41:23,276 [INFO] [Router_C_5]:Incrementally fix one setup violation connection inet:4259 isink:0 source-clk:2sink-clk:2 ori_slack:-769.000000 new_slack:-1884.000122 failed.
-2026-06-10 14:41:23,279 [INFO] [Router_C_5]:start Incrementally fix one setup violation connection inet:4241 isink:0 slack:-769.000122 crit:1.000000.
-2026-06-10 14:41:23,287 [INFO] [Router_C_2]:Try Route Incremental Influenced Conns, inets: 5564 
-2026-06-10 14:41:23,401 [INFO] [Router_C_5]:Incrementally fix one setup violation connection inet:4241 isink:0 source-clk:2sink-clk:2 ori_slack:-769.000122 new_slack:-763.000000 succeed.
-2026-06-10 14:41:23,401 [INFO] [Router_C_5]:Incrementally fix one setup violation connection inet:4241 isink:0 is successful.
-2026-06-10 14:41:23,401 [INFO] [Router_C_5]:SortLeastSetupViolations inet:4361 isink:15 source-clk:2 sink-clk:2 slack:-763.000000 crit:1.000000.
-2026-06-10 14:41:23,401 [INFO] [Router_C_5]:SortLeastSetupViolations inet:4557 isink:0 source-clk:2 sink-clk:2 slack:-763.000000 crit:1.000000.
-2026-06-10 14:41:23,401 [INFO] [Router_C_5]:SortLeastSetupViolations inet:4562 isink:0 source-clk:2 sink-clk:2 slack:-763.000000 crit:1.000000.
-2026-06-10 14:41:23,401 [INFO] [Router_C_5]:SortLeastSetupViolations inet:4563 isink:1 source-clk:2 sink-clk:2 slack:-763.000000 crit:1.000000.
-2026-06-10 14:41:23,401 [INFO] [Router_C_5]:SortLeastSetupViolations inet:4685 isink:14 source-clk:2 sink-clk:2 slack:-762.999512 crit:1.000000.
-2026-06-10 14:41:23,404 [INFO] [Router_C_5]:Finish fixing setup violation connections.
-2026-06-10 14:41:23,420 [INFO] [Router_C_4]:Route:fix hold violation begin...
-2026-06-10 14:41:23,561 [INFO] [Router_C_5]:Route:fix hold violation end.
-2026-06-10 14:41:23,562 [INFO] Channel routing is completed
-2026-06-10 14:41:23,742 [INFO] Internal routing is completed
-2026-06-10 14:41:23,765 [INFO] [BitGen_Proc_6]:Launched bram extraction...
-2026-06-10 14:41:23,808 [INFO] [BitGen_Proc_7]:Bram extraction success.
-2026-06-10 14:41:23,808 [INFO] [BitGen_Proc_8]:Launched bram configuration...
-2026-06-10 14:41:23,829 [INFO] [BitGen_Proc_9]:Bram configuration success.
-2026-06-10 14:41:23,829 [INFO] [BitGen_Proc_10]:Bram processing total time consumed 0.063 second(s).
-2026-06-10 14:41:24,548 [INFO] ClockName: cmos_pclk ClockFmax: 148.17(MHz)
-2026-06-10 14:41:24,548 [INFO] ClockName: \clk_gen:clk_gen_inst|altpll:altpll_component|_clk0 ClockFmax: 90.2772(MHz)
-2026-06-10 14:41:24,548 [INFO] ClockName: \clk_gen:clk_gen_inst|altpll:altpll_component|_clk1 ClockFmax: 70.1213(MHz)
-2026-06-10 14:41:24,774 [INFO] WNS: -2.129 ns WHS: -0.258 ns TNS:-624.797 ns THS:-0.258 ns
-2026-06-10 14:41:25,147 [INFO] [Router_Proc_2]:Write routing to file is completed.Router time consumed 11.4915 second(s).
-2026-06-10 14:41:25,207 [INFO] [Router_Proc_2]:Write routing to udm is completed.Router time consumed 11.4915 second(s).
-2026-06-10 14:41:25,210 [INFO] Writing statistical info to file is completed
-2026-06-10 14:41:25,229 [INFO] Delete Interface is completed
-2026-06-10 14:41:25,538 [INFO] [UDM_Save_0]:Save eLinx design check point(.ecp) complete.
+2026-06-17 15:08:14,677 [INFO] [Router_G_0]:Initializing Arc is completed
+2026-06-17 15:08:14,678 [INFO] [Router_Proc_0]:Launched Router...
+2026-06-17 15:08:14,678 [INFO] [Router_Proc_0]:Processing ucm is completed
+2026-06-17 15:08:14,841 [INFO] [Router_Proc_0]:Processing udm is completed
+2026-06-17 15:08:14,846 [INFO] [Router_C_2]:Initializing ThreadPool is completed
+2026-06-17 15:08:14,959 [INFO] [Router_C_9]:Start try routing vcc and gnd nets.
+2026-06-17 15:08:15,135 [INFO] [Router_C_9]:Start try routing clk nets.
+2026-06-17 15:08:17,231 [INFO] [Router_C_10]:Try routing clk nets is successful.
+2026-06-17 15:08:20,724 [INFO] [Router_C_0]:  routed itry: 1
+2026-06-17 15:08:23,064 [INFO] [Router_C_0]:  routed itry: 2
+2026-06-17 15:08:25,491 [INFO] [Router_C_0]:  routed itry: 3
+2026-06-17 15:08:27,936 [INFO] [Router_C_0]:  routed itry: 4
+2026-06-17 15:08:30,350 [INFO] [Router_C_0]:  routed itry: 5
+2026-06-17 15:08:32,810 [INFO] [Router_C_0]:  routed itry: 6
+2026-06-17 15:08:35,219 [INFO] [Router_C_0]:  routed itry: 7
+2026-06-17 15:08:37,572 [INFO] [Router_C_0]:  routed itry: 8
+2026-06-17 15:08:37,882 [INFO] [Router_C_0]:  routed itry: 9
+2026-06-17 15:08:38,122 [INFO] [Router_C_0]:  routed itry: 10
+2026-06-17 15:08:38,338 [INFO] [Router_C_0]:  routed itry: 11
+2026-06-17 15:08:38,489 [INFO] [Router_C_0]:  routed itry: 12
+2026-06-17 15:08:38,636 [INFO] [Router_C_0]:  routed itry: 13
+2026-06-17 15:08:38,666 [INFO] [Router_C_5]:Start fixing setup violation connections.
+2026-06-17 15:08:38,805 [INFO] [Router_C_5]:Incrementally routing for all setup violation connections.
+2026-06-17 15:08:38,811 [INFO] [Router_C_5]:start Incrementally routing for one setup violation connection inet:4180 isink:0.
+2026-06-17 15:08:38,811 [INFO] [Router_C_5]:start Incrementally routing for one setup violation connection inet:4182 isink:0.
+2026-06-17 15:08:38,812 [INFO] [Router_C_5]:start Incrementally routing for one setup violation connection inet:4186 isink:1.
+2026-06-17 15:08:38,813 [INFO] [Router_C_5]:start Incrementally routing for one setup violation connection inet:4188 isink:0.
+2026-06-17 15:08:38,817 [INFO] [Router_C_5]:Incrementally routing for one setup violation connection inet:4188 isink:0 is successful.
+2026-06-17 15:08:38,930 [INFO] [Router_C_5]:start Incrementally routing for one setup violation connection inet:4559 isink:29.
+2026-06-17 15:08:38,962 [INFO] [Router_C_5]:Incrementally routing for one setup violation connection inet:4559 isink:29 is successful.
+2026-06-17 15:08:39,075 [INFO] [Router_C_5]:start Incrementally routing for one setup violation connection inet:134 isink:3.
+2026-06-17 15:08:39,164 [INFO] [Router_C_5]:Incrementally routing for one setup violation connection inet:134 isink:3 is successful.
+2026-06-17 15:08:39,277 [INFO] [Router_C_5]:start Incrementally routing for one setup violation connection inet:134 isink:16.
+2026-06-17 15:08:39,324 [INFO] [Router_C_5]:Incrementally routing for one setup violation connection inet:134 isink:16 is successful.
+2026-06-17 15:08:39,431 [INFO] [Router_C_5]:start Incrementally routing for one setup violation connection inet:4229 isink:0.
+2026-06-17 15:08:39,439 [INFO] [Router_C_5]:Incrementally routing for one setup violation connection inet:4229 isink:0 is successful.
+2026-06-17 15:08:39,551 [INFO] [Router_C_5]:start Incrementally routing for one setup violation connection inet:4180 isink:0.
+2026-06-17 15:08:39,551 [INFO] [Router_C_5]:start Incrementally routing for one setup violation connection inet:4182 isink:0.
+2026-06-17 15:08:39,552 [INFO] [Router_C_5]:start Incrementally routing for one setup violation connection inet:4186 isink:1.
+2026-06-17 15:08:39,553 [INFO] [Router_C_5]:start Incrementally routing for one setup violation connection inet:4188 isink:0.
+2026-06-17 15:08:39,557 [INFO] [Router_C_5]:start Incrementally routing for one setup violation connection inet:4555 isink:28.
+2026-06-17 15:08:39,586 [INFO] [Router_C_5]:Incrementally routing for one setup violation connection inet:4555 isink:28 is successful.
+2026-06-17 15:08:39,697 [INFO] [Router_C_5]:start Incrementally routing for one setup violation connection inet:134 isink:25.
+2026-06-17 15:08:39,815 [INFO] [Router_C_5]:Incrementally routing for one setup violation connection inet:134 isink:25 is successful.
+2026-06-17 15:08:39,938 [INFO] [Router_C_5]:start Incrementally routing for one setup violation connection inet:4135 isink:1.
+2026-06-17 15:08:39,946 [INFO] [Router_C_5]:start Incrementally routing for one setup violation connection inet:4557 isink:167.
+2026-06-17 15:08:39,948 [INFO] [Router_C_5]:Incrementally routing for one setup violation connection inet:4557 isink:167 is successful.
+2026-06-17 15:08:40,078 [INFO] [Router_C_5]:start Incrementally routing for one setup violation connection inet:4180 isink:0.
+2026-06-17 15:08:40,079 [INFO] [Router_C_5]:start Incrementally routing for one setup violation connection inet:4182 isink:0.
+2026-06-17 15:08:40,079 [INFO] [Router_C_5]:start Incrementally routing for one setup violation connection inet:4186 isink:1.
+2026-06-17 15:08:40,080 [INFO] [Router_C_5]:start Incrementally routing for one setup violation connection inet:4188 isink:0.
+2026-06-17 15:08:40,084 [INFO] [Router_C_5]:start Incrementally routing for one setup violation connection inet:4571 isink:20.
+2026-06-17 15:08:40,113 [INFO] [Router_C_5]:Incrementally routing for one setup violation connection inet:4571 isink:20 is successful.
+2026-06-17 15:08:40,222 [INFO] [Router_C_5]:start Incrementally routing for one setup violation connection inet:4559 isink:29.
+2026-06-17 15:08:40,251 [INFO] [Router_C_5]:start Incrementally routing for one setup violation connection inet:4180 isink:0.
+2026-06-17 15:08:40,251 [INFO] [Router_C_5]:start Incrementally routing for one setup violation connection inet:4182 isink:0.
+2026-06-17 15:08:40,251 [INFO] [Router_C_5]:start Incrementally routing for one setup violation connection inet:4186 isink:1.
+2026-06-17 15:08:40,252 [INFO] [Router_C_5]:start Incrementally routing for one setup violation connection inet:4188 isink:0.
+2026-06-17 15:08:40,256 [INFO] [Router_C_5]:start Incrementally routing for one setup violation connection inet:5510 isink:3.
+2026-06-17 15:08:40,284 [INFO] [Router_C_5]:Incrementally routing for one setup violation connection inet:5510 isink:3 is successful.
+2026-06-17 15:08:40,396 [INFO] [Router_C_5]:start Incrementally routing for one setup violation connection inet:4225 isink:0.
+2026-06-17 15:08:40,414 [INFO] [Router_C_5]:Incrementally routing for one setup violation connection inet:4225 isink:0 is successful.
+2026-06-17 15:08:40,525 [INFO] [Router_C_5]:start Incrementally routing for one setup violation connection inet:4561 isink:50.
+2026-06-17 15:08:40,551 [INFO] [Router_C_5]:Incrementally routing for one setup violation connection inet:4561 isink:50 is successful.
+2026-06-17 15:08:40,663 [INFO] [Router_C_5]:start Incrementally routing for one setup violation connection inet:134 isink:13.
+2026-06-17 15:08:40,698 [INFO] [Router_C_5]:Incrementally routing for one setup violation connection inet:134 isink:13 is successful.
+2026-06-17 15:08:40,810 [INFO] [Router_C_5]:start Incrementally routing for one setup violation connection inet:4192 isink:1.
+2026-06-17 15:08:40,812 [INFO] [Router_C_5]:start Incrementally routing for one setup violation connection inet:4555 isink:84.
+2026-06-17 15:08:40,813 [INFO] [Router_C_5]:Incrementally routing for one setup violation connection inet:4555 isink:84 is successful.
+2026-06-17 15:08:40,925 [INFO] [Router_C_5]:start Incrementally routing for one setup violation connection inet:4156 isink:2.
+2026-06-17 15:08:40,947 [INFO] [Router_C_5]:Incrementally routing for one setup violation connection inet:4156 isink:2 is successful.
+2026-06-17 15:08:41,062 [INFO] [Router_C_5]:start Incrementally routing for one setup violation connection inet:4156 isink:2.
+2026-06-17 15:08:41,083 [INFO] [Router_C_5]:start Incrementally routing for one setup violation connection inet:4188 isink:0.
+2026-06-17 15:08:41,087 [INFO] [Router_C_5]:start Incrementally routing for one setup violation connection inet:4211 isink:0.
+2026-06-17 15:08:41,088 [INFO] [Router_C_5]:start Incrementally routing for one setup violation connection inet:4233 isink:0.
+2026-06-17 15:08:41,090 [INFO] [Router_C_5]:start Incrementally routing for one setup violation connection inet:4234 isink:0.
+2026-06-17 15:08:41,092 [INFO] [Router_C_5]:Incrementally routing for one setup violation connection inet:4234 isink:0 is successful.
+2026-06-17 15:08:41,202 [INFO] [Router_C_5]:start Incrementally routing for one setup violation connection inet:4229 isink:0.
+2026-06-17 15:08:41,210 [INFO] [Router_C_5]:start Incrementally routing for one setup violation connection inet:4156 isink:2.
+2026-06-17 15:08:41,233 [INFO] [Router_C_5]:start Incrementally routing for one setup violation connection inet:4188 isink:0.
+2026-06-17 15:08:41,239 [INFO] [Router_C_5]:start Incrementally routing for one setup violation connection inet:4211 isink:0.
+2026-06-17 15:08:41,243 [INFO] [Router_C_5]:start Incrementally routing for one setup violation connection inet:4228 isink:0.
+2026-06-17 15:08:41,244 [INFO] [Router_C_5]:start Incrementally routing for one setup violation connection inet:4233 isink:0.
+2026-06-17 15:08:41,247 [INFO] [Router_C_5]:start Incrementally routing for one setup violation connection inet:4565 isink:4.
+2026-06-17 15:08:41,250 [INFO] [Router_C_5]:start Incrementally routing for one setup violation connection inet:4565 isink:5.
+2026-06-17 15:08:41,252 [INFO] [Router_C_5]:start Incrementally routing for one setup violation connection inet:5767 isink:0.
+2026-06-17 15:08:41,253 [INFO] [Router_C_5]:start Incrementally routing for one setup violation connection inet:4192 isink:1.
+2026-06-17 15:08:41,254 [INFO] [Router_C_5]:start Incrementally routing for one setup violation connection inet:4565 isink:90.
+2026-06-17 15:08:41,256 [INFO] [Router_C_5]:Incrementally routing for one setup violation connection inet:4565 isink:90 is successful.
+2026-06-17 15:08:41,360 [INFO] [Router_C_5]:start Incrementally routing for one setup violation connection inet:4229 isink:0.
+2026-06-17 15:08:41,367 [INFO] [Router_C_5]:start Incrementally routing for one setup violation connection inet:4156 isink:2.
+2026-06-17 15:08:41,387 [INFO] [Router_C_5]:start Incrementally routing for one setup violation connection inet:4188 isink:0.
+2026-06-17 15:08:41,391 [INFO] [Router_C_5]:start Incrementally routing for one setup violation connection inet:4211 isink:0.
+2026-06-17 15:08:41,393 [INFO] [Router_C_5]:start Incrementally routing for one setup violation connection inet:4228 isink:0.
+2026-06-17 15:08:41,395 [INFO] [Router_C_5]:start Incrementally routing for one setup violation connection inet:4233 isink:0.
+2026-06-17 15:08:41,397 [INFO] [Router_C_5]:start Incrementally routing for one setup violation connection inet:4565 isink:4.
+2026-06-17 15:08:41,399 [INFO] [Router_C_5]:start Incrementally routing for one setup violation connection inet:4565 isink:5.
+2026-06-17 15:08:41,403 [INFO] [Router_C_5]:start Incrementally routing for one setup violation connection inet:5767 isink:0.
+2026-06-17 15:08:41,403 [INFO] [Router_C_5]:start Incrementally routing for one setup violation connection inet:4135 isink:1.
+2026-06-17 15:08:41,412 [INFO] [Router_C_5]:start Incrementally routing for one setup violation connection inet:5774 isink:0.
+2026-06-17 15:08:41,433 [INFO] [Router_C_5]:Incrementally routing for one setup violation connection inet:5774 isink:0 is successful.
+2026-06-17 15:08:41,542 [INFO] [Router_C_5]:start Incrementally routing for one setup violation connection inet:4229 isink:0.
+2026-06-17 15:08:41,553 [INFO] [Router_C_5]:start Incrementally routing for one setup violation connection inet:4156 isink:2.
+2026-06-17 15:08:41,576 [INFO] [Router_C_5]:start Incrementally routing for one setup violation connection inet:4188 isink:0.
+2026-06-17 15:08:41,580 [INFO] [Router_C_5]:start Incrementally routing for one setup violation connection inet:4211 isink:0.
+2026-06-17 15:08:41,581 [INFO] [Router_C_5]:start Incrementally routing for one setup violation connection inet:4228 isink:0.
+2026-06-17 15:08:41,583 [INFO] [Router_C_5]:start Incrementally routing for one setup violation connection inet:4233 isink:0.
+2026-06-17 15:08:41,585 [INFO] [Router_C_5]:start Incrementally routing for one setup violation connection inet:4565 isink:4.
+2026-06-17 15:08:41,586 [INFO] [Router_C_5]:start Incrementally routing for one setup violation connection inet:4565 isink:5.
+2026-06-17 15:08:41,588 [INFO] [Router_C_5]:start Incrementally routing for one setup violation connection inet:5767 isink:0.
+2026-06-17 15:08:41,589 [INFO] [Router_C_5]:start Incrementally routing for one setup violation connection inet:4232 isink:0.
+2026-06-17 15:08:41,594 [INFO] [Router_C_5]:Incrementally routing for one setup violation connection inet:4232 isink:0 is successful.
+2026-06-17 15:08:41,706 [INFO] [Router_C_5]:start Incrementally routing for one setup violation connection inet:4229 isink:0.
+2026-06-17 15:08:41,712 [INFO] [Router_C_5]:start Incrementally routing for one setup violation connection inet:4156 isink:2.
+2026-06-17 15:08:41,736 [INFO] [Router_C_5]:start Incrementally routing for one setup violation connection inet:4188 isink:0.
+2026-06-17 15:08:41,739 [INFO] [Router_C_5]:start Incrementally routing for one setup violation connection inet:4211 isink:0.
+2026-06-17 15:08:41,740 [INFO] [Router_C_5]:start Incrementally routing for one setup violation connection inet:4228 isink:0.
+2026-06-17 15:08:41,742 [INFO] [Router_C_5]:start Incrementally routing for one setup violation connection inet:4233 isink:0.
+2026-06-17 15:08:41,745 [INFO] [Router_C_5]:start Incrementally routing for one setup violation connection inet:4565 isink:4.
+2026-06-17 15:08:41,748 [INFO] [Router_C_5]:start Incrementally routing for one setup violation connection inet:4565 isink:5.
+2026-06-17 15:08:41,749 [INFO] [Router_C_5]:start Incrementally routing for one setup violation connection inet:5767 isink:0.
+2026-06-17 15:08:41,750 [INFO] [Router_C_5]:start Incrementally routing for one setup violation connection inet:138 isink:25.
+2026-06-17 15:08:41,874 [INFO] [Router_C_5]:Incrementally routing for one setup violation connection inet:138 isink:25 is successful.
+2026-06-17 15:08:41,985 [INFO] [Router_C_5]:start Incrementally routing for one setup violation connection inet:4229 isink:0.
+2026-06-17 15:08:41,993 [INFO] [Router_C_5]:start Incrementally routing for one setup violation connection inet:4156 isink:2.
+2026-06-17 15:08:42,017 [INFO] [Router_C_5]:start Incrementally routing for one setup violation connection inet:4188 isink:0.
+2026-06-17 15:08:42,021 [INFO] [Router_C_5]:start Incrementally routing for one setup violation connection inet:4211 isink:0.
+2026-06-17 15:08:42,023 [INFO] [Router_C_5]:start Incrementally routing for one setup violation connection inet:4228 isink:0.
+2026-06-17 15:08:42,024 [INFO] [Router_C_5]:start Incrementally routing for one setup violation connection inet:4233 isink:0.
+2026-06-17 15:08:42,026 [INFO] [Router_C_5]:start Incrementally routing for one setup violation connection inet:4565 isink:4.
+2026-06-17 15:08:42,028 [INFO] [Router_C_5]:start Incrementally routing for one setup violation connection inet:4565 isink:5.
+2026-06-17 15:08:42,030 [INFO] [Router_C_5]:start Incrementally routing for one setup violation connection inet:5767 isink:0.
+2026-06-17 15:08:42,030 [INFO] [Router_C_5]:start Incrementally routing for one setup violation connection inet:4561 isink:5.
+2026-06-17 15:08:42,032 [INFO] [Router_C_5]:start Incrementally routing for one setup violation connection inet:4555 isink:20.
+2026-06-17 15:08:42,037 [INFO] [Router_C_5]:Incrementally routing for one setup violation connection inet:4555 isink:20 is successful.
+2026-06-17 15:08:42,148 [INFO] [Router_C_5]:start Incrementally routing for one setup violation connection inet:4229 isink:0.
+2026-06-17 15:08:42,156 [INFO] [Router_C_5]:start Incrementally routing for one setup violation connection inet:4156 isink:2.
+2026-06-17 15:08:42,177 [INFO] [Router_C_5]:start Incrementally routing for one setup violation connection inet:4188 isink:0.
+2026-06-17 15:08:42,181 [INFO] [Router_C_5]:start Incrementally routing for one setup violation connection inet:4211 isink:0.
+2026-06-17 15:08:42,182 [INFO] [Router_C_5]:start Incrementally routing for one setup violation connection inet:4228 isink:0.
+2026-06-17 15:08:42,184 [INFO] [Router_C_5]:start Incrementally routing for one setup violation connection inet:4233 isink:0.
+2026-06-17 15:08:42,186 [INFO] [Router_C_5]:start Incrementally routing for one setup violation connection inet:4565 isink:4.
+2026-06-17 15:08:42,187 [INFO] [Router_C_5]:start Incrementally routing for one setup violation connection inet:4565 isink:5.
+2026-06-17 15:08:42,189 [INFO] [Router_C_5]:start Incrementally routing for one setup violation connection inet:5767 isink:0.
+2026-06-17 15:08:42,190 [INFO] [Router_C_5]:Incrementally negotiation routing for setup violation connections.
+2026-06-17 15:08:42,190 [INFO] [Router_C_5]:SortLeastSetupViolations inet:4229 isink:0 source-clk:2 sink-clk:2 slack:-1405.000122 crit:1.000000.
+2026-06-17 15:08:42,190 [INFO] [Router_C_5]:SortLeastSetupViolations inet:4156 isink:2 source-clk:2 sink-clk:2 slack:-1405.000000 crit:1.000000.
+2026-06-17 15:08:42,190 [INFO] [Router_C_5]:SortLeastSetupViolations inet:4188 isink:0 source-clk:2 sink-clk:2 slack:-1405.000000 crit:1.000000.
+2026-06-17 15:08:42,190 [INFO] [Router_C_5]:SortLeastSetupViolations inet:4211 isink:0 source-clk:2 sink-clk:2 slack:-1405.000000 crit:1.000000.
+2026-06-17 15:08:42,190 [INFO] [Router_C_5]:SortLeastSetupViolations inet:4228 isink:0 source-clk:2 sink-clk:2 slack:-1405.000000 crit:1.000000.
+2026-06-17 15:08:42,190 [INFO] [Router_C_5]:SortLeastSetupViolations inet:4233 isink:0 source-clk:2 sink-clk:2 slack:-1405.000000 crit:1.000000.
+2026-06-17 15:08:42,190 [INFO] [Router_C_5]:SortLeastSetupViolations inet:4565 isink:4 source-clk:2 sink-clk:2 slack:-1405.000000 crit:1.000000.
+2026-06-17 15:08:42,190 [INFO] [Router_C_5]:SortLeastSetupViolations inet:4565 isink:5 source-clk:2 sink-clk:2 slack:-1405.000000 crit:1.000000.
+2026-06-17 15:08:42,190 [INFO] [Router_C_5]:SortLeastSetupViolations inet:5767 isink:0 source-clk:2 sink-clk:2 slack:-1405.000000 crit:1.000000.
+2026-06-17 15:08:42,273 [INFO] [Router_C_5]:start Incrementally fix one setup violation connection inet:4156 isink:2 slack:-1405.000000 crit:1.000000.
+2026-06-17 15:08:42,285 [INFO] [Router_C_2]:Try Route Incremental Influenced Conns, inets: 4179 5411 5463 5531 
+2026-06-17 15:08:42,486 [INFO] [Router_C_0]:  routed itry: 1
+2026-06-17 15:08:42,598 [INFO] [Router_C_0]:  routed itry: 2
+2026-06-17 15:08:42,715 [INFO] [Router_C_0]:  routed itry: 3
+2026-06-17 15:08:42,834 [INFO] [Router_C_5]:Incrementally fix one setup violation connection inet:4156 isink:2 source-clk:2sink-clk:2 ori_slack:-1405.000000 new_slack:-1509.000122 failed.
+2026-06-17 15:08:42,839 [INFO] [Router_C_5]:start Incrementally fix one setup violation connection inet:4211 isink:0 slack:-1405.000000 crit:1.000000.
+2026-06-17 15:08:42,844 [INFO] [Router_C_2]:Try Route Incremental Influenced Conns, inets: 419 
+2026-06-17 15:08:43,054 [INFO] [Router_C_5]:Incrementally fix one setup violation connection inet:4211 isink:0 source-clk:2sink-clk:2 ori_slack:-1405.000000 new_slack:-1330.000122 succeed.
+2026-06-17 15:08:43,055 [INFO] [Router_C_5]:Incrementally fix one setup violation connection inet:4211 isink:0 is successful.
+2026-06-17 15:08:43,055 [INFO] [Router_C_5]:SortLeastSetupViolations inet:4135 isink:1 source-clk:2 sink-clk:2 slack:-1330.000122 crit:1.000000.
+2026-06-17 15:08:43,055 [INFO] [Router_C_5]:SortLeastSetupViolations inet:5774 isink:0 source-clk:2 sink-clk:2 slack:-1330.000122 crit:1.000000.
+2026-06-17 15:08:43,055 [INFO] [Router_C_5]:SortLeastSetupViolations inet:4132 isink:0 source-clk:2 sink-clk:2 slack:-1330.000000 crit:1.000000.
+2026-06-17 15:08:43,055 [INFO] [Router_C_5]:SortLeastSetupViolations inet:4192 isink:1 source-clk:2 sink-clk:2 slack:-1330.000000 crit:1.000000.
+2026-06-17 15:08:43,055 [INFO] [Router_C_5]:SortLeastSetupViolations inet:4571 isink:25 source-clk:2 sink-clk:2 slack:-1330.000000 crit:1.000000.
+2026-06-17 15:08:43,055 [INFO] [Router_C_5]:SortLeastSetupViolations inet:5478 isink:3 source-clk:2 sink-clk:2 slack:-1330.000000 crit:1.000000.
+2026-06-17 15:08:43,055 [INFO] [Router_C_5]:SortLeastSetupViolations inet:5479 isink:0 source-clk:2 sink-clk:2 slack:-1330.000000 crit:1.000000.
+2026-06-17 15:08:43,055 [INFO] [Router_C_5]:SortLeastSetupViolations inet:5791 isink:31 source-clk:2 sink-clk:2 slack:-1330.000000 crit:1.000000.
+2026-06-17 15:08:43,055 [INFO] [Router_C_5]:SortLeastSetupViolations inet:5791 isink:32 source-clk:2 sink-clk:2 slack:-1330.000000 crit:1.000000.
+2026-06-17 15:08:43,055 [INFO] [Router_C_5]:SortLeastSetupViolations inet:5791 isink:33 source-clk:2 sink-clk:2 slack:-1330.000000 crit:1.000000.
+2026-06-17 15:08:43,055 [INFO] [Router_C_5]:SortLeastSetupViolations inet:5791 isink:34 source-clk:2 sink-clk:2 slack:-1330.000000 crit:1.000000.
+2026-06-17 15:08:43,149 [INFO] [Router_C_5]:start Incrementally fix one setup violation connection inet:5479 isink:0 slack:-1330.000000 crit:1.000000.
+2026-06-17 15:08:43,186 [INFO] [Router_C_2]:Try Route Incremental Influenced Conns, inets: 176 5661 
+2026-06-17 15:08:43,389 [INFO] [Router_C_5]:Incrementally fix one setup violation connection inet:5479 isink:0 source-clk:2sink-clk:2 ori_slack:-1330.000000 new_slack:-1312.000244 succeed.
+2026-06-17 15:08:43,390 [INFO] [Router_C_5]:Incrementally fix one setup violation connection inet:5479 isink:0 is successful.
+2026-06-17 15:08:43,390 [INFO] [Router_C_5]:SortLeastSetupViolations inet:4559 isink:29 source-clk:2 sink-clk:2 slack:-1312.000244 crit:1.000000.
+2026-06-17 15:08:43,390 [INFO] [Router_C_5]:SortLeastSetupViolations inet:5510 isink:3 source-clk:2 sink-clk:2 slack:-1312.000122 crit:1.000000.
+2026-06-17 15:08:43,390 [INFO] [Router_C_5]:SortLeastSetupViolations inet:5510 isink:4 source-clk:2 sink-clk:2 slack:-1312.000122 crit:1.000000.
+2026-06-17 15:08:43,390 [INFO] [Router_C_5]:SortLeastSetupViolations inet:4180 isink:0 source-clk:2 sink-clk:2 slack:-1312.000000 crit:1.000000.
+2026-06-17 15:08:43,390 [INFO] [Router_C_5]:SortLeastSetupViolations inet:4182 isink:0 source-clk:2 sink-clk:2 slack:-1312.000000 crit:1.000000.
+2026-06-17 15:08:43,390 [INFO] [Router_C_5]:SortLeastSetupViolations inet:4186 isink:1 source-clk:2 sink-clk:2 slack:-1312.000000 crit:1.000000.
+2026-06-17 15:08:43,390 [INFO] [Router_C_5]:SortLeastSetupViolations inet:4188 isink:0 source-clk:2 sink-clk:2 slack:-1312.000000 crit:1.000000.
+2026-06-17 15:08:43,390 [INFO] [Router_C_5]:SortLeastSetupViolations inet:5526 isink:0 source-clk:2 sink-clk:2 slack:-1312.000000 crit:1.000000.
+2026-06-17 15:08:43,390 [INFO] [Router_C_5]:SortLeastSetupViolations inet:5767 isink:0 source-clk:2 sink-clk:2 slack:-1312.000000 crit:1.000000.
+2026-06-17 15:08:43,642 [INFO] [Router_C_5]:start Incrementally fix one setup violation connection inet:5526 isink:0 slack:-1312.000000 crit:1.000000.
+2026-06-17 15:08:43,657 [INFO] [Router_C_2]:Try Route Incremental Influenced Conns, inets: 5531 
+2026-06-17 15:08:43,863 [INFO] [Router_C_0]:  routed itry: 1
+2026-06-17 15:08:43,975 [INFO] [Router_C_0]:  routed itry: 2
+2026-06-17 15:08:44,090 [INFO] [Router_C_0]:  routed itry: 3
+2026-06-17 15:08:44,205 [INFO] [Router_C_0]:  routed itry: 4
+2026-06-17 15:08:44,322 [INFO] [Router_C_0]:  routed itry: 5
+2026-06-17 15:08:44,438 [INFO] [Router_C_0]:  routed itry: 6
+2026-06-17 15:08:44,555 [INFO] [Router_C_0]:  routed itry: 7
+2026-06-17 15:08:44,674 [INFO] [Router_C_0]:  routed itry: 8
+2026-06-17 15:08:44,789 [INFO] [Router_C_0]:  routed itry: 9
+2026-06-17 15:08:44,914 [INFO] [Router_C_5]:Incrementally fix one setup violation connection inet:5526 isink:0 source-clk:2sink-clk:2 ori_slack:-1312.000000 new_slack:-1998.000244 failed.
+2026-06-17 15:08:44,918 [INFO] [Router_C_5]:start Incrementally fix one setup violation connection inet:4182 isink:0 slack:-1312.000000 crit:1.000000.
+2026-06-17 15:08:44,923 [INFO] [Router_C_2]:Try Route Incremental Influenced Conns, inets: 4179 
+2026-06-17 15:08:45,121 [INFO] [Router_C_5]:Incrementally fix one setup violation connection inet:4182 isink:0 source-clk:2sink-clk:2 ori_slack:-1312.000000 new_slack:-1263.000122 succeed.
+2026-06-17 15:08:45,122 [INFO] [Router_C_5]:Incrementally fix one setup violation connection inet:4182 isink:0 is successful.
+2026-06-17 15:08:45,122 [INFO] [Router_C_5]:SortLeastSetupViolations inet:134 isink:17 source-clk:2 sink-clk:2 slack:-1263.000122 crit:0.999062.
+2026-06-17 15:08:45,122 [INFO] [Router_C_5]:SortLeastSetupViolations inet:134 isink:23 source-clk:2 sink-clk:2 slack:-1263.000122 crit:0.999062.
+2026-06-17 15:08:45,122 [INFO] [Router_C_5]:SortLeastSetupViolations inet:148 isink:0 source-clk:2 sink-clk:2 slack:-1263.000000 crit:0.999062.
+2026-06-17 15:08:45,122 [INFO] [Router_C_5]:SortLeastSetupViolations inet:204 isink:0 source-clk:2 sink-clk:2 slack:-1263.000000 crit:0.999062.
+2026-06-17 15:08:45,122 [INFO] [Router_C_5]:SortLeastSetupViolations inet:218 isink:5 source-clk:2 sink-clk:2 slack:-1263.000000 crit:0.999062.
+2026-06-17 15:08:45,122 [INFO] [Router_C_5]:SortLeastSetupViolations inet:6750 isink:1 source-clk:2 sink-clk:2 slack:-1263.000000 crit:0.999062.
+2026-06-17 15:08:45,122 [INFO] [Router_C_5]:SortLeastSetupViolations inet:6756 isink:11 source-clk:2 sink-clk:2 slack:-1263.000000 crit:0.999062.
+2026-06-17 15:08:45,122 [INFO] [Router_C_5]:SortLeastSetupViolations inet:6756 isink:12 source-clk:2 sink-clk:2 slack:-1263.000000 crit:0.999062.
+2026-06-17 15:08:45,122 [INFO] [Router_C_5]:SortLeastSetupViolations inet:6756 isink:13 source-clk:2 sink-clk:2 slack:-1263.000000 crit:0.999062.
+2026-06-17 15:08:45,122 [INFO] [Router_C_5]:SortLeastSetupViolations inet:6756 isink:14 source-clk:2 sink-clk:2 slack:-1263.000000 crit:0.999062.
+2026-06-17 15:08:45,842 [INFO] [Router_C_5]:start Incrementally fix one setup violation connection inet:134 isink:23 slack:-1263.000122 crit:0.999062.
+2026-06-17 15:08:45,967 [INFO] [Router_C_2]:Try Route Incremental Influenced Conns, inets: 135 
+2026-06-17 15:08:46,158 [INFO] [Router_C_5]:Incrementally fix one setup violation connection inet:134 isink:23 source-clk:2sink-clk:2 ori_slack:-1263.000122 new_slack:-2686.000244 failed.
+2026-06-17 15:08:46,162 [INFO] [Router_C_5]:start Incrementally fix one setup violation connection inet:6756 isink:11 slack:-1263.000000 crit:0.999062.
+2026-06-17 15:08:46,242 [INFO] [Router_C_2]:Try Route Incremental Influenced Conns, inets: 5749 5824 
+2026-06-17 15:08:46,446 [INFO] [Router_C_5]:Incrementally fix one setup violation connection inet:6756 isink:11 source-clk:2sink-clk:2 ori_slack:-1263.000000 new_slack:-1253.000122 succeed.
+2026-06-17 15:08:46,447 [INFO] [Router_C_5]:Incrementally fix one setup violation connection inet:6756 isink:11 is successful.
+2026-06-17 15:08:46,447 [INFO] [Router_C_5]:SortLeastSetupViolations inet:4567 isink:71 source-clk:2 sink-clk:2 slack:-1253.000122 crit:0.998429.
+2026-06-17 15:08:46,447 [INFO] [Router_C_5]:SortLeastSetupViolations inet:4567 isink:72 source-clk:2 sink-clk:2 slack:-1253.000122 crit:0.998429.
+2026-06-17 15:08:46,447 [INFO] [Router_C_5]:SortLeastSetupViolations inet:4127 isink:0 source-clk:2 sink-clk:2 slack:-1253.000000 crit:0.998429.
+2026-06-17 15:08:46,447 [INFO] [Router_C_5]:SortLeastSetupViolations inet:4131 isink:0 source-clk:2 sink-clk:2 slack:-1253.000000 crit:0.998429.
+2026-06-17 15:08:46,447 [INFO] [Router_C_5]:SortLeastSetupViolations inet:4141 isink:1 source-clk:2 sink-clk:2 slack:-1253.000000 crit:0.998429.
+2026-06-17 15:08:46,447 [INFO] [Router_C_5]:SortLeastSetupViolations inet:4270 isink:0 source-clk:2 sink-clk:2 slack:-1253.000000 crit:0.998429.
+2026-06-17 15:08:46,447 [INFO] [Router_C_5]:SortLeastSetupViolations inet:5434 isink:0 source-clk:2 sink-clk:2 slack:-1253.000000 crit:0.998429.
+2026-06-17 15:08:46,447 [INFO] [Router_C_5]:SortLeastSetupViolations inet:5469 isink:1 source-clk:2 sink-clk:2 slack:-1253.000000 crit:0.998429.
+2026-06-17 15:08:46,447 [INFO] [Router_C_5]:SortLeastSetupViolations inet:5745 isink:0 source-clk:2 sink-clk:2 slack:-1253.000000 crit:0.998429.
+2026-06-17 15:08:46,578 [INFO] [Router_C_5]:start Incrementally fix one setup violation connection inet:4567 isink:71 slack:-1253.000122 crit:0.998429.
+2026-06-17 15:08:46,614 [INFO] [Router_C_2]:Try Route Incremental Influenced Conns, inets: 4565 
+2026-06-17 15:08:46,821 [INFO] [Router_C_0]:  routed itry: 1
+2026-06-17 15:08:46,937 [INFO] [Router_C_0]:  routed itry: 2
+2026-06-17 15:08:47,059 [INFO] [Router_C_5]:Incrementally fix one setup violation connection inet:4567 isink:71 source-clk:2sink-clk:2 ori_slack:-1253.000122 new_slack:-1432.000244 failed.
+2026-06-17 15:08:47,063 [INFO] [Router_C_5]:start Incrementally fix one setup violation connection inet:4567 isink:72 slack:-1253.000122 crit:0.998429.
+2026-06-17 15:08:47,101 [INFO] [Router_C_2]:Try Route Incremental Influenced Conns, inets: 4572 
+2026-06-17 15:08:47,306 [INFO] [Router_C_5]:Incrementally fix one setup violation connection inet:4567 isink:72 source-clk:2sink-clk:2 ori_slack:-1253.000122 new_slack:-1615.000122 failed.
+2026-06-17 15:08:47,310 [INFO] [Router_C_5]:start Incrementally fix one setup violation connection inet:4127 isink:0 slack:-1253.000000 crit:0.998429.
+2026-06-17 15:08:47,322 [INFO] [Router_C_2]:Try Route Incremental Influenced Conns, inets: 5646 
+2026-06-17 15:08:47,530 [INFO] [Router_C_0]:  routed itry: 1
+2026-06-17 15:08:47,640 [INFO] [Router_C_0]:  routed itry: 2
+2026-06-17 15:08:47,759 [INFO] [Router_C_0]:  routed itry: 3
+2026-06-17 15:08:47,878 [INFO] [Router_C_0]:  routed itry: 4
+2026-06-17 15:08:47,997 [INFO] [Router_C_0]:  routed itry: 5
+2026-06-17 15:08:48,113 [INFO] [Router_C_0]:  routed itry: 6
+2026-06-17 15:08:48,226 [INFO] [Router_C_0]:  routed itry: 7
+2026-06-17 15:08:48,344 [INFO] [Router_C_5]:Incrementally fix one setup violation connection inet:4127 isink:0 source-clk:2sink-clk:2 ori_slack:-1253.000000 new_slack:-1230.000122 succeed.
+2026-06-17 15:08:48,345 [INFO] [Router_C_5]:Incrementally fix one setup violation connection inet:4127 isink:0 is successful.
+2026-06-17 15:08:48,345 [INFO] [Router_C_5]:SortLeastSetupViolations inet:4565 isink:160 source-clk:2 sink-clk:2 slack:-1230.000122 crit:0.996984.
+2026-06-17 15:08:48,345 [INFO] [Router_C_5]:SortLeastSetupViolations inet:5412 isink:1 source-clk:2 sink-clk:2 slack:-1230.000122 crit:0.996984.
+2026-06-17 15:08:48,345 [INFO] [Router_C_5]:SortLeastSetupViolations inet:5774 isink:0 source-clk:2 sink-clk:2 slack:-1230.000122 crit:0.996984.
+2026-06-17 15:08:48,345 [INFO] [Router_C_5]:SortLeastSetupViolations inet:4192 isink:1 source-clk:2 sink-clk:2 slack:-1230.000000 crit:0.996984.
+2026-06-17 15:08:48,345 [INFO] [Router_C_5]:SortLeastSetupViolations inet:5454 isink:4 source-clk:2 sink-clk:2 slack:-1230.000000 crit:0.996984.
+2026-06-17 15:08:48,345 [INFO] [Router_C_5]:SortLeastSetupViolations inet:5728 isink:0 source-clk:2 sink-clk:2 slack:-1230.000000 crit:0.996984.
+2026-06-17 15:08:48,345 [INFO] [Router_C_5]:SortLeastSetupViolations inet:5737 isink:0 source-clk:2 sink-clk:2 slack:-1230.000000 crit:0.996984.
+2026-06-17 15:08:48,345 [INFO] [Router_C_5]:SortLeastSetupViolations inet:4311 isink:15 source-clk:2 sink-clk:2 slack:-1229.999023 crit:0.996984.
+2026-06-17 15:08:48,345 [INFO] [Router_C_5]:SortLeastSetupViolations inet:4507 isink:0 source-clk:2 sink-clk:2 slack:-1229.999023 crit:0.996984.
+2026-06-17 15:08:48,345 [INFO] [Router_C_5]:SortLeastSetupViolations inet:4512 isink:0 source-clk:2 sink-clk:2 slack:-1229.999023 crit:0.996984.
+2026-06-17 15:08:48,345 [INFO] [Router_C_5]:SortLeastSetupViolations inet:4513 isink:1 source-clk:2 sink-clk:2 slack:-1229.999023 crit:0.996984.
+2026-06-17 15:08:48,345 [INFO] [Router_C_5]:SortLeastSetupViolations inet:4635 isink:14 source-clk:2 sink-clk:2 slack:-1229.999023 crit:0.996984.
+2026-06-17 15:08:52,440 [INFO] [Router_C_5]:start Incrementally fix one setup violation connection inet:4635 isink:14 slack:-1229.999023 crit:0.996984.
+2026-06-17 15:08:56,736 [INFO] [Router_C_5]:Incrementally fix one setup violation connection inet:4635 isink:14 source-clk:2sink-clk:2 ori_slack:-1229.999023 new_slack:-1230.000122 failed.
+2026-06-17 15:08:56,740 [INFO] [Router_C_5]:start Incrementally fix one setup violation connection inet:5412 isink:1 slack:-1230.000122 crit:0.996984.
+2026-06-17 15:08:56,755 [INFO] [Router_C_2]:Try Route Incremental Influenced Conns, inets: 5730 
+2026-06-17 15:08:56,954 [INFO] [Router_C_0]:  routed itry: 1
+2026-06-17 15:08:57,063 [INFO] [Router_C_0]:  routed itry: 2
+2026-06-17 15:08:57,184 [INFO] [Router_C_0]:  routed itry: 3
+2026-06-17 15:08:57,311 [INFO] [Router_C_0]:  routed itry: 4
+2026-06-17 15:08:57,425 [INFO] [Router_C_0]:  routed itry: 5
+2026-06-17 15:08:57,544 [INFO] [Router_C_0]:  routed itry: 6
+2026-06-17 15:08:57,665 [INFO] [Router_C_5]:Incrementally fix one setup violation connection inet:5412 isink:1 source-clk:2sink-clk:2 ori_slack:-1230.000122 new_slack:-1229.999023 succeed.
+2026-06-17 15:08:57,666 [INFO] [Router_C_5]:Incrementally fix one setup violation connection inet:5412 isink:1 is successful.
+2026-06-17 15:08:57,666 [INFO] [Router_C_5]:SortLeastSetupViolations inet:4311 isink:15 source-clk:2 sink-clk:2 slack:-1229.999023 crit:0.996984.
+2026-06-17 15:08:57,666 [INFO] [Router_C_5]:SortLeastSetupViolations inet:4507 isink:0 source-clk:2 sink-clk:2 slack:-1229.999023 crit:0.996984.
+2026-06-17 15:08:57,666 [INFO] [Router_C_5]:SortLeastSetupViolations inet:4512 isink:0 source-clk:2 sink-clk:2 slack:-1229.999023 crit:0.996984.
+2026-06-17 15:08:57,666 [INFO] [Router_C_5]:SortLeastSetupViolations inet:4513 isink:1 source-clk:2 sink-clk:2 slack:-1229.999023 crit:0.996984.
+2026-06-17 15:08:57,666 [INFO] [Router_C_5]:SortLeastSetupViolations inet:4635 isink:14 source-clk:2 sink-clk:2 slack:-1229.999023 crit:0.996984.
+2026-06-17 15:08:57,673 [INFO] [Router_C_5]:start Incrementally fix one setup violation connection inet:4635 isink:14 slack:-1229.999023 crit:0.996984.
+2026-06-17 15:09:01,074 [INFO] [Router_C_2]:Try Route Incremental Influenced Conns, inets: 4305 
+2026-06-17 15:09:01,195 [INFO] [Router_C_5]:Incrementally fix one setup violation connection inet:4635 isink:14 source-clk:2sink-clk:2 ori_slack:-1229.999023 new_slack:-1229.000000 succeed.
+2026-06-17 15:09:01,196 [INFO] [Router_C_5]:Incrementally fix one setup violation connection inet:4635 isink:14 is successful.
+2026-06-17 15:09:01,196 [INFO] [Router_C_5]:SortLeastSetupViolations inet:4144 isink:0 source-clk:2 sink-clk:2 slack:-1229.000000 crit:0.996921.
+2026-06-17 15:09:01,196 [INFO] [Router_C_5]:SortLeastSetupViolations inet:4156 isink:2 source-clk:2 sink-clk:2 slack:-1229.000000 crit:0.996921.
+2026-06-17 15:09:01,196 [INFO] [Router_C_5]:SortLeastSetupViolations inet:4188 isink:0 source-clk:2 sink-clk:2 slack:-1229.000000 crit:0.996921.
+2026-06-17 15:09:01,196 [INFO] [Router_C_5]:SortLeastSetupViolations inet:4571 isink:25 source-clk:2 sink-clk:2 slack:-1229.000000 crit:0.996921.
+2026-06-17 15:09:01,196 [INFO] [Router_C_5]:SortLeastSetupViolations inet:5478 isink:3 source-clk:2 sink-clk:2 slack:-1229.000000 crit:0.996921.
+2026-06-17 15:09:01,196 [INFO] [Router_C_5]:SortLeastSetupViolations inet:5479 isink:1 source-clk:2 sink-clk:2 slack:-1229.000000 crit:0.996921.
+2026-06-17 15:09:01,196 [INFO] [Router_C_5]:SortLeastSetupViolations inet:5767 isink:0 source-clk:2 sink-clk:2 slack:-1229.000000 crit:0.996921.
+2026-06-17 15:09:01,196 [INFO] [Router_C_5]:SortLeastSetupViolations inet:5791 isink:31 source-clk:2 sink-clk:2 slack:-1229.000000 crit:0.996921.
+2026-06-17 15:09:01,196 [INFO] [Router_C_5]:SortLeastSetupViolations inet:5791 isink:32 source-clk:2 sink-clk:2 slack:-1229.000000 crit:0.996921.
+2026-06-17 15:09:01,196 [INFO] [Router_C_5]:SortLeastSetupViolations inet:5791 isink:33 source-clk:2 sink-clk:2 slack:-1229.000000 crit:0.996921.
+2026-06-17 15:09:01,196 [INFO] [Router_C_5]:SortLeastSetupViolations inet:5791 isink:34 source-clk:2 sink-clk:2 slack:-1229.000000 crit:0.996921.
+2026-06-17 15:09:01,233 [INFO] [Router_C_5]:start Incrementally fix one setup violation connection inet:5791 isink:31 slack:-1229.000000 crit:0.996921.
+2026-06-17 15:09:01,241 [INFO] [Router_C_2]:Try Route Incremental Influenced Conns, inets: 170 5714 
+2026-06-17 15:09:01,356 [INFO] [Router_C_5]:Incrementally fix one setup violation connection inet:5791 isink:31 source-clk:2sink-clk:2 ori_slack:-1229.000000 new_slack:-1226.000122 succeed.
+2026-06-17 15:09:01,357 [INFO] [Router_C_5]:Incrementally fix one setup violation connection inet:5791 isink:31 is successful.
+2026-06-17 15:09:01,357 [INFO] [Router_C_5]:SortLeastSetupViolations inet:4555 isink:118 source-clk:2 sink-clk:2 slack:-1226.000122 crit:0.996733.
+2026-06-17 15:09:01,357 [INFO] [Router_C_5]:SortLeastSetupViolations inet:4555 isink:119 source-clk:2 sink-clk:2 slack:-1226.000122 crit:0.996733.
+2026-06-17 15:09:01,357 [INFO] [Router_C_5]:SortLeastSetupViolations inet:4555 isink:120 source-clk:2 sink-clk:2 slack:-1226.000122 crit:0.996733.
+2026-06-17 15:09:01,357 [INFO] [Router_C_5]:SortLeastSetupViolations inet:4555 isink:121 source-clk:2 sink-clk:2 slack:-1226.000122 crit:0.996733.
+2026-06-17 15:09:01,357 [INFO] [Router_C_5]:SortLeastSetupViolations inet:5730 isink:0 source-clk:2 sink-clk:2 slack:-1226.000122 crit:0.996733.
+2026-06-17 15:09:01,357 [INFO] [Router_C_5]:SortLeastSetupViolations inet:5732 isink:0 source-clk:2 sink-clk:2 slack:-1226.000122 crit:0.996733.
+2026-06-17 15:09:01,357 [INFO] [Router_C_5]:SortLeastSetupViolations inet:5774 isink:0 source-clk:2 sink-clk:2 slack:-1226.000122 crit:0.996733.
+2026-06-17 15:09:01,357 [INFO] [Router_C_5]:SortLeastSetupViolations inet:4276 isink:1 source-clk:2 sink-clk:2 slack:-1226.000000 crit:0.996733.
+2026-06-17 15:09:01,357 [INFO] [Router_C_5]:SortLeastSetupViolations inet:5461 isink:0 source-clk:2 sink-clk:2 slack:-1226.000000 crit:0.996733.
+2026-06-17 15:09:01,357 [INFO] [Router_C_5]:SortLeastSetupViolations inet:5520 isink:1 source-clk:2 sink-clk:2 slack:-1226.000000 crit:0.996733.
+2026-06-17 15:09:01,357 [INFO] [Router_C_5]:SortLeastSetupViolations inet:5773 isink:0 source-clk:2 sink-clk:2 slack:-1226.000000 crit:0.996733.
+2026-06-17 15:09:01,410 [INFO] [Router_C_5]:start Incrementally fix one setup violation connection inet:5730 isink:0 slack:-1226.000122 crit:0.996733.
+2026-06-17 15:09:01,420 [INFO] [Router_C_2]:Try Route Incremental Influenced Conns, inets: 5412 
+2026-06-17 15:09:01,541 [INFO] [Router_C_5]:Incrementally fix one setup violation connection inet:5730 isink:0 source-clk:2sink-clk:2 ori_slack:-1226.000122 new_slack:-1215.000244 succeed.
+2026-06-17 15:09:01,542 [INFO] [Router_C_5]:Incrementally fix one setup violation connection inet:5730 isink:0 is successful.
+2026-06-17 15:09:01,542 [INFO] [Router_C_5]:SortLeastSetupViolations inet:4559 isink:29 source-clk:2 sink-clk:2 slack:-1215.000244 crit:0.996041.
+2026-06-17 15:09:01,542 [INFO] [Router_C_5]:SortLeastSetupViolations inet:5510 isink:3 source-clk:2 sink-clk:2 slack:-1215.000122 crit:0.996041.
+2026-06-17 15:09:01,542 [INFO] [Router_C_5]:SortLeastSetupViolations inet:5510 isink:4 source-clk:2 sink-clk:2 slack:-1215.000122 crit:0.996041.
+2026-06-17 15:09:01,542 [INFO] [Router_C_5]:SortLeastSetupViolations inet:4180 isink:0 source-clk:2 sink-clk:2 slack:-1215.000000 crit:0.996041.
+2026-06-17 15:09:01,542 [INFO] [Router_C_5]:SortLeastSetupViolations inet:4182 isink:0 source-clk:2 sink-clk:2 slack:-1215.000000 crit:0.996041.
+2026-06-17 15:09:01,542 [INFO] [Router_C_5]:SortLeastSetupViolations inet:4186 isink:1 source-clk:2 sink-clk:2 slack:-1215.000000 crit:0.996041.
+2026-06-17 15:09:01,542 [INFO] [Router_C_5]:SortLeastSetupViolations inet:4188 isink:0 source-clk:2 sink-clk:2 slack:-1215.000000 crit:0.996041.
+2026-06-17 15:09:01,542 [INFO] [Router_C_5]:SortLeastSetupViolations inet:5526 isink:0 source-clk:2 sink-clk:2 slack:-1215.000000 crit:0.996041.
+2026-06-17 15:09:01,542 [INFO] [Router_C_5]:SortLeastSetupViolations inet:5767 isink:0 source-clk:2 sink-clk:2 slack:-1215.000000 crit:0.996041.
+2026-06-17 15:09:01,547 [INFO] [Router_C_5]:start Incrementally fix one setup violation connection inet:5526 isink:0 slack:-1215.000000 crit:0.996041.
+2026-06-17 15:09:01,559 [INFO] [Router_C_2]:Try Route Incremental Influenced Conns, inets: 5437 5529 
+2026-06-17 15:09:01,677 [INFO] [Router_C_0]:  routed itry: 1
+2026-06-17 15:09:01,754 [INFO] [Router_C_0]:  routed itry: 2
+2026-06-17 15:09:01,824 [INFO] [Router_C_0]:  routed itry: 3
+2026-06-17 15:09:01,895 [INFO] [Router_C_0]:  routed itry: 4
+2026-06-17 15:09:01,973 [INFO] [Router_C_0]:  routed itry: 5
+2026-06-17 15:09:02,043 [INFO] [Router_C_0]:  routed itry: 6
+2026-06-17 15:09:02,114 [INFO] [Router_C_0]:  routed itry: 7
+2026-06-17 15:09:02,192 [INFO] [Router_C_0]:  routed itry: 8
+2026-06-17 15:09:02,272 [INFO] [Router_C_0]:  routed itry: 9
+2026-06-17 15:09:02,344 [INFO] [Router_C_0]:  routed itry: 10
+2026-06-17 15:09:02,439 [INFO] [Router_C_0]:  routed itry: 11
+2026-06-17 15:09:02,578 [INFO] [Router_C_0]:  routed itry: 12
+2026-06-17 15:09:02,747 [INFO] [Router_C_0]:  routed itry: 13
+2026-06-17 15:09:02,973 [INFO] [Router_C_0]:  routed itry: 14
+2026-06-17 15:09:03,360 [INFO] [Router_C_0]:  routed itry: 15
+2026-06-17 15:09:04,119 [INFO] [Router_C_0]:  routed itry: 16
+2026-06-17 15:09:05,396 [INFO] [Router_C_0]:  routed itry: 17
+2026-06-17 15:09:07,466 [INFO] [Router_C_0]:  routed itry: 18
+2026-06-17 15:09:10,877 [INFO] [Router_C_0]:  routed itry: 19
+2026-06-17 15:09:15,544 [INFO] [Router_C_0]:  routed itry: 20
+2026-06-17 15:09:21,912 [INFO] [Router_C_0]:  routed itry: 21
+2026-06-17 15:09:28,672 [INFO] [Router_C_0]:  routed itry: 22
+2026-06-17 15:09:35,355 [INFO] [Router_C_0]:  routed itry: 23
+2026-06-17 15:09:41,977 [INFO] [Router_C_0]:  routed itry: 24
+2026-06-17 15:09:48,713 [INFO] [Router_C_0]:  routed itry: 25
+2026-06-17 15:09:55,106 [INFO] [Router_C_0]:  routed itry: 26
+2026-06-17 15:10:03,139 [INFO] [Router_C_0]:  routed itry: 27
+2026-06-17 15:10:12,892 [INFO] [Router_C_0]:  routed itry: 28
+2026-06-17 15:10:21,237 [INFO] [Router_C_0]:  routed itry: 29
+2026-06-17 15:10:28,914 [INFO] [Router_C_0]:  routed itry: 30
+2026-06-17 15:10:28,914 [INFO] [Router_G_0]: TryRouteIncrementalInfluencedConns failed, may be due to non-negotiated nets !
+2026-06-17 15:10:28,920 [INFO] [Router_C_5]:start Incrementally fix one setup violation connection inet:4188 isink:0 slack:-1215.000000 crit:0.996041.
+2026-06-17 15:10:29,071 [INFO] [Router_C_5]:Incrementally fix one setup violation connection inet:4188 isink:0 source-clk:2sink-clk:2 ori_slack:-1215.000000 new_slack:-1455.000244 failed.
+2026-06-17 15:10:29,076 [INFO] [Router_C_5]:start Incrementally fix one setup violation connection inet:4559 isink:29 slack:-1215.000244 crit:0.996041.
+2026-06-17 15:10:29,411 [INFO] [Router_C_5]:Incrementally fix one setup violation connection inet:4559 isink:29 source-clk:2sink-clk:2 ori_slack:-1215.000244 new_slack:-1655.000122 failed.
+2026-06-17 15:10:29,411 [INFO] [Router_C_5]:Finish fixing setup violation connections.
+2026-06-17 15:10:29,544 [INFO] [Router_C_4]:Route:fix hold violation begin...
+2026-06-17 15:10:29,890 [INFO] [Router_C_5]:Route:fix hold violation end.
+2026-06-17 15:10:29,895 [INFO] Channel routing is completed
+2026-06-17 15:10:30,350 [INFO] Internal routing is completed
+2026-06-17 15:10:30,395 [INFO] [BitGen_Proc_6]:Launched bram extraction...
+2026-06-17 15:10:30,474 [INFO] [BitGen_Proc_7]:Bram extraction success.
+2026-06-17 15:10:30,474 [INFO] [BitGen_Proc_8]:Launched bram configuration...
+2026-06-17 15:10:30,514 [INFO] [BitGen_Proc_9]:Bram configuration success.
+2026-06-17 15:10:30,514 [INFO] [BitGen_Proc_10]:Bram processing total time consumed 0.125 second(s).
+2026-06-17 15:10:31,714 [INFO] ClockName: cmos_pclk ClockFmax: 119.632(MHz)
+2026-06-17 15:10:31,714 [INFO] ClockName: \clk_gen:clk_gen_inst|altpll:altpll_component|_clk0 ClockFmax: 84.4951(MHz)
+2026-06-17 15:10:31,714 [INFO] ClockName: \clk_gen:clk_gen_inst|altpll:altpll_component|_clk1 ClockFmax: 73.3568(MHz)
+2026-06-17 15:10:32,202 [INFO] WNS: -2.719 ns WHS: -0.258 ns TNS:-2946.793 ns THS:-0.258 ns
+2026-06-17 15:10:32,893 [INFO] [Router_Proc_2]:Write routing to file is completed.Router time consumed 23.7195 second(s).
+2026-06-17 15:10:33,015 [INFO] [Router_Proc_2]:Write routing to udm is completed.Router time consumed 23.7195 second(s).
+2026-06-17 15:10:33,019 [INFO] Writing statistical info to file is completed
+2026-06-17 15:10:33,068 [INFO] Delete Interface is completed
+2026-06-17 15:10:33,626 [INFO] [UDM_Save_0]:Save eLinx design check point(.ecp) complete.

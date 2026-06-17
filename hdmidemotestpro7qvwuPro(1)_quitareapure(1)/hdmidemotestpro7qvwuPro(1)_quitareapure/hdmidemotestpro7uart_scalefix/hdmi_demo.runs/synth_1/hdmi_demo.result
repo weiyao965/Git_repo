@@ -14,87 +14,83 @@ Info: Running eLinx 64-Bit Analysis & Synthesis
     Info: programming logic devices manufactured by eHiWay and sold by 
     Info: eHiWay or its authorized distributors.  Please refer to the 
     Info: applicable agreement for further details.
-    Info: Processing started: Wed Jun 10 14:39:24 2026
+    Info: Processing started: Wed Jun 17 15:05:35 2026
 Info: Command: ehiway_map --read_settings_files=on --write_settings_files=off hdmi_demo
 Info : Parallel Compilation has detected 16 hyper-threaded processors. However, the extra hyper-threaded processors will not be used by default. Parallel Compilation will use 10 of the 10 physical processors detected instead.
-Info : Found 1 design units, including 1 entities, in source file hdmi_demo.srcs/sources_1/new/i2c_master_top.v
-    Info : Found entity 1: i2c_master_top
-Info : Found 1 design units, including 1 entities, in source file hdmi_demo.srcs/sources_1/new/morphology_top.v
-    Info : Found entity 1: morphology_top
+Info : Found 1 design units, including 1 entities, in source file hdmi_demo.srcs/sources_1/new/key_debounce.v
+    Info : Found entity 1: key_debounce
+Info : Found 1 design units, including 1 entities, in source file hdmi_demo.srcs/sources_1/new/uart_cmd_parser.v
+    Info : Found entity 1: uart_cmd_parser
+Info : Found 1 design units, including 1 entities, in source file hdmi_demo.srcs/sources_1/ip/sdram_rd_fifo/sdram_rd_fifo.v
+    Info : Found entity 1: sdram_rd_fifo
+Info : Found 1 design units, including 1 entities, in source file hdmi_demo.srcs/sources_1/new/ai_face_tracker.v
+    Info : Found entity 1: ai_face_tracker
 Info : Found 1 design units, including 1 entities, in source file hdmi_demo.srcs/sources_1/new/cam_capture.v
     Info : Found entity 1: cam_capture
-Info : Found 1 design units, including 1 entities, in source file hdmi_demo.srcs/sources_1/new/color_space_top.v
-    Info : Found entity 1: color_space_top
-Info : Found 1 design units, including 1 entities, in source file hdmi_demo.srcs/sources_1/new/affine_coord_gen.v
-    Info : Found entity 1: affine_coord_gen
-Info : Found 1 design units, including 1 entities, in source file hdmi_demo.srcs/sources_1/new/i2c_config.v
-    Info : Found entity 1: i2c_config
-Info : Found 1 design units, including 1 entities, in source file hdmi_demo.srcs/sources_1/new/hdmi_driver.v
-    Info : Found entity 1: hdmi_driver
 Info : Found 2 design units, including 2 entities, in source file /ehiway/elinx3.0/bin/ip/gui/temp/hdmi_demo/sdram_wr_fifo/dcfifo_mixed_inst.v
     Info : Found entity 1: dcfifo_mixed_inst
     Info : Found entity 2: dcfifo_inst
-Info : Found 1 design units, including 1 entities, in source file hdmi_demo.srcs/sources_1/new/bilateral_filter_top.v
-    Info : Found entity 1: bilateral_filter_top
-Info : Found 0 design units, including 0 entities, in source file hdmi_demo.srcs/sources_1/new/global.v
-Info : Found 1 design units, including 1 entities, in source file hdmi_demo.srcs/sources_1/new/histogram_equal_top.v
-    Info : Found entity 1: histogram_equal_top
-Info : Found 1 design units, including 1 entities, in source file hdmi_demo.srcs/sources_1/new/lut_sil9134.v
-    Info : Found entity 1: lut_sil9134
-Info : Found 0 design units, including 0 entities, in source file hdmi_demo.srcs/sources_1/new/sdram_param.v
-Info : Found 1 design units, including 1 entities, in source file hdmi_demo.srcs/sources_1/new/uart_cmd_parser.v
-    Info : Found entity 1: uart_cmd_parser
-Info : Found 1 design units, including 1 entities, in source file hdmi_demo.srcs/sources_1/new/hdmi_ctrl.v
-    Info : Found entity 1: hdmi_ctrl
-Info : Found 1 design units, including 1 entities, in source file hdmi_demo.srcs/sources_1/new/cam_clk_gen.v
-    Info : Found entity 1: cam_clk_gen
-Info : Found 1 design units, including 1 entities, in source file hdmi_demo.srcs/sources_1/new/sdram_data.v
-    Info : Found entity 1: sdram_data
-Info : Found 1 design units, including 1 entities, in source file hdmi_demo.srcs/sources_1/new/uart_rx.v
-    Info : Found entity 1: uart_rx
-Info : Found 1 design units, including 1 entities, in source file hdmi_demo.srcs/sources_1/new/cam_frame_buf.v
-    Info : Found entity 1: cam_frame_buf
-Info : Found 1 design units, including 1 entities, in source file hdmi_demo.srcs/sources_1/new/sobel_edge_top.v
-    Info : Found entity 1: sobel_edge_top
-Info : Found 1 design units, including 1 entities, in source file hdmi_demo.srcs/sources_1/new/ai_face_tracker.v
-    Info : Found entity 1: ai_face_tracker
-Warning : Unrecognized synthesis attribute "enum_state" at hdmi_demo.srcs/sources_1/new/i2c_master_bit_ctrl.v(51)
-Info : Found 1 design units, including 1 entities, in source file hdmi_demo.srcs/sources_1/new/i2c_master_bit_ctrl.v
-    Info : Found entity 1: i2c_master_bit_ctrl
 Info : Found 1 design units, including 1 entities, in source file hdmi_demo.srcs/sources_1/new/video_scaler_nn.v
     Info : Found entity 1: video_scaler_nn
-Info : Found 1 design units, including 1 entities, in source file hdmi_demo.srcs/sources_1/new/retinex_ssr_top.v
-    Info : Found entity 1: retinex_ssr_top
-Info : Found 1 design units, including 1 entities, in source file hdmi_demo.srcs/sources_1/new/cam_i2c_config.v
-    Info : Found entity 1: cam_i2c_config
-Info : Found 1 design units, including 1 entities, in source file hdmi_demo.srcs/sources_1/new/hdmi_display.v
-    Info : Found entity 1: hdmi_display
+Info : Found 1 design units, including 1 entities, in source file hdmi_demo.srcs/sources_1/new/sdram_data.v
+    Info : Found entity 1: sdram_data
 Info : Found 1 design units, including 1 entities, in source file hdmi_demo.srcs/sources_1/new/sdram_top.v
     Info : Found entity 1: sdram_top
-Warning : Unrecognized synthesis attribute "enum_state" at hdmi_demo.srcs/sources_1/new/i2c_master_byte_ctrl.v(134)
-Info : Found 1 design units, including 1 entities, in source file hdmi_demo.srcs/sources_1/new/i2c_master_byte_ctrl.v
-    Info : Found entity 1: i2c_master_byte_ctrl
-Info : Found 1 design units, including 1 entities, in source file hdmi_demo.srcs/sources_1/ip/sdram_rd_fifo/sdram_rd_fifo.v
-    Info : Found entity 1: sdram_rd_fifo
-Info : Found 1 design units, including 1 entities, in source file hdmi_demo.srcs/sources_1/new/uart_tx.v
-    Info : Found entity 1: uart_tx
-Info : Found 1 design units, including 1 entities, in source file hdmi_demo.srcs/sources_1/new/bilinear_interp.v
-    Info : Found entity 1: bilinear_interp
+Info : Found 1 design units, including 1 entities, in source file hdmi_demo.srcs/sources_1/new/sdram_ctrl.v
+    Info : Found entity 1: sdram_ctrl
+Info : Found 1 design units, including 1 entities, in source file hdmi_demo.srcs/sources_1/new/dehaze_dcp_top.v
+    Info : Found entity 1: dehaze_dcp_top
+Info : Found 0 design units, including 0 entities, in source file hdmi_demo.srcs/sources_1/new/sdram_param.v
 Warning : Unrecognized synthesis attribute "max_fanout" at hdmi_demo.srcs/sources_1/new/vj.v(21)
 Info : Found 3 design units, including 3 entities, in source file hdmi_demo.srcs/sources_1/new/vj.v
     Info : Found entity 1: vj
     Info : Found entity 2: classifier
     Info : Found entity 3: sqrt_root2
+Info : Found 1 design units, including 1 entities, in source file hdmi_demo.srcs/sources_1/new/cam_clk_gen.v
+    Info : Found entity 1: cam_clk_gen
+Info : Found 1 design units, including 1 entities, in source file hdmi_demo.srcs/sources_1/new/cam_i2c_config.v
+    Info : Found entity 1: cam_i2c_config
+Info : Found 1 design units, including 1 entities, in source file hdmi_demo.srcs/sources_1/new/sdram_cmd.v
+    Info : Found entity 1: sdram_cmd
+Info : Found 1 design units, including 1 entities, in source file hdmi_demo.srcs/sources_1/new/uart_tx.v
+    Info : Found entity 1: uart_tx
+Info : Found 1 design units, including 1 entities, in source file hdmi_demo.srcs/sources_1/new/lut_sil9134.v
+    Info : Found entity 1: lut_sil9134
+Info : Found 1 design units, including 1 entities, in source file hdmi_demo.srcs/sources_1/new/hdmi_ctrl.v
+    Info : Found entity 1: hdmi_ctrl
+Info : Found 1 design units, including 1 entities, in source file hdmi_demo.srcs/sources_1/new/retinex_ssr_top.v
+    Info : Found entity 1: retinex_ssr_top
+Info : Found 1 design units, including 1 entities, in source file hdmi_demo.srcs/sources_1/new/hdmi_display.v
+    Info : Found entity 1: hdmi_display
+Info : Found 1 design units, including 1 entities, in source file hdmi_demo.srcs/sources_1/new/morphology_top.v
+    Info : Found entity 1: morphology_top
+Info : Found 1 design units, including 1 entities, in source file hdmi_demo.srcs/sources_1/new/bilateral_filter_top.v
+    Info : Found entity 1: bilateral_filter_top
+Info : Found 1 design units, including 1 entities, in source file hdmi_demo.srcs/sources_1/new/i2c_config.v
+    Info : Found entity 1: i2c_config
+Info : Found 1 design units, including 1 entities, in source file hdmi_demo.srcs/sources_1/ip/sdram_wr_fifo/sdram_wr_fifo.v
+    Info : Found entity 1: sdram_wr_fifo
+Warning : Unrecognized synthesis attribute "enum_state" at hdmi_demo.srcs/sources_1/new/i2c_master_byte_ctrl.v(134)
+Info : Found 1 design units, including 1 entities, in source file hdmi_demo.srcs/sources_1/new/i2c_master_byte_ctrl.v
+    Info : Found entity 1: i2c_master_byte_ctrl
+Info : Found 1 design units, including 1 entities, in source file hdmi_demo.srcs/sources_1/new/color_space_top.v
+    Info : Found entity 1: color_space_top
 Info : Found 1 design units, including 1 entities, in source file hdmi_demo.srcs/sources_1/ip/clk_gen/clk_gen.v
     Info : Found entity 1: clk_gen
-Info : Found 1 design units, including 1 entities, in source file hdmi_demo.srcs/sources_1/new/ov5640_init.v
-    Info : Found entity 1: ov5640_init
-Info : Found 1 design units, including 1 entities, in source file hdmi_demo.srcs/sources_1/new/sdram_ctrl.v
-    Info : Found entity 1: sdram_ctrl
-Info : Found 1 design units, including 1 entities, in source file hdmi_demo.srcs/sources_1/new/dehaze_dcp_top.v
-    Info : Found entity 1: dehaze_dcp_top
+Info : Found 1 design units, including 1 entities, in source file hdmi_demo.srcs/sources_1/new/hdmi_driver.v
+    Info : Found entity 1: hdmi_driver
 Info : Found 1 design units, including 1 entities, in source file hdmi_demo.srcs/sources_1/new/sdram_fifo_ctrl.v
     Info : Found entity 1: sdram_fifo_ctrl
+Info : Found 1 design units, including 1 entities, in source file hdmi_demo.srcs/sources_1/new/affine_coord_gen.v
+    Info : Found entity 1: affine_coord_gen
+Info : Found 0 design units, including 0 entities, in source file hdmi_demo.srcs/sources_1/new/global.v
+Warning : Unrecognized synthesis attribute "enum_state" at hdmi_demo.srcs/sources_1/new/i2c_master_bit_ctrl.v(51)
+Info : Found 1 design units, including 1 entities, in source file hdmi_demo.srcs/sources_1/new/i2c_master_bit_ctrl.v
+    Info : Found entity 1: i2c_master_bit_ctrl
+Info : Found 1 design units, including 1 entities, in source file hdmi_demo.srcs/sources_1/new/i2c_master_top.v
+    Info : Found entity 1: i2c_master_top
+Info : Found 1 design units, including 1 entities, in source file hdmi_demo.srcs/sources_1/new/sobel_edge_top.v
+    Info : Found entity 1: sobel_edge_top
 Warning : Unrecognized synthesis attribute "rom_style" at hdmi_demo.srcs/sources_1/new/roms_case.v(6)
 Warning : Unrecognized synthesis attribute "rom_style" at hdmi_demo.srcs/sources_1/new/roms_case.v(2931)
 Warning : Unrecognized synthesis attribute "rom_style" at hdmi_demo.srcs/sources_1/new/roms_case.v(5856)
@@ -119,27 +115,31 @@ Info : Found 12 design units, including 12 entities, in source file hdmi_demo.sr
     Info : Found entity 10: strong_thresh_rom
     Info : Found entity 11: weak_stages_rom
     Info : Found entity 12: weak_stages_acc_rom
-Info : Found 1 design units, including 1 entities, in source file hdmi_demo.srcs/sources_1/new/sdram_cmd.v
-    Info : Found entity 1: sdram_cmd
-Info : Found 1 design units, including 1 entities, in source file hdmi_demo.srcs/sources_1/new/sdram_control.v
-    Info : Found entity 1: sdram_control
-Info : Found 1 design units, including 1 entities, in source file hdmi_demo.srcs/sources_1/new/key_debounce.v
-    Info : Found entity 1: key_debounce
+Info : Found 1 design units, including 1 entities, in source file hdmi_demo.srcs/sources_1/new/bilinear_interp.v
+    Info : Found entity 1: bilinear_interp
 Info : Found 1 design units, including 1 entities, in source file hdmi_demo.srcs/sources_1/new/vj_fetch.v
     Info : Found entity 1: vj_fetch
-Info : Found 1 design units, including 1 entities, in source file hdmi_demo.srcs/sources_1/ip/sdram_wr_fifo/sdram_wr_fifo.v
-    Info : Found entity 1: sdram_wr_fifo
+Info : Found 1 design units, including 1 entities, in source file hdmi_demo.srcs/sources_1/new/cam_frame_buf.v
+    Info : Found entity 1: cam_frame_buf
+Info : Found 1 design units, including 1 entities, in source file hdmi_demo.srcs/sources_1/new/histogram_equal_top.v
+    Info : Found entity 1: histogram_equal_top
+Info : Found 1 design units, including 1 entities, in source file hdmi_demo.srcs/sources_1/new/ov5640_init.v
+    Info : Found entity 1: ov5640_init
+Info : Found 1 design units, including 1 entities, in source file hdmi_demo.srcs/sources_1/new/sdram_control.v
+    Info : Found entity 1: sdram_control
+Info : Found 1 design units, including 1 entities, in source file hdmi_demo.srcs/sources_1/new/uart_rx.v
+    Info : Found entity 1: uart_rx
 Info : Elaborating entity "hdmi_ctrl" for the top level hierarchy
 Warning : Verilog HDL or VHDL warning at hdmi_ctrl.v(106): object "menu_state" assigned a value but never read
 Warning : Verilog HDL or VHDL warning at hdmi_ctrl.v(107): object "select_idx" assigned a value but never read
 Warning : Verilog HDL or VHDL warning at hdmi_ctrl.v(109): object "key1_pressed" assigned a value but never read
 Warning : Verilog HDL or VHDL warning at hdmi_ctrl.v(109): object "key2_pressed" assigned a value but never read
 Warning : Verilog HDL or VHDL warning at hdmi_ctrl.v(109): object "key3_pressed" assigned a value but never read
-Warning : Verilog HDL assignment warning at hdmi_ctrl.v(159): truncated value with size 32 to match size of target (11)
-Warning : Verilog HDL assignment warning at hdmi_ctrl.v(161): truncated value with size 32 to match size of target (11)
-Warning : Verilog HDL assignment warning at hdmi_ctrl.v(183): truncated value with size 32 to match size of target (15)
-Warning : Verilog HDL assignment warning at hdmi_ctrl.v(243): truncated value with size 32 to match size of target (15)
-Warning : Verilog HDL assignment warning at hdmi_ctrl.v(246): truncated value with size 32 to match size of target (12)
+Warning : Verilog HDL assignment warning at hdmi_ctrl.v(160): truncated value with size 32 to match size of target (11)
+Warning : Verilog HDL assignment warning at hdmi_ctrl.v(162): truncated value with size 32 to match size of target (11)
+Warning : Verilog HDL assignment warning at hdmi_ctrl.v(184): truncated value with size 32 to match size of target (15)
+Warning : Verilog HDL assignment warning at hdmi_ctrl.v(244): truncated value with size 32 to match size of target (15)
+Warning : Verilog HDL assignment warning at hdmi_ctrl.v(247): truncated value with size 32 to match size of target (12)
 Info : Elaborating entity "clk_gen" for hierarchy "clk_gen:clk_gen_inst"
 Info : Elaborating entity "altpll" for hierarchy "clk_gen:clk_gen_inst|altpll:altpll_component"
 Warning : Variable or input pin "configupdate" is defined but never used.
@@ -229,19 +229,20 @@ Warning : Verilog HDL assignment warning at video_scaler_nn.v(92): truncated val
 Warning : Verilog HDL assignment warning at video_scaler_nn.v(102): truncated value with size 20 to match size of target (14)
 Info : Elaborating entity "uart_tx" for hierarchy "uart_tx:u_uart_tx_dbg"
 Info : Elaborating entity "ai_face_tracker" for hierarchy "ai_face_tracker:u_ai_face_tracker"
-Warning : Verilog HDL or VHDL warning at ai_face_tracker.v(39): object "vsync_fall" assigned a value but never read
+Warning : Invalid value "block" for synthesis attribute "ramstyle" at hdmi_demo.srcs/sources_1/new/ai_face_tracker.v(63)
+Warning : Invalid value "block" for synthesis attribute "ramstyle" at hdmi_demo.srcs/sources_1/new/ai_face_tracker.v(64)
 Warning : Verilog HDL assignment warning at ai_face_tracker.v(49): truncated value with size 32 to match size of target (11)
 Warning : Verilog HDL assignment warning at ai_face_tracker.v(51): truncated value with size 32 to match size of target (11)
 Warning : Verilog HDL assignment warning at ai_face_tracker.v(58): truncated value with size 32 to match size of target (17)
-Warning : Verilog HDL assignment warning at ai_face_tracker.v(106): truncated value with size 32 to match size of target (11)
-Warning : Verilog HDL assignment warning at ai_face_tracker.v(107): truncated value with size 32 to match size of target (11)
-Warning : Verilog HDL assignment warning at ai_face_tracker.v(113): truncated value with size 32 to match size of target (11)
-Warning : Verilog HDL assignment warning at ai_face_tracker.v(114): truncated value with size 32 to match size of target (11)
+Warning : Verilog HDL assignment warning at ai_face_tracker.v(122): truncated value with size 32 to match size of target (11)
+Warning : Verilog HDL assignment warning at ai_face_tracker.v(123): truncated value with size 32 to match size of target (11)
+Warning : Verilog HDL assignment warning at ai_face_tracker.v(129): truncated value with size 32 to match size of target (11)
 Warning : Verilog HDL assignment warning at ai_face_tracker.v(130): truncated value with size 32 to match size of target (11)
-Warning : Verilog HDL assignment warning at ai_face_tracker.v(131): truncated value with size 32 to match size of target (11)
-Warning : Verilog HDL assignment warning at ai_face_tracker.v(132): truncated value with size 32 to match size of target (11)
-Warning : Verilog HDL assignment warning at ai_face_tracker.v(217): truncated value with size 32 to match size of target (11)
-Warning : Verilog HDL assignment warning at ai_face_tracker.v(218): truncated value with size 32 to match size of target (11)
+Warning : Verilog HDL assignment warning at ai_face_tracker.v(146): truncated value with size 32 to match size of target (11)
+Warning : Verilog HDL assignment warning at ai_face_tracker.v(147): truncated value with size 32 to match size of target (11)
+Warning : Verilog HDL assignment warning at ai_face_tracker.v(148): truncated value with size 32 to match size of target (11)
+Warning : Verilog HDL assignment warning at ai_face_tracker.v(233): truncated value with size 32 to match size of target (11)
+Warning : Verilog HDL assignment warning at ai_face_tracker.v(234): truncated value with size 32 to match size of target (11)
 Info : Elaborating entity "vj_fetch" for hierarchy "ai_face_tracker:u_ai_face_tracker|vj_fetch:u_vj_fetch"
 Warning : Verilog HDL or VHDL warning at vj_fetch.v(43): object "read_row" assigned a value but never read
 Warning : Verilog HDL or VHDL warning at vj_fetch.v(46): object "row_init_ready" assigned a value but never read
@@ -592,38 +593,7 @@ Warning : Verilog HDL assignment warning at roms_case.v(15258): truncated value 
 Warning : Verilog HDL assignment warning at roms_case.v(15260): truncated value with size 32 to match size of target (13)
 Warning : Verilog HDL assignment warning at roms_case.v(15261): truncated value with size 32 to match size of target (13)
 Warning : Verilog HDL assignment warning at roms_case.v(15262): truncated value with size 32 to match size of target (13)
-Warning : Verilog HDL assignment warning at roms_case.v(15263): truncated value with size 32 to match size of target (13)
-Warning : Verilog HDL assignment warning at roms_case.v(15264): truncated value with size 32 to match size of target (13)
-Warning : Verilog HDL assignment warning at roms_case.v(15265): truncated value with size 32 to match size of target (13)
-Warning : Verilog HDL assignment warning at roms_case.v(15266): truncated value with size 32 to match size of target (13)
-Warning : Verilog HDL assignment warning at roms_case.v(15267): truncated value with size 32 to match size of target (13)
-Warning : Verilog HDL assignment warning at roms_case.v(15268): truncated value with size 32 to match size of target (13)
-Warning : Verilog HDL assignment warning at roms_case.v(15269): truncated value with size 32 to match size of target (13)
-Warning : Verilog HDL assignment warning at roms_case.v(15273): truncated value with size 32 to match size of target (13)
-Warning : Verilog HDL assignment warning at roms_case.v(15276): truncated value with size 32 to match size of target (13)
-Warning : Verilog HDL assignment warning at roms_case.v(15279): truncated value with size 32 to match size of target (13)
-Warning : Verilog HDL assignment warning at roms_case.v(15280): truncated value with size 32 to match size of target (13)
-Warning : Verilog HDL assignment warning at roms_case.v(15283): truncated value with size 32 to match size of target (13)
-Warning : Verilog HDL assignment warning at roms_case.v(15286): truncated value with size 32 to match size of target (13)
-Warning : Verilog HDL assignment warning at roms_case.v(15288): truncated value with size 32 to match size of target (13)
-Warning : Verilog HDL assignment warning at roms_case.v(15289): truncated value with size 32 to match size of target (13)
-Warning : Verilog HDL assignment warning at roms_case.v(15290): truncated value with size 32 to match size of target (13)
-Warning : Verilog HDL assignment warning at roms_case.v(15292): truncated value with size 32 to match size of target (13)
-Warning : Verilog HDL assignment warning at roms_case.v(15293): truncated value with size 32 to match size of target (13)
-Warning : Verilog HDL assignment warning at roms_case.v(15294): truncated value with size 32 to match size of target (13)
-Warning : Verilog HDL assignment warning at roms_case.v(15296): truncated value with size 32 to match size of target (13)
-Warning : Verilog HDL assignment warning at roms_case.v(15297): truncated value with size 32 to match size of target (13)
-Warning : Verilog HDL assignment warning at roms_case.v(15302): truncated value with size 32 to match size of target (13)
-Warning : Verilog HDL assignment warning at roms_case.v(15307): truncated value with size 32 to match size of target (13)
-Warning : Verilog HDL assignment warning at roms_case.v(15308): truncated value with size 32 to match size of target (13)
-Warning : Verilog HDL assignment warning at roms_case.v(15313): truncated value with size 32 to match size of target (13)
-Warning : Verilog HDL assignment warning at roms_case.v(15315): truncated value with size 32 to match size of target (13)
-Warning : Verilog HDL assignment warning at roms_case.v(15320): truncated value with size 32 to match size of target (13)
-Warning : Verilog HDL assignment warning at roms_case.v(15321): truncated value with size 32 to match size of target (13)
-Warning : Verilog HDL assignment warning at roms_case.v(15322): truncated value with size 32 to match size of target (13)
-Warning : Verilog HDL assignment warning at roms_case.v(15324): truncated value with size 32 to match size of target (13)
-Warning : Verilog HDL assignment warning at roms_case.v(15325): truncated value with size 32 to match size of target (13)
-Warning : Verilog HDL assignment warning at roms_case.v(15327): truncated value with size 32 to match size of target (13)
+
 Warning : Verilog HDL assignment warning at roms_case.v(15329): truncated value with size 32 to match size of target (13)
 Warning : Verilog HDL assignment warning at roms_case.v(15333): truncated value with size 32 to match size of target (13)
 Warning : Verilog HDL assignment warning at roms_case.v(15334): truncated value with size 32 to match size of target (13)
@@ -4932,9 +4902,7 @@ Info : Inferred 12 megafunctions from design logic
         Info : Parameter NUMBER_OF_TAPS set to 1
         Info : Parameter TAP_DISTANCE set to 5
         Info : Parameter WIDTH set to 27
-Info : Inferred 4 megafunctions from design logic
-    Info : Inferred multiplier megafunction ("lpm_mult") from the following logic: "ai_face_tracker:u_ai_face_tracker|Mult0"
-    Info : Inferred multiplier megafunction ("lpm_mult") from the following logic: "ai_face_tracker:u_ai_face_tracker|Mult1"
+Info : Inferred 2 megafunctions from design logic
     Info : Inferred multiplier megafunction ("lpm_mult") from the following logic: "ai_face_tracker:u_ai_face_tracker|vj:u_vj|classifier:classifier|Mult3"
     Info : Inferred multiplier megafunction ("lpm_mult") from the following logic: "ai_face_tracker:u_ai_face_tracker|vj:u_vj|sqrt_root2:sqrt_root|Mult0"
 Info : Elaborated megafunction instantiation "ai_face_tracker:u_ai_face_tracker|vj:u_vj|classifier:classifier|altmult_add:Add10_rtl_0"
@@ -5136,19 +5104,6 @@ Info : Found 1 design units, including 1 entities, in source file db/cmpr_m5c.td
     Info : Found entity 1: cmpr_m5c
 Info : Found 1 design units, including 1 entities, in source file db/cntr_qtg.tdf
     Info : Found entity 1: cntr_qtg
-Info : Elaborated megafunction instantiation "ai_face_tracker:u_ai_face_tracker|lpm_mult:Mult0"
-Info : Instantiated megafunction "ai_face_tracker:u_ai_face_tracker|lpm_mult:Mult0" with the following parameter:
-    Info : Parameter "LPM_WIDTHA" = "9"
-    Info : Parameter "LPM_WIDTHB" = "5"
-    Info : Parameter "LPM_WIDTHP" = "14"
-    Info : Parameter "LPM_WIDTHR" = "14"
-    Info : Parameter "LPM_WIDTHS" = "1"
-    Info : Parameter "LPM_REPRESENTATION" = "UNSIGNED"
-    Info : Parameter "INPUT_A_IS_CONSTANT" = "NO"
-    Info : Parameter "INPUT_B_IS_CONSTANT" = "NO"
-    Info : Parameter "MAXIMIZE_SPEED" = "5"
-Info : Found 1 design units, including 1 entities, in source file db/mult_vus.tdf
-    Info : Found entity 1: mult_vus
 Info : Elaborated megafunction instantiation "ai_face_tracker:u_ai_face_tracker|vj:u_vj|classifier:classifier|lpm_mult:Mult3"
 Info : Instantiated megafunction "ai_face_tracker:u_ai_face_tracker|vj:u_vj|classifier:classifier|lpm_mult:Mult3" with the following parameter:
     Info : Parameter "LPM_WIDTHA" = "27"
@@ -5313,19 +5268,19 @@ Info : Generating hard_block partition "hard_block:auto_generated_inst"
 Warning : Output port clk1 of PLL "clk_gen:clk_gen_inst|altpll:altpll_component|pll" feeds an output pin via global clocks -- jitter performance depends on switching rate of other design elements. Use PLL dedicated clock outputs to ensure jitter performance
 Warning : Design contains 1 input pin(s) that do not drive logic
     Warning : No output dependent on input pin "cmos_key3"
-Info : Implemented 5104 device resources after synthesis - the final resource count might be different
+Info : Implemented 5096 device resources after synthesis - the final resource count might be different
     Info : Implemented 17 input pins
     Info : Implemented 58 output pins
     Info : Implemented 20 bidirectional pins
-    Info : Implemented 4730 logic cells
+    Info : Implemented 4724 logic cells
     Info : Implemented 248 RAM segments
     Info : Implemented 1 PLLs
-    Info : Implemented 30 DSP elements
-Info: eLinx 64-Bit Analysis & Synthesis was successful. 0 errors, 4539 warnings
-    Info: Peak virtual memory: 4903 megabytes
-    Info: Processing ended: Wed Jun 10 14:40:38 2026
-    Info: Elapsed time: 00:01:14
-    Info: Total CPU time (on all processors): 00:01:16
+    Info : Implemented 28 DSP elements
+Info: eLinx 64-Bit Analysis & Synthesis was successful. 0 errors, 4540 warnings
+    Info: Peak virtual memory: 4898 megabytes
+    Info: Processing ended: Wed Jun 17 15:07:45 2026
+    Info: Elapsed time: 00:02:10
+    Info: Total CPU time (on all processors): 00:02:11
 
 Info: *******************************************************************
 Info: Running eLinx 64-Bit Compiler Database Interface
@@ -5343,14 +5298,14 @@ Info: Running eLinx 64-Bit Compiler Database Interface
     Info: programming logic devices manufactured by eHiWay and sold by 
     Info: eHiWay or its authorized distributors.  Please refer to the 
     Info: applicable agreement for further details.
-    Info: Processing started: Wed Jun 10 14:40:38 2026
+    Info: Processing started: Wed Jun 17 15:07:46 2026
 Info: Command: ehiway_cdb hdmi_demo -c hdmi_demo --vqm=D:/IC_Competition/hdmidemotestpro7qvwuPro(1)_quitareapure(1)/hdmidemotestpro7qvwuPro(1)_quitareapure/hdmidemotestpro7uart_scalefix/hdmi_demo.runs/synth_1/hdmi_demo.vqm
 Info : Generated Verilog eLinx Mapping File using post-synthesis netlist
 Info : Generated Verilog eLinx Mapping File D:/IC_Competition/hdmidemotestpro7qvwuPro(1)_quitareapure(1)/hdmidemotestpro7qvwuPro(1)_quitareapure/hdmidemotestpro7uart_scalefix/hdmi_demo.runs/synth_1/hdmi_demo.vqm
 Info : Found Compiler Database Interface (ehiway_cdb) options that can modify the eLinx Settings File (.qsf) -- you must specify the --write_settings_files option to update the .qsf
 Info: eLinx 64-Bit Compiler Database Interface was successful. 0 errors, 0 warnings
     Info: Peak virtual memory: 4612 megabytes
-    Info: Processing ended: Wed Jun 10 14:40:39 2026
+    Info: Processing ended: Wed Jun 17 15:07:47 2026
     Info: Elapsed time: 00:00:01
     Info: Total CPU time (on all processors): 00:00:01
 

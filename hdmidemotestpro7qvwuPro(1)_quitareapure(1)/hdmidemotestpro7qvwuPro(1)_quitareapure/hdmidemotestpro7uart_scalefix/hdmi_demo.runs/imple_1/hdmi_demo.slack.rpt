@@ -1,9 +1,9 @@
 Type	Slack(ns)	Actual Fmax(MHz)
-clock name:cmos_pclk Fmax:148.170 sync_slack:18.029 async_slack:N/A
-clock name:cmos_pclk clock name:\clk_gen:clk_gen_inst|altpll:altpll_component|_clk0 sync_slack:3.435 async_slack:N/A
-clock name:\clk_gen:clk_gen_inst|altpll:altpll_component|_clk0 clock name:cmos_pclk sync_slack:2.828 async_slack:-2.129
-clock name:\clk_gen:clk_gen_inst|altpll:altpll_component|_clk0 Fmax:90.277 sync_slack:-1.077 async_slack:-0.878
-clock name:\clk_gen:clk_gen_inst|altpll:altpll_component|_clk0 clock name:\clk_gen:clk_gen_inst|altpll:altpll_component|_clk1 sync_slack:4.587 async_slack:N/A
-clock name:\clk_gen:clk_gen_inst|altpll:altpll_component|_clk1 clock name:\clk_gen:clk_gen_inst|altpll:altpll_component|_clk0 sync_slack:6.889 async_slack:N/A
-clock name:\clk_gen:clk_gen_inst|altpll:altpll_component|_clk1 Fmax:70.121 sync_slack:25.739 async_slack:29.957
-all_path_min_slack:-2.129  all_route_min_slack:-3.729
+clock name:cmos_pclk Fmax:119.632 sync_slack:17.369 async_slack:N/A
+clock name:cmos_pclk clock name:\clk_gen:clk_gen_inst|altpll:altpll_component|_clk0 sync_slack:2.965 async_slack:N/A
+clock name:\clk_gen:clk_gen_inst|altpll:altpll_component|_clk0 clock name:cmos_pclk sync_slack:0.541 async_slack:-2.719
+clock name:\clk_gen:clk_gen_inst|altpll:altpll_component|_clk0 Fmax:84.495 sync_slack:-1.835 async_slack:-1.468
+clock name:\clk_gen:clk_gen_inst|altpll:altpll_component|_clk0 clock name:\clk_gen:clk_gen_inst|altpll:altpll_component|_clk1 sync_slack:4.420 async_slack:N/A
+clock name:\clk_gen:clk_gen_inst|altpll:altpll_component|_clk1 clock name:\clk_gen:clk_gen_inst|altpll:altpll_component|_clk0 sync_slack:7.442 async_slack:N/A
+clock name:\clk_gen:clk_gen_inst|altpll:altpll_component|_clk1 Fmax:73.357 sync_slack:26.368 async_slack:29.757
+all_path_min_slack:-2.719  all_route_min_slack:-3.439

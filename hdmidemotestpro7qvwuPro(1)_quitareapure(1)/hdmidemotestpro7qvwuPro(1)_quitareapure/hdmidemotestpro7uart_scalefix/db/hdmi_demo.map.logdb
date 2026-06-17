@@ -1,7 +1,5 @@
 v1
 DSP_BALANCING_IMPLEMENTATION,DSP_BLOCKS,ai_face_tracker:u_ai_face_tracker|vj:u_vj|sqrt_root2:sqrt_root|lpm_mult:Mult0|mult_32t:auto_generated|mac_out5,
 DSP_BALANCING_IMPLEMENTATION,DSP_BLOCKS,ai_face_tracker:u_ai_face_tracker|vj:u_vj|classifier:classifier|lpm_mult:Mult3|mult_qqs:auto_generated|mac_out5,
-DSP_BALANCING_IMPLEMENTATION,DSP_BLOCKS,ai_face_tracker:u_ai_face_tracker|lpm_mult:Mult1|mult_vus:auto_generated|mac_out1,
-DSP_BALANCING_IMPLEMENTATION,DSP_BLOCKS,ai_face_tracker:u_ai_face_tracker|lpm_mult:Mult0|mult_vus:auto_generated|mac_out1,
 DSP_BALANCING_IMPLEMENTATION,DSP_BLOCKS,ai_face_tracker:u_ai_face_tracker|vj:u_vj|altmult_add:Add600_rtl_0|mult_add_epq3:auto_generated|mac_out5,
 DSP_BALANCING_IMPLEMENTATION,DSP_BLOCKS,ai_face_tracker:u_ai_face_tracker|vj:u_vj|classifier:classifier|altmult_add:Add10_rtl_0|mult_add_qdl3:auto_generated|mac_out5,
